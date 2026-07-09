@@ -59,13 +59,20 @@ module.exports = {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
-  			}
-  		},
-  		fontFamily: {
-  			heading: ['var(--font-heading)'],
-  			body: ['var(--font-body)'],
-  			display: ['var(--font-display)'],
-  			mono: ['var(--font-mono)']
+  			},
+  		
+  		
+  		'figma-text-1': 'hsl(var(--figma-text-1))',
+  		
+  		'figma-text-3': 'hsl(var(--figma-text-3))',
+  		
+  		'figma-text-2': 'hsl(var(--figma-text-2))',
+  		
+  		'figma-highlight': 'hsl(var(--figma-highlight))',
+  		
+  		'figma-surface': 'hsl(var(--figma-surface))',
+  		
+  		
   		},
   		keyframes: {
   			'accordion-down': {
@@ -88,8 +95,50 @@ module.exports = {
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out'
-  		}
+  		},
+  		
+  		
+  		fontSize: {
+  			
+  			'figma-12': '12px',
+  			
+  			'figma-16': '16px',
+  			
+  			'figma-18': '18px',
+  			
+  		},
+  		
+  		
+  		fontWeight: {
+  			
+  			'figma-normal': '400',
+  			
+  			'figma-medium': '500',
+  			
+  			'figma-bold': '700',
+  			
+  		},
+  		
+  		
+  		lineHeight: {
+  			
+  			'figma-16': '16px',
+  			
+  			'figma-24': '24px',
+  			
+  			'figma-28': '28px',
+  			
+  		},
+  		
+  		
+  		fontFamily: {
+  			
+  			'heading': ['"Segoe UI Emoji"', 'sans-serif'],
+  			
+  		},
+  		
+  		
   	}
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
