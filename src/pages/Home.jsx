@@ -36,7 +36,13 @@ export default function Home() {
       {/* Camera viewfinder area */}
       <div className="relative w-full" style={{ height: "490px" }}>
         {/* 3D Viewer / AR surface */}
-        <ThreeDViewer arActive={arActive} onStatusChange={setArStatus} onARExit={() => setArActive(false)} />
+        <ThreeDViewer
+          arActive={arActive}
+          onStatusChange={setArStatus}
+          onARExit={() => setArActive(false)}
+          iso={iso}
+          aperture={aperture}
+        />
         {/* Rounded border overlay */}
         <div
           className="absolute rounded-[10px]"

@@ -7,7 +7,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 // Replace this URL with your own .glb to use a custom model.
 const MODEL_URL = "https://modelviewer.dev/shared-assets/models/Astronaut.glb";
 
-export default function ThreeDViewer({ arActive, onStatusChange, onARExit }) {
+export default function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, aperture = 50 }) {
   const overlayRef = useRef(null);
   const containerRef = useRef(null);
   const videoRef = useRef(null);
@@ -15,6 +15,12 @@ export default function ThreeDViewer({ arActive, onStatusChange, onARExit }) {
   const streamRef = useRef(null);
   const hitSourceRef = useRef(null);
   const [error, setError] = useState(null);
+
+  // ISO → brightness (higher ISO = brighter image): 0.6x → 1.6x
+  const brightness = 0.6 + (iso / 100) * 1.0;
+  // Aperture → background blur (lower f-stop = shallower depth of field): 10px → 0px
+  const blur = (1 - aperture / 100) * 10;
+  const overlayFilter = `brightness(${brightness.toFixed(2)})`;
 
   // ---- Three.js scene setup (runs once) ----
   useEffect(() => {
@@ -289,8 +295,12 @@ export default function ThreeDViewer({ arActive, onStatusChange, onARExit }) {
   };
 
   return (
-    <div ref={overlayRef} className="absolute inset-0">
-      {/* Camera feed background (visible in AR overlay mode) */}
+    <div
+      ref={overlayRef}
+      className="absolute inset-0"
+      style={{ filter: overlayFilter, transition: "filter 0.2s ease-out" }}
+    >
+      {/* Camera feed background (visible in AR overlay mode) — blurred by aperture */}
       <video
         ref={videoRef}
         playsInline
@@ -299,6 +309,7 @@ export default function ThreeDViewer({ arActive, onStatusChange, onARExit }) {
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
           arActive ? "opacity-100" : "opacity-0"
         }`}
+        style={{ filter: `blur(${blur.toFixed(1)}px)`, transition: "filter 0.2s ease-out" }}
       />
       {/* Three.js canvas */}
       <div ref={containerRef} className="absolute inset-0" />
