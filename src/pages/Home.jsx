@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import ThreeDViewer from "@/components/ThreeDViewer";
 
 export default function Home() {
   const [iso, setIso] = useState(0);
   const [shutter, setShutter] = useState(50);
   const [aperture, setAperture] = useState(50);
+  const [arActive, setArActive] = useState(false);
+  const [arStatus, setArStatus] = useState(null);
 
   const isoLabels = ["100", "400", "1600", "3200", "6400"];
   const shutterLabels = ["1/2000", "1/500", "1/100", "1/8", '2"'];
@@ -32,8 +35,8 @@ export default function Home() {
     <main className="max-w-[392px] w-full mx-auto flex flex-col bg-[#1f2937] min-h-screen relative">
       {/* Camera viewfinder area */}
       <div className="relative w-full" style={{ height: "490px" }}>
-        {/* Background surface */}
-        <div className="absolute inset-0 bg-[#e5e7eb]" />
+        {/* 3D Viewer / AR surface */}
+        <ThreeDViewer arActive={arActive} onStatusChange={setArStatus} onARExit={() => setArActive(false)} />
         {/* Rounded border overlay */}
         <div
           className="absolute rounded-[10px]"
@@ -43,20 +46,39 @@ export default function Home() {
             right: "16px",
             bottom: "16px",
             boxShadow: "inset 0 0 0 1px rgba(0,211,243,0.60)",
+            zIndex: 10,
+            pointerEvents: "none",
           }}
         />
-        {/* MODO RA badge */}
-        <div className="absolute flex flex-col justify-start items-start py-1 px-3 bg-[#374151] rounded-full"
-          style={{ top: "24px", left: "50%", transform: "translateX(-50%)" }}>
+        {/* MODO RA button */}
+        <button
+          onClick={() => setArActive((v) => !v)}
+          className={`absolute flex items-center py-1 px-3 rounded-full transition-all active:scale-95 ${
+            arActive ? "bg-[#00d3f3]" : "bg-[#374151]"
+          }`}
+          style={{ top: "24px", left: "50%", transform: "translateX(-50%)", zIndex: 20 }}
+        >
           <p
-            className="text-xs font-bold leading-4 tracking-[1.2px] text-[#00d3f3] whitespace-nowrap"
+            className={`text-xs font-bold leading-4 tracking-[1.2px] whitespace-nowrap ${
+              arActive ? "text-[#111827]" : "text-[#00d3f3]"
+            }`}
             style={{ fontFamily: "inherit" }}
           >
-            MODO RA
+            {arActive ? "RA ACTIVA" : "MODO RA"}
           </p>
-        </div>
+        </button>
+        {/* AR status indicator */}
+        {arStatus && (
+          <div
+            className="absolute left-4 right-4 bg-[#111827]/80 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center gap-2"
+            style={{ bottom: "24px", zIndex: 20 }}
+          >
+            <span className="w-2 h-2 rounded-full bg-[#00d3f3] animate-pulse" />
+            <p className="text-xs text-[#00d3f3] font-medium">{arStatus}</p>
+          </div>
+        )}
         {/* Volver button */}
-        <div className="absolute top-4 left-4">
+        <div className="absolute top-4 left-4" style={{ zIndex: 20 }}>
           <div className="flex flex-row justify-start items-center gap-2 py-2 px-4 bg-[#374151] rounded-full">
             <div className="w-5 h-5 flex items-center justify-center relative overflow-clip shrink-0">
               <img className="w-[7px] h-[13px] absolute top-1 left-1 z-10" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/45eb07579_98d0ba261_15_2639.svg" alt="Vector" />
