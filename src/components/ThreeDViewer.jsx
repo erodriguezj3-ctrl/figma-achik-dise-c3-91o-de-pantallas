@@ -3,11 +3,10 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
-// Sample GLB model — falls back to the default mesh if it fails to load.
-// Replace this URL with your own .glb to use a custom model.
-const MODEL_URL = "https://modelviewer.dev/shared-assets/models/Astronaut.glb";
+// Default GLB model — overridden by the modelUrl prop when a model is selected.
+const DEFAULT_MODEL_URL = "https://modelviewer.dev/shared-assets/models/Astronaut.glb";
 
-const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, aperture = 50 }, ref) {
+const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, aperture = 50, modelUrl = DEFAULT_MODEL_URL }, ref) {
   const overlayRef = useRef(null);
   const containerRef = useRef(null);
   const videoRef = useRef(null);
@@ -83,33 +82,6 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     reticle.visible = false;
     scene.add(reticle);
 
-    // Try loading a .glb model
-    if (MODEL_URL) {
-      const loader = new GLTFLoader();
-      loader.load(
-        MODEL_URL,
-        (gltf) => {
-          modelGroup.clear();
-          const obj = gltf.scene;
-          modelGroup.add(obj);
-          obj.updateMatrixWorld(true);
-          const box = new THREE.Box3().setFromObject(obj);
-          const size = box.getSize(new THREE.Vector3());
-          const center = box.getCenter(new THREE.Vector3());
-          const maxDim = Math.max(size.x, size.y, size.z);
-          if (maxDim > 0) {
-            const scale = 2 / maxDim;
-            obj.scale.setScalar(scale);
-            obj.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
-          }
-        },
-        undefined,
-        () => {
-          /* keep default mesh on error */
-        }
-      );
-    }
-
     // Orbit controls for the non-AR view
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
@@ -165,6 +137,36 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       }
     };
   }, []);
+
+  // ---- Load the .glb model when modelUrl changes ----
+  useEffect(() => {
+    const { modelGroup } = threeRef.current;
+    if (!modelGroup || !modelUrl) return;
+
+    const loader = new GLTFLoader();
+    loader.load(
+      modelUrl,
+      (gltf) => {
+        modelGroup.clear();
+        const obj = gltf.scene;
+        modelGroup.add(obj);
+        obj.updateMatrixWorld(true);
+        const box = new THREE.Box3().setFromObject(obj);
+        const size = box.getSize(new THREE.Vector3());
+        const center = box.getCenter(new THREE.Vector3());
+        const maxDim = Math.max(size.x, size.y, size.z);
+        if (maxDim > 0) {
+          const scale = 2 / maxDim;
+          obj.scale.setScalar(scale);
+          obj.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
+        }
+      },
+      undefined,
+      () => {
+        /* keep existing mesh on error */
+      }
+    );
+  }, [modelUrl]);
 
   // ---- AR mode toggle ----
   useEffect(() => {

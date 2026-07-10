@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function Modelos3D() {
+  const navigate = useNavigate();
+  const [selectedModel, setSelectedModel] = useState(null);
+
+  const ASTRONAUT_MODEL_URL = "https://modelviewer.dev/shared-assets/models/Astronaut.glb";
+
+  const handleSelectAstronauta = () => {
+    setSelectedModel("astronauta");
+    navigate("/", { state: { modelUrl: ASTRONAUT_MODEL_URL, modelName: "Astronauta" } });
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -54,6 +65,32 @@ export default function Modelos3D() {
             </h3>
             <p className="text-figma-12 font-medium font-heading leading-figma-16 text-center text-figma-text-2-3 mt-1">
               Ropa
+            </p>
+          </motion.article>
+
+          {/* Card: Astronauta (selectable) */}
+          <motion.article
+            variants={itemVariants}
+            onClick={handleSelectAstronauta}
+            className={`bg-figma-primary-2 rounded-[16px] p-4 flex flex-col items-center h-full cursor-pointer transition-all active:scale-95 ${
+              selectedModel === "astronauta" ? "shadow-[inset_0_0_0_2px_#04d9d9]" : ""
+            }`}
+          >
+            <div className="bg-figma-accent-2 rounded-[14px] w-full aspect-square max-h-[119px] relative flex justify-center items-center overflow-clip">
+              <span className="text-[clamp(26px,11.85vw,48px)] font-medium font-heading leading-[1.0]">
+                🧑‍🚀
+              </span>
+              <div className="absolute bottom-2 right-2 bg-[#04d9d9] rounded-[4px] px-1.5 py-0.5 z-10">
+                <span className="text-figma-12 font-medium font-heading leading-figma-16 text-figma-secondary">
+                  3D
+                </span>
+              </div>
+            </div>
+            <h3 className="text-figma-14 font-bold font-heading leading-figma-20 text-center text-figma-text-1-2 mt-3 w-full truncate">
+              Astronauta
+            </h3>
+            <p className="text-figma-12 font-medium font-heading leading-figma-16 text-center text-figma-text-2-3 mt-1">
+              Espacio
             </p>
           </motion.article>
 

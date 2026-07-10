@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ThreeDViewer from "@/components/ThreeDViewer";
 
 export default function Home() {
@@ -12,6 +12,8 @@ export default function Home() {
   const [flash, setFlash] = useState(false);
   const viewerRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const modelUrl = location.state?.modelUrl;
 
   const handleCapture = async () => {
     if (capturing) return;
@@ -67,6 +69,7 @@ export default function Home() {
           onARExit={() => setArActive(false)}
           iso={iso}
           aperture={aperture}
+          modelUrl={modelUrl}
         />
         {/* Rounded border overlay */}
         <div
