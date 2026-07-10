@@ -17,6 +17,7 @@ import Bienvenida from './pages/Bienvenida';
 import Pantalla4 from './pages/Pantalla4';
 import Pantalla42 from './pages/Pantalla42';
 import Pantalla3 from './pages/Pantalla3';
+import Pantalla2 from './pages/Pantalla2';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -53,6 +54,7 @@ const AuthenticatedApp = () => {
       <Route path="/Pantalla4" element={<Pantalla4 />} />
       <Route path="/Pantalla42" element={<Pantalla42 />} />
       <Route path="/Pantalla3" element={<Pantalla3 />} />
+      <Route path="/Pantalla2" element={<Pantalla2 />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>

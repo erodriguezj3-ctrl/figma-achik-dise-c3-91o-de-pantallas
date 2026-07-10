@@ -11,6 +11,10 @@ module.exports = {
   		},
   		colors: {
         // figma:achik (mzD4Vedn) — start
+        "figma-muted-3": "hsl(var(--figma-muted-3))",
+        // figma:achik (mzD4Vedn) — end
+      
+        // figma:achik (mzD4Vedn) — start
         "figma-muted-2": "hsl(var(--figma-muted-2))",
         "figma-surface-5": "hsl(var(--figma-surface-5))",
         "figma-border-4": "hsl(var(--figma-border-4))",
@@ -160,6 +164,10 @@ module.exports = {
         // figma:achik (mzD4Vedn) — end
       
         // figma:achik (mzD4Vedn) — start
+        "figma-16": "16px",
+        // figma:achik (mzD4Vedn) — end
+      
+        // figma:achik (mzD4Vedn) — start
         "figma-14": "14px",
         "figma-16": "16px",
         "figma-48": "48px",
@@ -249,6 +257,11 @@ module.exports = {
         // figma:achik (mzD4Vedn) — start
         "figma-normal": "400",
         "figma-medium": "500",
+        // figma:achik (mzD4Vedn) — end
+      
+        // figma:achik (mzD4Vedn) — start
+        "figma-normal": "400",
+        "figma-medium": "500",
         "figma-bold": "700",
         // figma:achik (mzD4Vedn) — end
       
@@ -312,6 +325,10 @@ module.exports = {
   		
   		
   		lineHeight: {
+        // figma:achik (mzD4Vedn) — start
+        "figma-24": "24px",
+        // figma:achik (mzD4Vedn) — end
+      
         // figma:achik (mzD4Vedn) — start
         "figma-24": "24px",
         // figma:achik (mzD4Vedn) — end
