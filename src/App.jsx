@@ -13,6 +13,7 @@ import TraianguloDeExposiciN from './pages/TraianguloDeExposiciN';
 import FotografiaBasica from './pages/FotografiaBasica';
 import PantallaDeInicio from './pages/PantallaDeInicio';
 import IniciarSesion from './pages/IniciarSesion';
+import Bienvenida from './pages/Bienvenida';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -45,6 +46,7 @@ const AuthenticatedApp = () => {
       <Route path="/FotografiaBasica" element={<FotografiaBasica />} />
       <Route path="/PantallaDeInicio" element={<PantallaDeInicio />} />
       <Route path="/IniciarSesion" element={<IniciarSesion />} />
+      <Route path="/Bienvenida" element={<Bienvenida />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
