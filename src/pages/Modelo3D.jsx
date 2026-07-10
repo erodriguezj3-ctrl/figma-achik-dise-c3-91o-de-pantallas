@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 const MODEL_URLS = {
-  patineta: null,
-  melocoton: null,
-  computadora: null,
+  patineta: "https://media.base44.com/files/public/6a4f1af577955f105897f7c2/63c27d6bb_PATINETAGLB.glb",
+  melocoton: "https://media.base44.com/files/public/6a4f1af577955f105897f7c2/6fda1ba20_MELOCOTON.glb",
+  computadora: "https://media.base44.com/files/public/6a4f1af577955f105897f7c2/e65f8803f_COMPUTADORAGLB.glb",
   astronauta: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
 };
 
