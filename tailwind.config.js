@@ -10,6 +10,11 @@ module.exports = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+        // figma:achik (mzD4Vedn) — start
+        "figma-accent-3": "hsl(var(--figma-accent-3))",
+        "figma-text-1-3": "hsl(var(--figma-text-1-3))",
+        // figma:achik (mzD4Vedn) — end
+      
         // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
         "figma-primary-2": "hsl(var(--figma-primary-2))",
         "figma-accent-2": "hsl(var(--figma-accent-2))",
@@ -125,6 +130,14 @@ module.exports = {
   		
   		fontSize: {
         // figma:achik (mzD4Vedn) — start
+        "figma-14": "14px",
+        "figma-20": "20px",
+        "figma-24": "24px",
+        "figma-30": "30px",
+        "figma-48": "48px",
+        // figma:achik (mzD4Vedn) — end
+      
+        // figma:achik (mzD4Vedn) — start
         "figma-12": "12px",
         "figma-14": "14px",
         "figma-24": "24px",
@@ -159,6 +172,13 @@ module.exports = {
         "figma-normal": "400",
         "figma-medium": "500",
         "figma-bold": "700",
+        "figma-black": "900",
+        // figma:achik (mzD4Vedn) — end
+      
+        // figma:achik (mzD4Vedn) — start
+        "figma-normal": "400",
+        "figma-medium": "500",
+        "figma-bold": "700",
         // figma:achik (mzD4Vedn) — end
       
         // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
@@ -184,6 +204,14 @@ module.exports = {
   		
   		
   		lineHeight: {
+        // figma:achik (mzD4Vedn) — start
+        "figma-20": "20px",
+        "figma-28": "28px",
+        "figma-32": "32px",
+        "figma-36": "36px",
+        "figma-48": "48px",
+        // figma:achik (mzD4Vedn) — end
+      
         // figma:achik (mzD4Vedn) — start
         "figma-16": "16px",
         "figma-20": "20px",

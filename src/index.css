@@ -107,6 +107,10 @@
     --figma-text-4: 0 0% 10%;
     --figma-text-5: 216 15% 34%;
     /* figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — end */
+    /* figma:achik (mzD4Vedn) — start */
+    --figma-accent-3: 0 0% 100% / 0.2;
+    --figma-text-1-3: 217 21% 27%;
+    /* figma:achik (mzD4Vedn) — end */
   }
 
   .dark {
