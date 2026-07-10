@@ -10,6 +10,7 @@ import Captura2 from './pages/Captura2';
 import Modelo3D from './pages/Modelo3D';
 import Practica from './pages/Practica';
 import TraianguloDeExposiciN from './pages/TraianguloDeExposiciN';
+import FotografiaBasica from './pages/FotografiaBasica';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -39,6 +40,7 @@ const AuthenticatedApp = () => {
       <Route path="/Modelo3D" element={<Modelo3D />} />
       <Route path="/Practica" element={<Practica />} />
       <Route path="/TraianguloDeExposiciN" element={<TraianguloDeExposiciN />} />
+      <Route path="/FotografiaBasica" element={<FotografiaBasica />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
