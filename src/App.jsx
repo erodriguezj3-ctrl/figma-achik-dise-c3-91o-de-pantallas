@@ -8,6 +8,7 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Home from './pages/Home';
 import Captura2 from './pages/Captura2';
 import Modelos3D from './pages/Modelos3D';
+import Modelo3D from './pages/Modelo3D';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -35,6 +36,7 @@ const AuthenticatedApp = () => {
       <Route path="/" element={<Home />} />
       <Route path="/Captura2" element={<Captura2 />} />
       <Route path="/Modelos3D" element={<Modelos3D />} />
+      <Route path="/Modelo3D" element={<Modelo3D />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>

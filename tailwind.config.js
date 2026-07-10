@@ -124,6 +124,13 @@ module.exports = {
   		
   		
   		fontSize: {
+        // figma:achik (mzD4Vedn) — start
+        "figma-12": "12px",
+        "figma-14": "14px",
+        "figma-24": "24px",
+        "figma-48": "48px",
+        // figma:achik (mzD4Vedn) — end
+      
         // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
         "figma-12": "12px",
         "figma-14": "14px",
@@ -148,6 +155,12 @@ module.exports = {
   		
   		
   		fontWeight: {
+        // figma:achik (mzD4Vedn) — start
+        "figma-normal": "400",
+        "figma-medium": "500",
+        "figma-bold": "700",
+        // figma:achik (mzD4Vedn) — end
+      
         // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
         "figma-normal": "400",
         "figma-medium": "500",
@@ -171,6 +184,13 @@ module.exports = {
   		
   		
   		lineHeight: {
+        // figma:achik (mzD4Vedn) — start
+        "figma-16": "16px",
+        "figma-20": "20px",
+        "figma-32": "32px",
+        "figma-48": "48px",
+        // figma:achik (mzD4Vedn) — end
+      
         // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
         "figma-16": "16px",
         "figma-20": "20px",
