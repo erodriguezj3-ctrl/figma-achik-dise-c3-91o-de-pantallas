@@ -23,6 +23,7 @@ import CrearCuenta from './pages/CrearCuenta';
 import ContraseAActualizada from './pages/ContraseAActualizada';
 import NuevaContraseA from './pages/NuevaContraseA';
 import VerificarCodigo from './pages/VerificarCodigo';
+import RecuperarContraseA from './pages/RecuperarContraseA';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -65,6 +66,7 @@ const AuthenticatedApp = () => {
       <Route path="/ContraseAActualizada" element={<ContraseAActualizada />} />
       <Route path="/NuevaContraseA" element={<NuevaContraseA />} />
       <Route path="/VerificarCodigo" element={<VerificarCodigo />} />
+      <Route path="/RecuperarContraseA" element={<RecuperarContraseA />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
