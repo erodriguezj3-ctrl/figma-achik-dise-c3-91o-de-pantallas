@@ -84,8 +84,18 @@
     --figma-text-2: 0 0% 0%;
 
     --figma-text-3: 188 100% 48%;
-
-
+    /* figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start */
+    --figma-primary: 0 0% 100% / 0.1;
+    --figma-secondary: 0 0% 100%;
+    --figma-accent: 220 43% 11%;
+    --figma-surface-2: 0 0% 0% / 0.4;
+    --figma-border: 0 0% 0% / 0.8;
+    --figma-highlight-2: 0 0% 0% / 0.5;
+    --figma-subtle: 180 96% 43%;
+    --figma-color-9: 0 0% 100% / 0.15;
+    --figma-text-2-2: 0 0% 100% / 0.7;
+    --figma-text-3-2: 0 0% 100% / 0.6;
+    /* figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — end */
   }
 
   .dark {

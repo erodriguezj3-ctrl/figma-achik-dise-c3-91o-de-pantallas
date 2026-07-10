@@ -10,6 +10,19 @@ module.exports = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
+        "figma-primary": "hsl(var(--figma-primary))",
+        "figma-secondary": "hsl(var(--figma-secondary))",
+        "figma-accent": "hsl(var(--figma-accent))",
+        "figma-surface-2": "hsl(var(--figma-surface-2))",
+        "figma-border": "hsl(var(--figma-border))",
+        "figma-highlight-2": "hsl(var(--figma-highlight-2))",
+        "figma-subtle": "hsl(var(--figma-subtle))",
+        "figma-color-9": "hsl(var(--figma-color-9))",
+        "figma-text-2-2": "hsl(var(--figma-text-2-2))",
+        "figma-text-3-2": "hsl(var(--figma-text-3-2))",
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — end
+      
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -99,6 +112,12 @@ module.exports = {
   		
   		
   		fontSize: {
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
+        "figma-12": "12px",
+        "figma-14": "14px",
+        "figma-16": "16px",
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — end
+      
   			
   			'figma-12': '12px',
   			
@@ -110,6 +129,12 @@ module.exports = {
   		
   		
   		fontWeight: {
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
+        "figma-normal": "400",
+        "figma-medium": "500",
+        "figma-bold": "700",
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — end
+      
   			
   			'figma-normal': '400',
   			
@@ -121,6 +146,12 @@ module.exports = {
   		
   		
   		lineHeight: {
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
+        "figma-16": "16px",
+        "figma-20": "20px",
+        "figma-24": "24px",
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — end
+      
   			
   			'figma-16': '16px',
   			
