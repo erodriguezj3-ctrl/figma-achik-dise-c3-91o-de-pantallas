@@ -14,6 +14,7 @@ import FotografiaBasica from './pages/FotografiaBasica';
 import PantallaDeInicio from './pages/PantallaDeInicio';
 import IniciarSesion from './pages/IniciarSesion';
 import Bienvenida from './pages/Bienvenida';
+import Pantalla4 from './pages/Pantalla4';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -47,6 +48,7 @@ const AuthenticatedApp = () => {
       <Route path="/PantallaDeInicio" element={<PantallaDeInicio />} />
       <Route path="/IniciarSesion" element={<IniciarSesion />} />
       <Route path="/Bienvenida" element={<Bienvenida />} />
+      <Route path="/Pantalla4" element={<Pantalla4 />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
