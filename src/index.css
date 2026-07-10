@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@500&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -120,6 +121,12 @@
     --figma-muted: 47 100% 50%;
     --figma-border-3: 218 14% 84%;
     --figma-text-2-4: 0 0% 100% / 0.9;
+    /* figma:achik (mzD4Vedn) — end */
+    /* figma:achik (mzD4Vedn) — start */
+    --figma-muted-2: 217 89% 61%;
+    --figma-surface-5: 136 53% 43%;
+    --figma-border-4: 45 97% 50%;
+    --figma-highlight-3: 5 81% 56%;
     /* figma:achik (mzD4Vedn) — end */
   }
 

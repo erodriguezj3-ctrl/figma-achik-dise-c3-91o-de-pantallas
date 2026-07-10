@@ -11,6 +11,13 @@ module.exports = {
   		},
   		colors: {
         // figma:achik (mzD4Vedn) — start
+        "figma-muted-2": "hsl(var(--figma-muted-2))",
+        "figma-surface-5": "hsl(var(--figma-surface-5))",
+        "figma-border-4": "hsl(var(--figma-border-4))",
+        "figma-highlight-3": "hsl(var(--figma-highlight-3))",
+        // figma:achik (mzD4Vedn) — end
+      
+        // figma:achik (mzD4Vedn) — start
         "figma-accent-4": "hsl(var(--figma-accent-4))",
         "figma-muted": "hsl(var(--figma-muted))",
         "figma-border-3": "hsl(var(--figma-border-3))",
@@ -141,6 +148,12 @@ module.exports = {
   		
   		fontSize: {
         // figma:achik (mzD4Vedn) — start
+        "figma-14": "14px",
+        "figma-16": "16px",
+        "figma-24": "24px",
+        // figma:achik (mzD4Vedn) — end
+      
+        // figma:achik (mzD4Vedn) — start
         "figma-12": "12px",
         "figma-14": "14px",
         "figma-20": "20px",
@@ -203,6 +216,11 @@ module.exports = {
         // figma:achik (mzD4Vedn) — start
         "figma-normal": "400",
         "figma-medium": "500",
+        // figma:achik (mzD4Vedn) — end
+      
+        // figma:achik (mzD4Vedn) — start
+        "figma-normal": "400",
+        "figma-medium": "500",
         "figma-semibold": "600",
         "figma-bold": "700",
         // figma:achik (mzD4Vedn) — end
@@ -255,6 +273,13 @@ module.exports = {
   		
   		
   		lineHeight: {
+        // figma:achik (mzD4Vedn) — start
+        "figma-19": "19px",
+        "figma-20": "20px",
+        "figma-24": "24px",
+        "figma-32": "32px",
+        // figma:achik (mzD4Vedn) — end
+      
         // figma:achik (mzD4Vedn) — start
         "figma-16": "16px",
         "figma-20": "20px",
@@ -315,6 +340,10 @@ module.exports = {
   		
   		
   		fontFamily: {
+        // figma:achik (mzD4Vedn) — start
+        "figma-arimo": ['"Arimo"', 'sans-serif'],
+        // figma:achik (mzD4Vedn) — end
+      
         // figma:achik (mzD4Vedn) — start
         "figma-inter": ['"Inter"', 'sans-serif'],
         // figma:achik (mzD4Vedn) — end
