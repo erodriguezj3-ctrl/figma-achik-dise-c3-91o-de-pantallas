@@ -1,7 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function OnboardingScreen() {
+  const navigate = useNavigate();
   return (
     <main className="min-h-[100dvh] w-full bg-figma-secondary flex justify-center overflow-clip font-heading">
       <div className="w-full max-w-[392px] flex flex-col justify-between p-8">
@@ -104,13 +106,13 @@ export default function OnboardingScreen() {
 
           {/* Actions */}
           <div className="w-full flex flex-col gap-6">
-            <button className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex items-center justify-center hover:bg-[#03c2c2] active:scale-[0.98] transition-all">
+            <button onClick={() => navigate("/Bienvenida")} className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex items-center justify-center hover:bg-[#03c2c2] active:scale-[0.98] transition-all">
               <span className="text-figma-16 font-medium leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">
                 Continuar
               </span>
             </button>
 
-            <button className="w-full h-6 flex items-center justify-center hover:opacity-70 active:scale-[0.98] transition-all">
+            <button onClick={() => navigate("/Bienvenida")} className="w-full h-6 flex items-center justify-center hover:opacity-70 active:scale-[0.98] transition-all">
               <span className="text-figma-16 font-medium leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-text-1-3">
                 Saltar
               </span>

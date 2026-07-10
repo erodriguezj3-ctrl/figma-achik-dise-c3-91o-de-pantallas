@@ -1,7 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function Bienvenida() {
+  const navigate = useNavigate();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -40,7 +42,7 @@ export default function Bienvenida() {
         {/* Actions Section */}
         <motion.div variants={itemVariants} className="w-full flex flex-col gap-4">
           {/* Login Button */}
-          <button className="w-full h-14 bg-[#04d9d9] rounded-full flex items-center justify-center text-figma-16 font-medium font-heading leading-figma-24 tracking-[0.4px] uppercase text-figma-secondary transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] focus-visible:ring-offset-2 focus-visible:ring-offset-figma-secondary">
+          <button onClick={() => navigate("/IniciarSesion")} className="w-full h-14 bg-[#04d9d9] rounded-full flex items-center justify-center text-figma-16 font-medium font-heading leading-figma-24 tracking-[0.4px] uppercase text-figma-secondary transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] focus-visible:ring-offset-2 focus-visible:ring-offset-figma-secondary">
             Iniciar Sesión
           </button>
 
@@ -54,7 +56,7 @@ export default function Bienvenida() {
           </div>
 
           {/* Register Button */}
-          <button className="w-full h-14 bg-[#04d9d9] rounded-full flex items-center justify-center text-figma-16 font-medium font-heading leading-figma-24 tracking-[0.4px] uppercase text-figma-secondary transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] focus-visible:ring-offset-2 focus-visible:ring-offset-figma-secondary">
+          <button onClick={() => navigate("/CrearCuenta")} className="w-full h-14 bg-[#04d9d9] rounded-full flex items-center justify-center text-figma-16 font-medium font-heading leading-figma-24 tracking-[0.4px] uppercase text-figma-secondary transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] focus-visible:ring-offset-2 focus-visible:ring-offset-figma-secondary">
             Registrarse
           </button>
         </motion.div>

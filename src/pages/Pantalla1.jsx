@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function Pantalla1() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const timer = setTimeout(() => navigate("/Pantalla2"), 2000);
+    return () => clearTimeout(timer);
+  }, [navigate]);
   return (
     <main className="w-full min-h-screen flex items-center justify-center bg-figma-secondary overflow-clip">
       <div className="flex flex-col items-center justify-center px-4">

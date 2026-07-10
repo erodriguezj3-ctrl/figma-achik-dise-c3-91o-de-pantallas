@@ -1,6 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function IniciarSesion() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setError("");
+    if (!email.trim() || !password.trim()) {
+      setError("Por favor completa todos los campos");
+      return;
+    }
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      navigate("/PantallaDeInicio");
+    }, 600);
+  };
+
   return (
     <main className="w-full max-w-[392px] mx-auto flex flex-col items-center bg-figma-secondary min-h-[853px] p-8">
       <div className="w-full flex flex-col">
@@ -11,7 +32,7 @@ export default function IniciarSesion() {
         </h1>
 
         {/* Form Area */}
-        <form className="flex flex-col w-full mt-8">
+        <form onSubmit={handleSubmit} className="flex flex-col w-full mt-8">
           {/* Email Field */}
           <div className="flex flex-col gap-1">
             <label className="text-figma-14 font-medium font-heading leading-figma-20 text-figma-text-5 ml-4">
@@ -19,7 +40,9 @@ export default function IniciarSesion() {
             </label>
             <input
               type="email"
-              defaultValue="correo@ejemplo.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="correo@ejemplo.com"
               className="w-full py-4 px-6 bg-[#04d9d9] rounded-[39311300px] text-figma-16 font-normal font-heading leading-figma-19 text-figma-text-2-2 placeholder:text-figma-text-2-2/70 outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#04d9d9] transition-all"
             />
           </div>
@@ -31,15 +54,25 @@ export default function IniciarSesion() {
             </label>
             <input
               type="password"
-              defaultValue="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
               className="w-full py-4 px-6 bg-[#04d9d9] rounded-[39311300px] text-figma-16 font-normal font-heading leading-figma-19 text-figma-text-2-2 placeholder:text-figma-text-2-2/70 outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#04d9d9] transition-all"
             />
           </div>
+
+          {/* Error Message */}
+          {error && (
+            <p className="text-figma-14 font-medium font-heading leading-figma-20 text-red-500 mt-3 text-center">
+              {error}
+            </p>
+          )}
 
           {/* Forgot Password */}
           <div className="flex justify-end mt-4">
             <button
               type="button"
+              onClick={() => navigate("/RecuperarContraseA")}
               className="text-figma-14 font-medium font-heading leading-figma-20 text-figma-text-5 hover:text-[#04d9d9] transition-colors"
             >
               ¿Has olvidado tu contraseña?
@@ -49,9 +82,10 @@ export default function IniciarSesion() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-4 mt-6 bg-[#04d9d9] rounded-[39311300px] text-figma-16 font-medium font-heading leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary hover:brightness-105 active:scale-[0.98] transition-all"
+            disabled={loading}
+            className="w-full py-4 mt-6 bg-[#04d9d9] rounded-[39311300px] text-figma-16 font-medium font-heading leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary hover:brightness-105 active:scale-[0.98] transition-all disabled:opacity-60"
           >
-            Iniciar Sesión
+            {loading ? "Validando..." : "Iniciar Sesión"}
           </button>
         </form>
 

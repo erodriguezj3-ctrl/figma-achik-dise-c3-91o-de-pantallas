@@ -1,7 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function Pantalla3() {
+  const navigate = useNavigate();
   return (
     <main className="w-full max-w-[392px] mx-auto min-h-screen flex flex-col bg-figma-secondary overflow-clip">
       {/* Top Graphic Section */}
@@ -69,10 +71,10 @@ export default function Pantalla3() {
 
         {/* Buttons */}
         <div className="flex flex-col w-full gap-6">
-          <button className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex items-center justify-center text-figma-16 font-medium font-heading leading-figma-24 tracking-[0.4px] uppercase text-figma-secondary transition-all hover:bg-[#03c2c2] active:scale-[0.98] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#04d9d9]/50 shadow-sm">
+          <button onClick={() => navigate("/Pantalla4")} className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex items-center justify-center text-figma-16 font-medium font-heading leading-figma-24 tracking-[0.4px] uppercase text-figma-secondary transition-all hover:bg-[#03c2c2] active:scale-[0.98] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#04d9d9]/50 shadow-sm">
             Continuar
           </button>
-          <button className="w-full h-6 flex items-center justify-center text-figma-16 font-medium font-heading leading-figma-24 tracking-[0.4px] uppercase text-figma-text-1-3 transition-opacity hover:opacity-70 active:scale-[0.98] focus:outline-none focus-visible:underline">
+          <button onClick={() => navigate("/Bienvenida")} className="w-full h-6 flex items-center justify-center text-figma-16 font-medium font-heading leading-figma-24 tracking-[0.4px] uppercase text-figma-text-1-3 transition-opacity hover:opacity-70 active:scale-[0.98] focus:outline-none focus-visible:underline">
             Saltar
           </button>
         </div>

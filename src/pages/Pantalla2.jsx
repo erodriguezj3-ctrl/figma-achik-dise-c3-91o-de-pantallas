@@ -1,7 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function OnboardingScreen() {
+  const navigate = useNavigate();
   return (
     <main className="min-h-screen w-full bg-figma-secondary flex flex-col font-heading">
       {/* Top Illustration Area */}
@@ -59,12 +61,12 @@ export default function OnboardingScreen() {
 
           {/* Buttons */}
           <div className="w-full flex flex-col items-center gap-6 mt-2">
-            <button className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex items-center justify-center transition-transform active:scale-[0.98] hover:bg-[#03c2c2]">
+            <button onClick={() => navigate("/Pantalla3")} className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex items-center justify-center transition-transform active:scale-[0.98] hover:bg-[#03c2c2]">
               <span className="text-figma-16 font-medium leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">
                 Continuar
               </span>
             </button>
-            <button className="h-6 flex items-center justify-center transition-opacity hover:opacity-70">
+            <button onClick={() => navigate("/Bienvenida")} className="h-6 flex items-center justify-center transition-opacity hover:opacity-70">
               <span className="text-figma-16 font-medium leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-text-1-3">
                 Saltar
               </span>
