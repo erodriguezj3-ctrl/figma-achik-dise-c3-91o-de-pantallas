@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -7,7 +7,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 // Replace this URL with your own .glb to use a custom model.
 const MODEL_URL = "https://modelviewer.dev/shared-assets/models/Astronaut.glb";
 
-export default function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, aperture = 50 }) {
+const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, aperture = 50 }, ref) {
   const overlayRef = useRef(null);
   const containerRef = useRef(null);
   const videoRef = useRef(null);
@@ -39,7 +39,7 @@ export default function ThreeDViewer({ arActive, onStatusChange, onARExit, iso =
     const camera = new THREE.PerspectiveCamera(55, w / h, 0.1, 100);
     camera.position.set(0, 0.5, 4);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
     renderer.setSize(w, h);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.xr.enabled = true;
@@ -172,6 +172,46 @@ export default function ThreeDViewer({ arActive, onStatusChange, onARExit, iso =
     else stopAR();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arActive]);
+
+  // Expose capture() so the shutter button can grab a composite of the
+  // camera feed + 3D render, with the current ISO/aperture filters baked in.
+  useImperativeHandle(ref, () => ({
+    capture: () => {
+      const { renderer } = threeRef.current;
+      const video = videoRef.current;
+      const container = containerRef.current;
+      if (!renderer || !container) return null;
+
+      const w = container.clientWidth || 360;
+      const h = container.clientHeight || 490;
+      const out = document.createElement("canvas");
+      out.width = w;
+      out.height = h;
+      const ctx = out.getContext("2d");
+
+      // Background: live camera feed (blurred by aperture) or the scene color
+      if (arActive && video && video.videoWidth > 0) {
+        ctx.save();
+        ctx.filter = `blur(${blur.toFixed(1)}px) brightness(${brightness.toFixed(2)})`;
+        const scale = Math.max(w / video.videoWidth, h / video.videoHeight);
+        const vw = video.videoWidth * scale;
+        const vh = video.videoHeight * scale;
+        ctx.drawImage(video, (w - vw) / 2, (h - vh) / 2, vw, vh);
+        ctx.restore();
+      } else {
+        ctx.fillStyle = "#e5e7eb";
+        ctx.fillRect(0, 0, w, h);
+      }
+
+      // Foreground: the 3D render (brightness from ISO), composited on top
+      ctx.save();
+      ctx.filter = `brightness(${brightness.toFixed(2)})`;
+      ctx.drawImage(renderer.domElement, 0, 0, w, h);
+      ctx.restore();
+
+      return out.toDataURL("image/png");
+    },
+  }), [brightness, blur, arActive]);
 
   const startAR = async () => {
     const { renderer, modelGroup, controls, scene } = threeRef.current;
@@ -333,4 +373,6 @@ export default function ThreeDViewer({ arActive, onStatusChange, onARExit, iso =
       )}
     </div>
   );
-}
+});
+
+export default ThreeDViewer;

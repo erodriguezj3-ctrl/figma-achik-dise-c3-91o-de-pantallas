@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import ThreeDViewer from "@/components/ThreeDViewer";
 
 export default function Home() {
@@ -7,6 +8,29 @@ export default function Home() {
   const [aperture, setAperture] = useState(50);
   const [arActive, setArActive] = useState(false);
   const [arStatus, setArStatus] = useState(null);
+  const [capturing, setCapturing] = useState(false);
+  const [flash, setFlash] = useState(false);
+  const viewerRef = useRef(null);
+  const navigate = useNavigate();
+
+  const handleCapture = async () => {
+    if (capturing) return;
+    setCapturing(true);
+    setFlash(true);
+    // Allow one frame to render before grabbing the buffer
+    await new Promise((r) => setTimeout(r, 120));
+    const image = viewerRef.current?.capture();
+    setFlash(false);
+    setCapturing(false);
+    navigate("/Captura2", {
+      state: {
+        image,
+        iso: getIsoDisplay(),
+        shutter: getShutterDisplay(),
+        aperture: getApertureDisplay(),
+      },
+    });
+  };
 
   const isoLabels = ["100", "400", "1600", "3200", "6400"];
   const shutterLabels = ["1/2000", "1/500", "1/100", "1/8", '2"'];
@@ -37,6 +61,7 @@ export default function Home() {
       <div className="relative w-full" style={{ height: "490px" }}>
         {/* 3D Viewer / AR surface */}
         <ThreeDViewer
+          ref={viewerRef}
           arActive={arActive}
           onStatusChange={setArStatus}
           onARExit={() => setArActive(false)}
@@ -95,6 +120,10 @@ export default function Home() {
             </p>
           </div>
         </div>
+        {/* Capture flash */}
+        {flash && (
+          <div className="absolute inset-0 bg-white pointer-events-none" style={{ zIndex: 40 }} />
+        )}
       </div>
 
       {/* Controls panel */}
@@ -131,7 +160,9 @@ export default function Home() {
         {/* Shutter button */}
         <div className="flex flex-row justify-center items-start pt-6 pb-2 mt-1.5">
           <button
-            className="flex items-center justify-center w-20 h-20 bg-[#04d9d9] rounded-full focus:outline-none active:scale-95 transition-transform"
+            onClick={handleCapture}
+            disabled={capturing}
+            className="flex items-center justify-center w-20 h-20 bg-[#04d9d9] rounded-full focus:outline-none active:scale-95 transition-transform disabled:opacity-60"
             style={{ boxShadow: "inset 0 0 0 4px #ffffff" }}
             aria-label="Take photo"
           >

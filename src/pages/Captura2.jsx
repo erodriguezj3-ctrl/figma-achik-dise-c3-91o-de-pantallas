@@ -1,11 +1,24 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+
+const PLACEHOLDER = "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/6a0eb88c1_c98fceb85_8a602125f68c0779100cc5a8ea21704227e09b28.png";
 
 export default function Captura2() {
+  const { state } = useLocation();
+  const navigate = useNavigate();
+  const { image, iso, shutter, aperture } = state || {};
+  const dateStr = format(new Date(), "d MMM yyyy", { locale: es });
+  const metadata = image
+    ? `ISO ${iso} · ${shutter} · ${aperture}`
+    : "ISO 100 · 1/100 · f/5.6";
+  const photoSrc = image || PLACEHOLDER;
   return (
     <main className="w-full max-w-[392px] mx-auto h-screen min-h-[853px] bg-figma-accent flex flex-col relative overflow-clip font-heading">
       {/* Top Navigation */}
       <header className="flex justify-between items-center p-4 relative z-20 shrink-0">
-        <button className="flex items-center gap-2 py-2 px-4 bg-figma-highlight rounded-[39311300px] transition-opacity hover:opacity-80">
+        <button onClick={() => navigate("/")} className="flex items-center gap-2 py-2 px-4 bg-figma-highlight rounded-[39311300px] transition-opacity hover:opacity-80">
           <div className="shrink-0 w-5 h-5 relative overflow-clip">
             <img
               className="absolute top-1 left-1 w-[7px] h-[13px]"
@@ -47,16 +60,11 @@ export default function Captura2() {
         {/* Photo Area */}
         <div className="px-4 flex-1 flex flex-col min-h-0">
           <div className="relative flex-1 rounded-[16px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)] overflow-clip w-full bg-figma-surface">
-            {/* Stacked Images */}
+            {/* Captured photo */}
             <img
               className="absolute inset-0 w-full h-full object-cover object-center z-0"
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/6a0eb88c1_c98fceb85_8a602125f68c0779100cc5a8ea21704227e09b28.png"
-              alt="Captured 3D Render Base"
-            />
-            <img
-              className="absolute inset-0 w-full h-full object-cover object-center z-0"
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/6a0eb88c1_c98fceb85_8a602125f68c0779100cc5a8ea21704227e09b28.png"
-              alt="Captured 3D Render Overlay"
+              src={photoSrc}
+              alt="Captured 3D Render"
             />
 
             {/* Gradient Overlay for Text Legibility */}
@@ -65,12 +73,12 @@ export default function Captura2() {
             {/* Photo Metadata */}
             <div className="absolute top-4 right-4 z-20">
               <span className="text-figma-12 font-normal leading-figma-16 text-figma-text-3-2">
-                13 jun 2026
+                {dateStr}
               </span>
             </div>
             <div className="absolute bottom-4 left-4 z-20">
               <span className="text-figma-12 font-normal leading-figma-16 text-figma-text-2-2">
-                ISO 100 · 1/100 · f/5.6
+                {metadata}
               </span>
             </div>
           </div>
@@ -138,7 +146,7 @@ export default function Captura2() {
 
           {/* Secondary Actions Row */}
           <div className="flex gap-3">
-            <button className="flex-1 flex justify-center items-center gap-2 py-4 bg-[#04d9d9] rounded-[16px] transition-transform active:scale-95">
+            <button onClick={() => navigate("/")} className="flex-1 flex justify-center items-center gap-2 py-4 bg-[#04d9d9] rounded-[16px] transition-transform active:scale-95">
               <div className="shrink-0 w-4 h-4 relative overflow-clip">
                 <img
                   className="absolute top-0.5 left-0.5 w-[13px] h-[13px]"
