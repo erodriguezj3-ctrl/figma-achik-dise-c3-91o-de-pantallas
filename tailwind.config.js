@@ -152,6 +152,10 @@ module.exports = {
   		
   		fontSize: {
         // figma:achik (mzD4Vedn) — start
+        "figma-60": "60px",
+        // figma:achik (mzD4Vedn) — end
+      
+        // figma:achik (mzD4Vedn) — start
         "figma-16": "16px",
         // figma:achik (mzD4Vedn) — end
       
@@ -240,6 +244,10 @@ module.exports = {
   		
   		fontWeight: {
         // figma:achik (mzD4Vedn) — start
+        "figma-bold": "700",
+        // figma:achik (mzD4Vedn) — end
+      
+        // figma:achik (mzD4Vedn) — start
         "figma-normal": "400",
         "figma-medium": "500",
         // figma:achik (mzD4Vedn) — end
@@ -325,6 +333,10 @@ module.exports = {
   		
   		
   		lineHeight: {
+        // figma:achik (mzD4Vedn) — start
+        "figma-60": "60px",
+        // figma:achik (mzD4Vedn) — end
+      
         // figma:achik (mzD4Vedn) — start
         "figma-24": "24px",
         // figma:achik (mzD4Vedn) — end
