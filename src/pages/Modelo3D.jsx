@@ -1,5 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+
+const MODEL_URLS = {
+  patineta: null,
+  melocoton: null,
+  computadora: null,
+  astronauta: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+};
 
 const models = [
   {
@@ -8,6 +16,7 @@ const models = [
     category: "Objeto",
     emoji: "🛹",
     isPremium: false,
+    modelKey: "patineta",
   },
   {
     id: 2,
@@ -15,6 +24,7 @@ const models = [
     category: "Fruta",
     emoji: "🍑",
     isPremium: false,
+    modelKey: "melocoton",
   },
   {
     id: 3,
@@ -22,6 +32,15 @@ const models = [
     category: "Portátil",
     emoji: "🖥️",
     isPremium: false,
+    modelKey: "computadora",
+  },
+  {
+    id: 7,
+    title: "Astronauta",
+    category: "Espacio",
+    emoji: "🧑‍🚀",
+    isPremium: false,
+    modelKey: "astronauta",
   },
   {
     id: 4,
@@ -54,6 +73,14 @@ const navItems = [
 ];
 
 export default function Modelo3D() {
+  const navigate = useNavigate();
+  const [modelo_seleccionado, setModeloSeleccionado] = useState(null);
+
+  const handleSelectModel = (modelKey) => {
+    setModeloSeleccionado(modelKey);
+    navigate("/", { state: { modelUrl: MODEL_URLS[modelKey], modelKey } });
+  };
+
   return (
     <div className="w-full max-w-[392px] mx-auto min-h-screen bg-figma-secondary flex flex-col relative pb-16 overflow-clip shadow-xl">
       {/* Header */}
@@ -75,10 +102,15 @@ export default function Modelo3D() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-20px" }}
             transition={{ duration: 0.4, delay: i * 0.1, ease: "easeOut" }}
+            onClick={!model.isPremium ? () => handleSelectModel(model.modelKey) : undefined}
             className={`flex flex-col items-center p-4 bg-figma-primary-2 rounded-[16px] relative w-full ${
               model.isPremium
                 ? "shadow-[inset_0_0_0_1px_#ffdf20] opacity-[0.9] min-h-[236px]"
-                : "shadow-[inset_0_0_0_1px_rgba(0,0,0,0.00)] min-h-[216px]"
+                : `shadow-[inset_0_0_0_1px_rgba(0,0,0,0.00)] min-h-[216px] cursor-pointer active:scale-95 transition-transform ${
+                    modelo_seleccionado === model.modelKey
+                      ? "shadow-[inset_0_0_0_2px_#04d9d9]"
+                      : ""
+                  }`
             }`}
           >
             {/* Premium Badge */}
