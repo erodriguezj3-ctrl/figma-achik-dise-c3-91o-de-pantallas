@@ -11,6 +11,18 @@ module.exports = {
   		},
   		colors: {
         // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
+        "figma-primary-2": "hsl(var(--figma-primary-2))",
+        "figma-accent-2": "hsl(var(--figma-accent-2))",
+        "figma-surface-3": "hsl(var(--figma-surface-3))",
+        "figma-border-2": "hsl(var(--figma-border-2))",
+        "figma-text-1-2": "hsl(var(--figma-text-1-2))",
+        "figma-text-2-3": "hsl(var(--figma-text-2-3))",
+        "figma-text-3-3": "hsl(var(--figma-text-3-3))",
+        "figma-text-4": "hsl(var(--figma-text-4))",
+        "figma-text-5": "hsl(var(--figma-text-5))",
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — end
+      
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
         "figma-primary": "hsl(var(--figma-primary))",
         "figma-secondary": "hsl(var(--figma-secondary))",
         "figma-accent": "hsl(var(--figma-accent))",
@@ -115,6 +127,13 @@ module.exports = {
         // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
         "figma-12": "12px",
         "figma-14": "14px",
+        "figma-24": "24px",
+        "figma-48": "48px",
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — end
+      
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
+        "figma-12": "12px",
+        "figma-14": "14px",
         "figma-16": "16px",
         // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — end
       
@@ -135,6 +154,12 @@ module.exports = {
         "figma-bold": "700",
         // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — end
       
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
+        "figma-normal": "400",
+        "figma-medium": "500",
+        "figma-bold": "700",
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — end
+      
   			
   			'figma-normal': '400',
   			
@@ -146,6 +171,13 @@ module.exports = {
   		
   		
   		lineHeight: {
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
+        "figma-16": "16px",
+        "figma-20": "20px",
+        "figma-32": "32px",
+        "figma-48": "48px",
+        // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — end
+      
         // figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start
         "figma-16": "16px",
         "figma-20": "20px",

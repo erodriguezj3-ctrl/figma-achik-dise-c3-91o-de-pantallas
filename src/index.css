@@ -96,6 +96,17 @@
     --figma-text-2-2: 0 0% 100% / 0.7;
     --figma-text-3-2: 0 0% 100% / 0.6;
     /* figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — end */
+    /* figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — start */
+    --figma-primary-2: 210 20% 98%;
+    --figma-accent-2: 220 13% 91%;
+    --figma-surface-3: 0 0% 95%;
+    --figma-border-2: 39 100% 50%;
+    --figma-text-1-2: 216 31% 17%;
+    --figma-text-2-3: 220 10% 46%;
+    --figma-text-3-3: 220 9% 46%;
+    --figma-text-4: 0 0% 10%;
+    --figma-text-5: 216 15% 34%;
+    /* figma:achik-dise-c3-91o-de-pantallas (FQzjXvWq) — end */
   }
 
   .dark {
