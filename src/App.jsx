@@ -21,6 +21,7 @@ import Pantalla2 from './pages/Pantalla2';
 import Pantalla1 from './pages/Pantalla1';
 import CrearCuenta from './pages/CrearCuenta';
 import ContraseAActualizada from './pages/ContraseAActualizada';
+import NuevaContraseA from './pages/NuevaContraseA';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -61,6 +62,7 @@ const AuthenticatedApp = () => {
       <Route path="/Pantalla1" element={<Pantalla1 />} />
       <Route path="/CrearCuenta" element={<CrearCuenta />} />
       <Route path="/ContraseAActualizada" element={<ContraseAActualizada />} />
+      <Route path="/NuevaContraseA" element={<NuevaContraseA />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
