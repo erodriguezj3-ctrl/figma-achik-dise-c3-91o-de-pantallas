@@ -18,7 +18,7 @@ export default function Captura2() {
     <main className="w-full max-w-[392px] mx-auto h-screen min-h-[853px] bg-figma-accent flex flex-col relative overflow-clip font-heading">
       {/* Top Navigation */}
       <header className="flex justify-between items-center p-4 relative z-20 shrink-0">
-        <button onClick={() => navigate("/")} className="flex items-center gap-2 py-2 px-4 bg-figma-highlight rounded-[39311300px] transition-opacity hover:opacity-80">
+        <button onClick={() => navigate("/Home")} className="flex items-center gap-2 py-2 px-4 bg-figma-highlight rounded-[39311300px] transition-opacity hover:opacity-80">
           <div className="shrink-0 w-5 h-5 relative overflow-clip">
             <img
               className="absolute top-1 left-1 w-[7px] h-[13px]"
@@ -146,7 +146,7 @@ export default function Captura2() {
 
           {/* Secondary Actions Row */}
           <div className="flex gap-3">
-            <button onClick={() => navigate("/")} className="flex-1 flex justify-center items-center gap-2 py-4 bg-[#04d9d9] rounded-[16px] transition-transform active:scale-95">
+            <button onClick={() => navigate("/Home")} className="flex-1 flex justify-center items-center gap-2 py-4 bg-[#04d9d9] rounded-[16px] transition-transform active:scale-95">
               <div className="shrink-0 w-4 h-4 relative overflow-clip">
                 <img
                   className="absolute top-0.5 left-0.5 w-[13px] h-[13px]"
@@ -163,7 +163,7 @@ export default function Captura2() {
                 Otra foto
               </span>
             </button>
-            <button className="flex-1 flex justify-center items-center gap-2 py-4 bg-figma-color-9 rounded-[16px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.30)] transition-transform active:scale-95 hover:bg-white/5">
+            <button onClick={() => navigate("/FotografiaBasica")} className="flex-1 flex justify-center items-center gap-2 py-4 bg-figma-color-9 rounded-[16px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.30)] transition-transform active:scale-95 hover:bg-white/5">
               <span className="text-figma-16 font-bold leading-figma-24 text-figma-secondary">
                 Siguiente →
               </span>

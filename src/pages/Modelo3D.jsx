@@ -78,7 +78,7 @@ export default function Modelo3D() {
 
   const handleSelectModel = (modelKey) => {
     setModeloSeleccionado(modelKey);
-    navigate("/", { state: { modelUrl: MODEL_URLS[modelKey], modelKey } });
+    navigate("/Home", { state: { modelUrl: MODEL_URLS[modelKey], modelKey } });
   };
 
   return (

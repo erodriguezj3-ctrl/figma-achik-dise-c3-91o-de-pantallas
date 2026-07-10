@@ -1,7 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function FotografiaBasica() {
+  const navigate = useNavigate();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -35,7 +37,7 @@ export default function FotografiaBasica() {
           variants={itemVariants}
           className="flex flex-row justify-start items-center gap-2 p-6 w-full border-b border-[#e5e7eb] bg-figma-secondary z-10 sticky top-0"
         >
-          <button className="flex items-center justify-center w-5 h-5 relative overflow-clip hover:opacity-70 transition-opacity cursor-pointer">
+          <button onClick={() => navigate("/PantallaDeInicio")} className="flex items-center justify-center w-5 h-5 relative overflow-clip hover:opacity-70 transition-opacity cursor-pointer">
             <img
               className="w-[7px] h-[13px] absolute top-1 left-1 z-[1]"
               src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/8eff3cbcb_025d55880_1_422.svg"
@@ -85,6 +87,7 @@ export default function FotografiaBasica() {
               <motion.div
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
+                onClick={() => navigate("/TraianguloDeExposiciN")}
                 className="flex flex-col w-full bg-figma-surface-4 rounded-[16px] shadow-[inset_0_0_0_1px_#04d9d9] p-[17px] gap-2 cursor-pointer transition-colors hover:bg-figma-surface-4/80"
               >
                 <h3 className="text-figma-16 font-bold font-heading leading-figma-24 text-figma-text-1-2">

@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function PantallaDeInicio() {
+  const navigate = useNavigate();
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[392px] flex-col bg-figma-secondary relative shadow-sm">
       {/* Header */}
@@ -73,7 +75,7 @@ export default function PantallaDeInicio() {
 
           <div className="flex flex-col gap-4">
             {/* Basic Course Card */}
-            <button className="relative flex w-full items-start gap-4 rounded-[24px] bg-[#04d9d9] p-[25px] text-left shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10),_0px_10px_15px_-3px_rgba(0,0,0,0.10),_inset_0_0_0_1px_#04d9d9] transition-transform hover:scale-[1.02] active:scale-[0.98]">
+            <button onClick={() => navigate("/FotografiaBasica")} className="relative flex w-full items-start gap-4 rounded-[24px] bg-[#04d9d9] p-[25px] text-left shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10),_0px_10px_15px_-3px_rgba(0,0,0,0.10),_inset_0_0_0_1px_#04d9d9] transition-transform hover:scale-[1.02] active:scale-[0.98]">
               <div className="relative mt-1 h-8 w-8 shrink-0 overflow-clip">
                 <img
                   className="absolute left-[3px] top-[5px] z-[1] h-6 w-[29px]"

@@ -113,7 +113,7 @@ export default function Home() {
         )}
         {/* Volver button */}
         <div className="absolute top-4 left-4" style={{ zIndex: 20 }}>
-          <div className="flex flex-row justify-start items-center gap-2 py-2 px-4 bg-[#374151] rounded-full">
+          <button onClick={() => navigate("/Modelo3D")} className="flex flex-row justify-start items-center gap-2 py-2 px-4 bg-[#374151] rounded-full">
             <div className="w-5 h-5 flex items-center justify-center relative overflow-clip shrink-0">
               <img className="w-[7px] h-[13px] absolute top-1 left-1 z-10" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/45eb07579_98d0ba261_15_2639.svg" alt="Vector" />
               <img className="w-[13px] h-0.5 absolute top-2.5 left-1 z-20" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/8b6a6e071_8e1f0c5d7_15_2640.svg" alt="Vector" />
@@ -121,7 +121,7 @@ export default function Home() {
             <p className="text-base font-medium leading-6 text-center text-[#9ca3af] whitespace-nowrap">
               Volver
             </p>
-          </div>
+          </button>
         </div>
         {/* Capture flash */}
         {flash && (
