@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function PasswordReset() {
+  const navigate = useNavigate();
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
 
@@ -12,6 +14,7 @@ export default function PasswordReset() {
         <div className="mb-8 shrink-0">
           <button
             type="button"
+            onClick={() => navigate("/VerificarCodigo")}
             className="w-10 h-10 bg-figma-muted-3 rounded-[39311300px] flex justify-center items-center transition-colors hover:bg-black/5"
             aria-label="Go back"
           >
@@ -102,6 +105,7 @@ export default function PasswordReset() {
         <div className="mt-auto shrink-0">
           <button
             type="submit"
+            onClick={() => navigate("/ContraseAActualizada")}
             className="w-full h-14 bg-figma-accent-4 rounded-[39311300px] flex justify-center items-center transition-transform active:scale-[0.98] hover:opacity-90"
           >
             <span className="text-figma-16 font-bold leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">

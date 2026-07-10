@@ -1,7 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function RecuperarContrasena() {
+  const navigate = useNavigate();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -40,6 +42,7 @@ export default function RecuperarContrasena() {
             <button
               type="button"
               aria-label="Volver"
+              onClick={() => navigate("/IniciarSesion")}
               className="flex flex-row justify-center items-center h-10 w-10 bg-figma-muted-3 rounded-full hover:bg-black/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-figma-text-1-2"
             >
               <div className="w-5 h-5 relative overflow-clip">
@@ -109,6 +112,7 @@ export default function RecuperarContrasena() {
             >
               <button
                 type="submit"
+                onClick={() => navigate("/VerificarCodigo")}
                 className="flex flex-col justify-center items-center py-4 px-6 w-full bg-figma-accent-4 rounded-full hover:opacity-90 active:scale-[0.98] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-figma-accent-4"
               >
                 <span className="text-figma-16 font-bold leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">

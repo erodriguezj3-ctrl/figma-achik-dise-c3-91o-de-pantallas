@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ContrasenaActualizada() {
+  const navigate = useNavigate();
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center bg-figma-secondary px-4 py-8">
       <div className="flex w-full max-w-[392px] flex-col items-center">
@@ -31,7 +33,7 @@ export default function ContrasenaActualizada() {
         </p>
 
         {/* Action Button */}
-        <button className="flex w-full max-w-[328px] items-center justify-center rounded-[39311300px] bg-[#04d9d9] py-4 transition-transform hover:scale-[1.02] active:scale-[0.98]">
+        <button onClick={() => navigate("/IniciarSesion")} className="flex w-full max-w-[328px] items-center justify-center rounded-[39311300px] bg-[#04d9d9] py-4 transition-transform hover:scale-[1.02] active:scale-[0.98]">
           <span className="text-center font-heading text-figma-16 font-bold uppercase leading-figma-24 tracking-[0.4px] text-figma-secondary">
             Iniciar sesión
           </span>

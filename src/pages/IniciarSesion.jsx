@@ -134,6 +134,7 @@ export default function IniciarSesion() {
         <div className="flex justify-center w-full mt-8">
           <button
             type="button"
+            onClick={() => navigate("/CrearCuenta")}
             className="text-figma-14 font-medium font-heading leading-figma-20 text-figma-text-5 hover:text-[#04d9d9] transition-colors"
           >
             Registrarse

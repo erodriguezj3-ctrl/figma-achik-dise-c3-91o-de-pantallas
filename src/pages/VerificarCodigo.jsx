@@ -1,7 +1,9 @@
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function VerificarCodigo() {
+  const navigate = useNavigate();
   const [otp, setOtp] = useState(["", "", "", ""]);
   const inputRefs = useRef([]);
 
@@ -47,6 +49,7 @@ export default function VerificarCodigo() {
         {/* Header / Navigation */}
         <div className="pb-[clamp(16px,8.2vw,32px)] w-full flex justify-start">
           <button
+            onClick={() => navigate("/RecuperarContraseA")}
             className="flex flex-row justify-center items-center h-10 w-10 bg-figma-muted-3 rounded-[39311300px] hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-[#04d9d9] focus:ring-offset-2 focus:ring-offset-figma-secondary"
             aria-label="Volver"
           >
@@ -103,6 +106,7 @@ export default function VerificarCodigo() {
           {/* Primary Action */}
           <motion.div variants={itemVariants} className="w-full">
             <button
+              onClick={() => navigate("/NuevaContraseA")}
               className="w-full flex flex-col justify-center items-center py-4 px-0 bg-figma-accent-4 rounded-[39311300px] hover:opacity-90 transition-all active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#04d9d9] focus:ring-offset-2 focus:ring-offset-figma-secondary disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={otp.some(val => val === "")}
             >
