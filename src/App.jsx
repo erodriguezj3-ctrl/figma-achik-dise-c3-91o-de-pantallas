@@ -24,6 +24,7 @@ import ContraseAActualizada from './pages/ContraseAActualizada';
 import NuevaContraseA from './pages/NuevaContraseA';
 import VerificarCodigo from './pages/VerificarCodigo';
 import RecuperarContraseA from './pages/RecuperarContraseA';
+import ReglaDeTercio from './pages/ReglaDeTercio';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -68,6 +69,7 @@ const AuthenticatedApp = () => {
       <Route path="/NuevaContraseA" element={<NuevaContraseA />} />
       <Route path="/VerificarCodigo" element={<VerificarCodigo />} />
       <Route path="/RecuperarContraseA" element={<RecuperarContraseA />} />
+      <Route path="/ReglaDeTercio" element={<ReglaDeTercio />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
