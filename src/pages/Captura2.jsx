@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { incrementPhotoCount } from "@/hooks/useProgress";
 
 const PLACEHOLDER = "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/6a0eb88c1_c98fceb85_8a602125f68c0779100cc5a8ea21704227e09b28.png";
 
@@ -14,6 +15,13 @@ export default function Captura2() {
     ? `ISO ${iso} · ${shutter} · ${aperture}`
     : "ISO 100 · 1/100 · f/5.6";
   const photoSrc = image || PLACEHOLDER;
+
+  useEffect(() => {
+    if (image) {
+      incrementPhotoCount();
+    }
+  }, [image]);
+
   return (
     <main className="w-full max-w-[392px] mx-auto h-screen min-h-[853px] bg-figma-accent flex flex-col relative overflow-clip font-heading">
       {/* Top Navigation */}

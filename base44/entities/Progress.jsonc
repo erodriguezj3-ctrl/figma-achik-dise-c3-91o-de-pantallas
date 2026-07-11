@@ -10,6 +10,11 @@
       "type": "boolean",
       "default": false,
       "description": "Si el tema fue completado"
+    },
+    "count": {
+      "type": "integer",
+      "default": 0,
+      "description": "Contador acumulable (ej. fotos capturadas)"
     }
   },
   "required": [

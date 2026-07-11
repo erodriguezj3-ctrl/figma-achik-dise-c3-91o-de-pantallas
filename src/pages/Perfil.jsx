@@ -4,7 +4,7 @@ import BottomNav from "@/components/BottomNav";
 import { useBasicProgress } from "@/hooks/useProgress";
 
 export default function Perfil() {
-  const { completedCount, totalCount, percentage } = useBasicProgress();
+  const { completedCount, totalCount, percentage, cursosCompletados, photoCount } = useBasicProgress();
   return (
     <div className="flex flex-col min-h-screen bg-figma-secondary w-full max-w-[392px] mx-auto relative font-heading">
       {/* Header */}
@@ -94,7 +94,7 @@ export default function Perfil() {
                   </span>
                 </div>
                 <span className="text-figma-16 font-bold leading-figma-24 text-figma-accent">
-                  0
+                  {cursosCompletados}
                 </span>
               </div>
 
@@ -112,7 +112,7 @@ export default function Perfil() {
                   </span>
                 </div>
                 <span className="text-figma-16 font-bold leading-figma-24 text-figma-accent">
-                  0
+                  {photoCount}
                 </span>
               </div>
             </div>
