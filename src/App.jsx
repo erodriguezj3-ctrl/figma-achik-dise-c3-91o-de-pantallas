@@ -26,6 +26,7 @@ import VerificarCodigo from './pages/VerificarCodigo';
 import RecuperarContraseA from './pages/RecuperarContraseA';
 import ReglaDeTercio from './pages/ReglaDeTercio';
 import Practica1 from './pages/Practica1';
+import CamaraAr1 from './pages/CamaraAr1';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -72,6 +73,7 @@ const AuthenticatedApp = () => {
       <Route path="/RecuperarContraseA" element={<RecuperarContraseA />} />
       <Route path="/ReglaDeTercio" element={<ReglaDeTercio />} />
       <Route path="/Practica1" element={<Practica1 />} />
+      <Route path="/CamaraAr1" element={<CamaraAr1 />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
