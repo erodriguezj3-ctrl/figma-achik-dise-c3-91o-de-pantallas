@@ -66,10 +66,10 @@ const models = [
 ];
 
 const navItems = [
-  { label: "Inicio", icons: ["https://media.base44.com/images/public/6a4f1af577955f105897f7c2/540285dc1_3aca3d825_1_662.svg", "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/b203f87db_a0d9b4e9d_1_661.svg"] },
-  { label: "Progreso", icons: ["https://media.base44.com/images/public/6a4f1af577955f105897f7c2/e172ae5ea_2f09fbe5b_1_669.svg", "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/5137ff67f_b70009ae5_1_668.svg"] },
-  { label: "Planes", icons: ["https://media.base44.com/images/public/6a4f1af577955f105897f7c2/7d328eaa2_edaf5ef76_1_675.svg", "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/78e8a36fe_665184e30_1_676.svg"] },
-  { label: "Perfil", icons: ["https://media.base44.com/images/public/6a4f1af577955f105897f7c2/ac6154563_970f7d48a_1_683.svg", "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/cc600577b_26aaa530b_1_682.svg"] },
+  { label: "Inicio", path: "/PantallaDeInicio", icons: ["https://media.base44.com/images/public/6a4f1af577955f105897f7c2/540285dc1_3aca3d825_1_662.svg", "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/b203f87db_a0d9b4e9d_1_661.svg"] },
+  { label: "Progreso", path: "/Progreso", icons: ["https://media.base44.com/images/public/6a4f1af577955f105897f7c2/e172ae5ea_2f09fbe5b_1_669.svg", "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/5137ff67f_b70009ae5_1_668.svg"] },
+  { label: "Planes", path: "/Planes", icons: ["https://media.base44.com/images/public/6a4f1af577955f105897f7c2/7d328eaa2_edaf5ef76_1_675.svg", "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/78e8a36fe_665184e30_1_676.svg"] },
+  { label: "Perfil", path: "/Perfil", icons: ["https://media.base44.com/images/public/6a4f1af577955f105897f7c2/ac6154563_970f7d48a_1_683.svg", "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/cc600577b_26aaa530b_1_682.svg"] },
 ];
 
 export default function Modelo3D() {
@@ -184,6 +184,7 @@ export default function Modelo3D() {
         {navItems.map((item, i) => (
           <button
             key={i}
+            onClick={() => navigate(item.path)}
             className="flex flex-col items-center justify-center gap-1 h-full w-full hover:bg-black/5 active:bg-black/10 transition-colors"
           >
             <div className="w-6 h-6 relative flex items-center justify-center shrink-0">
