@@ -164,7 +164,7 @@ export default function Captura2() {
               </span>
             </button>
             <button onClick={() => {
-              if (topic === "luces") {
+              if (topic === "luces" || topic === "alta_velocidad") {
                 navigate("/PantallaDeInicio", { state: {} });
                 return;
               }

@@ -1,12 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function AltaVelocidad() {
+  const navigate = useNavigate();
   return (
     <div className="mx-auto flex flex-col min-h-screen w-full max-w-[392px] bg-figma-secondary font-heading shadow-xl">
       {/* Header */}
       <header className="flex items-center p-6 w-full border-b border-[#e5e7eb] bg-figma-secondary sticky top-0 z-10">
-        <button className="flex items-center gap-2 hover:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-md">
+        <button onClick={() => navigate("/FotografiaAvanzada")} className="flex items-center gap-2 hover:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-md">
           <div className="shrink-0 grow-0 w-5 h-5 overflow-clip relative">
             <img
               className="w-[7px] h-[13px] absolute top-1 left-1 z-[1]"
@@ -65,7 +67,7 @@ export default function AltaVelocidad() {
           transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
           className="w-full mt-auto pt-4"
         >
-          <button className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex items-center justify-center hover:bg-[#03c2c2] active:scale-[0.98] transition-all focus:outline-none focus-visible:ring-4 focus-visible:ring-[#04d9d9]/50">
+          <button onClick={() => navigate("/Practica", { state: { topic: "alta_velocidad" } })} className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex items-center justify-center hover:bg-[#03c2c2] active:scale-[0.98] transition-all focus:outline-none focus-visible:ring-4 focus-visible:ring-[#04d9d9]/50">
             <span className="text-figma-16 font-medium font-heading leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">
               Marcar como completado
             </span>
