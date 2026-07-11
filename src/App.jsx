@@ -42,6 +42,7 @@ import CamaraAr4 from './pages/CamaraAr4';
 import FotografiaAvanzada from './pages/FotografiaAvanzada';
 import LargaExposicion from './pages/LargaExposicion';
 import FotografiaNocturna from './pages/FotografiaNocturna';
+import AltaVelocidad from './pages/AltaVelocidad';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -104,6 +105,7 @@ const AuthenticatedApp = () => {
       <Route path="/FotografiaAvanzada" element={<FotografiaAvanzada />} />
       <Route path="/LargaExposicion" element={<LargaExposicion />} />
       <Route path="/FotografiaNocturna" element={<FotografiaNocturna />} />
+      <Route path="/AltaVelocidad" element={<AltaVelocidad />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
