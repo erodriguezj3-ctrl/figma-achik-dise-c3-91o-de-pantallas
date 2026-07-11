@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { base44 } from "@/api/base44Client";
+import BottomNav from "@/components/BottomNav";
 
 export default function PagoExitoso() {
   const navigate = useNavigate();
@@ -93,84 +94,7 @@ export default function PagoExitoso() {
         </motion.button>
       </main>
 
-      {/* Bottom Navigation */}
-      <nav className="w-full h-16 bg-figma-secondary border-t-[1px] border-[#e5e7eb] flex flex-row items-center justify-between px-2 shrink-0 z-10 pb-safe">
-        {/* Nav Item: Inicio */}
-        <button onClick={() => navigate("/PantallaDeInicio")} className="flex-1 flex flex-col justify-center items-center gap-1 h-full group cursor-pointer">
-          <div className="relative w-6 h-6 overflow-clip">
-            <img
-              className="w-5 h-[21px] absolute top-0.5 left-[3px] z-[2] group-hover:opacity-80 transition-opacity"
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/03bdbb025_e8d4f62a8_2_3817.svg"
-              alt="Inicio Icon Part 1"
-            />
-            <img
-              className="w-2 h-[11px] absolute top-3 left-[9px] z-[1] group-hover:opacity-80 transition-opacity"
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/5ff55798a_eeed4008d_2_3816.svg"
-              alt="Inicio Icon Part 2"
-            />
-          </div>
-          <span className="text-figma-12 font-medium font-heading leading-figma-16 text-center text-figma-text-3-3 group-hover:text-gray-600 transition-colors">
-            Inicio
-          </span>
-        </button>
-
-        {/* Nav Item: Progreso */}
-        <button onClick={() => navigate("/Progreso")} className="flex-1 flex flex-col justify-center items-center gap-1 h-full group cursor-pointer">
-          <div className="relative w-6 h-6 overflow-clip">
-            <img
-              className="w-[22px] h-5 absolute top-[3px] left-0.5 z-[2] group-hover:opacity-80 transition-opacity"
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/63abea098_88f789cbc_2_3822.svg"
-              alt="Progreso Icon Part 1"
-            />
-            <img
-              className="w-0.5 h-4 absolute top-[7px] left-3 z-[1] group-hover:opacity-80 transition-opacity"
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/33d7012ef_5185ae8cc_2_3821.svg"
-              alt="Progreso Icon Part 2"
-            />
-          </div>
-          <span className="text-figma-12 font-medium font-heading leading-figma-16 text-center text-figma-text-3-3 group-hover:text-gray-600 transition-colors">
-            Progreso
-          </span>
-        </button>
-
-        {/* Nav Item: Planes (Active) */}
-        <button onClick={() => navigate("/Planes")} className="flex-1 flex flex-col justify-center items-center gap-1 h-full cursor-pointer">
-          <div className="relative w-6 h-6 overflow-clip">
-            <img
-              className="w-[22px] h-4 absolute top-[3px] left-0.5 z-[1]"
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/56af908ab_af5925112_2_3826.svg"
-              alt="Planes Icon Part 1"
-            />
-            <img
-              className="w-4 h-0.5 absolute top-[21px] left-[5px] z-[2]"
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/0f7dee969_e2f081622_2_3827.svg"
-              alt="Planes Icon Part 2"
-            />
-          </div>
-          <span className="text-figma-12 font-medium font-heading leading-figma-16 text-center text-[#04d9d9]">
-            Planes
-          </span>
-        </button>
-
-        {/* Nav Item: Perfil */}
-        <button onClick={() => navigate("/Perfil")} className="flex-1 flex flex-col justify-center items-center gap-1 h-full group cursor-pointer">
-          <div className="relative w-6 h-6 overflow-clip">
-            <img
-              className="w-2.5 h-2.5 absolute top-[3px] left-2 z-[2] group-hover:opacity-80 transition-opacity"
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/d02ef3d7b_2fd53adc2_2_3832.svg"
-              alt="Perfil Icon Part 1"
-            />
-            <img
-              className="w-4 h-2 absolute top-[15px] left-[5px] z-[1] group-hover:opacity-80 transition-opacity"
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/ffd6d1148_47bafaae4_2_3831.svg"
-              alt="Perfil Icon Part 2"
-            />
-          </div>
-          <span className="text-figma-12 font-medium font-heading leading-figma-16 text-center text-figma-text-3-3 group-hover:text-gray-600 transition-colors">
-            Perfil
-          </span>
-        </button>
-      </nav>
+      <BottomNav active="Planes" />
     </div>
   );
 }

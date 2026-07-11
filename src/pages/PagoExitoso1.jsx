@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { base44 } from "@/api/base44Client";
+import BottomNav from "@/components/BottomNav";
 
 export default function PagoExitoso() {
   const navigate = useNavigate();
@@ -16,41 +17,6 @@ export default function PagoExitoso() {
     setLoading(false);
     navigate("/PantallaDeInicio");
   };
-
-  const navItems = [
-    {
-      label: "Inicio",
-      active: false,
-      images: [
-        { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/35d82bd79_e0aa1e6f6_2_3652.svg", className: "w-5 h-[21px] absolute top-0.5 left-[3px] z-[2]" },
-        { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/9cd4c1a35_6c26b321a_2_3651.svg", className: "w-2 h-[11px] absolute top-3 left-[9px] z-[1]" },
-      ],
-    },
-    {
-      label: "Progreso",
-      active: false,
-      images: [
-        { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/027a99953_34a29d0ce_2_3659.svg", className: "w-[22px] h-5 absolute top-[3px] left-0.5 z-[2]" },
-        { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/143f14e6b_ae84604dc_2_3658.svg", className: "w-0.5 h-4 absolute top-[7px] left-3 z-[1]" },
-      ],
-    },
-    {
-      label: "Planes",
-      active: true,
-      images: [
-        { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/2f920f30c_87c3cf439_2_3665.svg", className: "w-[22px] h-4 absolute top-[3px] left-0.5 z-[1]" },
-        { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/0fc6d32ad_983e7ee08_2_3666.svg", className: "w-4 h-0.5 absolute top-[21px] left-[5px] z-[2]" },
-      ],
-    },
-    {
-      label: "Perfil",
-      active: false,
-      images: [
-        { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/e1a855370_8bca61dfe_2_3673.svg", className: "w-2.5 h-2.5 absolute top-[3px] left-2 z-[2]" },
-        { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/fb1d30d6f_f5ab5440f_2_3672.svg", className: "w-4 h-2 absolute top-[15px] left-[5px] z-[1]" },
-      ],
-    },
-  ];
 
   return (
     <div className="min-h-screen w-full bg-figma-secondary flex flex-col items-center justify-between font-sans">
@@ -107,41 +73,7 @@ export default function PagoExitoso() {
         </motion.div>
       </main>
 
-      {/* Bottom Navigation */}
-      <nav className="w-full bg-figma-secondary border-t border-[#e5e7eb] sticky bottom-0 z-50 pb-safe">
-        <div className="grid grid-cols-4 h-16 w-full max-w-[392px] mx-auto">
-          {navItems.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                if (item.label === "Inicio") navigate("/PantallaDeInicio");
-                else if (item.label === "Progreso") navigate("/Progreso");
-                else if (item.label === "Planes") navigate("/Planes");
-                else if (item.label === "Perfil") navigate("/Perfil");
-              }}
-              className="flex flex-col justify-center items-center gap-1 w-full h-full focus:outline-none group"
-            >
-              <div className="shrink-0 grow-0 w-6 h-6 overflow-clip relative transition-transform group-hover:scale-110 group-active:scale-95">
-                {item.images.map((img, imgIndex) => (
-                  <img
-                    key={imgIndex}
-                    className={img.className}
-                    src={img.src}
-                    alt={`${item.label} icon part ${imgIndex + 1}`}
-                  />
-                ))}
-              </div>
-              <span
-                className={`text-figma-12 font-medium font-heading leading-figma-16 text-center transition-colors ${
-                  item.active ? "text-[#04d9d9]" : "text-figma-text-3-3 group-hover:text-gray-600"
-                }`}
-              >
-                {item.label}
-              </span>
-            </button>
-          ))}
-        </div>
-      </nav>
+      <BottomNav active="Planes" />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import BottomNav from "@/components/BottomNav";
 
 export default function Perfil() {
   return (
@@ -130,52 +131,7 @@ export default function Perfil() {
         </motion.div>
       </main>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[392px] h-16 bg-figma-secondary border-t border-[#e5e7eb] z-30 flex flex-row">
-        {/* Nav Item: Inicio */}
-        <button className="flex-1 flex flex-col justify-center items-center gap-1 h-full hover:bg-gray-50 transition-colors">
-          <div className="w-6 h-6 relative overflow-clip">
-            <img className="w-5 h-[21px] absolute top-0.5 left-[3px] z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/03c6c5d19_ff6f9a50e_2_3921.svg" alt="" aria-hidden="true" />
-            <img className="w-2 h-[11px] absolute top-3 left-[9px] z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/39aa66e74_5dd1763a3_2_3920.svg" alt="" aria-hidden="true" />
-          </div>
-          <span className="text-figma-12 font-medium leading-figma-16 text-center text-figma-text-3-3">
-            Inicio
-          </span>
-        </button>
-
-        {/* Nav Item: Progreso */}
-        <button className="flex-1 flex flex-col justify-center items-center gap-1 h-full hover:bg-gray-50 transition-colors">
-          <div className="w-6 h-6 relative overflow-clip">
-            <img className="w-[22px] h-5 absolute top-[3px] left-0.5 z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/be0458242_51032a770_2_3928.svg" alt="" aria-hidden="true" />
-            <img className="w-0.5 h-4 absolute top-[7px] left-3 z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/b79ca8f5c_25005ab5c_2_3927.svg" alt="" aria-hidden="true" />
-          </div>
-          <span className="text-figma-12 font-medium leading-figma-16 text-center text-figma-text-3-3">
-            Progreso
-          </span>
-        </button>
-
-        {/* Nav Item: Planes */}
-        <button className="flex-1 flex flex-col justify-center items-center gap-1 h-full hover:bg-gray-50 transition-colors">
-          <div className="w-6 h-6 relative overflow-clip">
-            <img className="w-[22px] h-4 absolute top-[3px] left-0.5 z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/b32d91a3e_0a2de8a24_2_3934.svg" alt="" aria-hidden="true" />
-            <img className="w-4 h-0.5 absolute top-[21px] left-[5px] z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/0081a0d6e_33c50674c_2_3935.svg" alt="" aria-hidden="true" />
-          </div>
-          <span className="text-figma-12 font-medium leading-figma-16 text-center text-figma-text-3-3">
-            Planes
-          </span>
-        </button>
-
-        {/* Nav Item: Perfil (Active) */}
-        <button className="flex-1 flex flex-col justify-center items-center gap-1 h-full hover:bg-gray-50 transition-colors">
-          <div className="w-6 h-6 relative overflow-clip">
-            <img className="w-2.5 h-2.5 absolute top-[3px] left-2 z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/8763d3456_c6d5b533b_2_3942.svg" alt="" aria-hidden="true" />
-            <img className="w-4 h-2 absolute top-[15px] left-[5px] z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/2386e5f42_3135e66c9_2_3941.svg" alt="" aria-hidden="true" />
-          </div>
-          <span className="text-figma-12 font-medium leading-figma-16 text-center text-[#04d9d9]">
-            Perfil
-          </span>
-        </button>
-      </nav>
+      <BottomNav active="Perfil" />
     </div>
   );
 }

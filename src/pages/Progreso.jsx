@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import BottomNav from "@/components/BottomNav";
 
 const courses = [
   {
@@ -29,45 +30,6 @@ const courses = [
       { title: "Larga Exposición", icon: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/2dcb624f7_535951c79_2_3273.svg" },
       { title: "Fotografía Nocturna", icon: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/6c171712f_db16c2a56_2_3279.svg" },
       { title: "Alta Velocidad", icon: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/9a101a09b_b72e88b0e_2_3285.svg" },
-    ],
-  },
-];
-
-const navItems = [
-  {
-    label: "Inicio",
-    active: false,
-    color: "text-figma-text-2-3",
-    icons: [
-      { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/21c93400f_900aeb8bd_2_3299.svg", className: "w-5 h-[21px] absolute top-0.5 left-[3px] z-[2]" },
-      { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/930169f23_05d9684e9_2_3298.svg", className: "w-2 h-[11px] absolute top-3 left-[9px] z-[1]" },
-    ],
-  },
-  {
-    label: "Progreso",
-    active: true,
-    color: "text-[#04d9d9]",
-    icons: [
-      { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/b1b071e0e_31fba6e97_2_3306.svg", className: "w-[22px] h-5 absolute top-[3px] left-0.5 z-[2]" },
-      { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/e8b6f5d52_708163040_2_3305.svg", className: "w-0.5 h-4 absolute top-[7px] left-3 z-[1]" },
-    ],
-  },
-  {
-    label: "Planes",
-    active: false,
-    color: "text-figma-text-2-3",
-    icons: [
-      { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/a5e7a226e_6d6e940dc_2_3312.svg", className: "w-[22px] h-4 absolute top-[3px] left-0.5 z-[1]" },
-      { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/1ba4b61ff_6d6adeced_2_3313.svg", className: "w-4 h-0.5 absolute top-[21px] left-[5px] z-[2]" },
-    ],
-  },
-  {
-    label: "Perfil",
-    active: false,
-    color: "text-figma-text-2-3",
-    icons: [
-      { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/242f7149a_981051299_2_3320.svg", className: "w-2.5 h-2.5 absolute top-[3px] left-2 z-[2]" },
-      { src: "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/bfc57da52_e28d3941e_2_3319.svg", className: "w-4 h-2 absolute top-[15px] left-[5px] z-[1]" },
     ],
   },
 ];
@@ -157,24 +119,7 @@ export default function Progreso() {
         ))}
       </motion.div>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 w-full max-w-[392px] bg-figma-secondary border-t border-[#e5e7eb] h-16 z-50 flex flex-row">
-        {navItems.map((item, idx) => (
-          <button
-            key={idx}
-            className="flex-1 flex flex-col justify-center items-center gap-1 h-full"
-          >
-            <div className="w-6 h-6 relative shrink-0 overflow-clip">
-              {item.icons.map((icon, iIdx) => (
-                <img key={iIdx} className={icon.className} src={icon.src} alt="" />
-              ))}
-            </div>
-            <span className={`text-figma-12 font-medium leading-figma-16 text-center ${item.color}`}>
-              {item.label}
-            </span>
-          </button>
-        ))}
-      </nav>
+      <BottomNav active="Progreso" />
     </main>
   );
 }

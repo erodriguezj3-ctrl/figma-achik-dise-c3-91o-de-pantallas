@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BottomNav from "@/components/BottomNav";
 
 export default function Pago1() {
   const navigate = useNavigate();
@@ -160,48 +161,7 @@ export default function Pago1() {
         </section>
       </main>
 
-      {/* Bottom Navigation */}
-      <nav className="w-full bg-figma-secondary border-t-[1px] border-[#e5e7eb] h-16 grid grid-cols-4 mt-auto sticky bottom-0 z-20 shrink-0">
-        <button onClick={() => navigate("/PantallaDeInicio")} className="flex flex-col justify-center items-center gap-1 h-full w-full hover:bg-gray-50 transition-colors">
-          <div className="shrink-0 w-6 h-6 relative overflow-clip">
-            <img className="w-5 h-[21px] absolute top-0.5 left-[3px] z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/cf13a3ce9_7b65d3e0a_2_3598.svg" alt="Home Icon" />
-            <img className="w-2 h-[11px] absolute top-3 left-[9px] z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/9885ea10c_e4d2a22fe_2_3597.svg" alt="Home Door" />
-          </div>
-          <span className="text-figma-12 font-medium leading-figma-16 text-center text-figma-text-2-3">
-            Inicio
-          </span>
-        </button>
-
-        <button onClick={() => navigate("/Progreso")} className="flex flex-col justify-center items-center gap-1 h-full w-full hover:bg-gray-50 transition-colors">
-          <div className="shrink-0 w-6 h-6 relative overflow-clip">
-            <img className="w-[22px] h-5 absolute top-[3px] left-0.5 z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/662b22cbf_946db0596_2_3605.svg" alt="Progress Icon" />
-            <img className="w-0.5 h-4 absolute top-[7px] left-3 z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/697485a8d_2c5e64019_2_3604.svg" alt="Progress Line" />
-          </div>
-          <span className="text-figma-12 font-medium leading-figma-16 text-center text-figma-text-2-3">
-            Progreso
-          </span>
-        </button>
-
-        <button onClick={() => navigate("/Planes")} className="flex flex-col justify-center items-center gap-1 h-full w-full hover:bg-gray-50 transition-colors">
-          <div className="shrink-0 w-6 h-6 relative overflow-clip">
-            <img className="w-[22px] h-4 absolute top-[3px] left-0.5 z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/203c8485f_b2ab8d254_2_3611.svg" alt="Plans Icon" />
-            <img className="w-4 h-0.5 absolute top-[21px] left-[5px] z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/35cf33bed_8fd56fe73_2_3612.svg" alt="Plans Line" />
-          </div>
-          <span className="text-figma-12 font-medium leading-figma-16 text-center text-[#04d9d9]">
-            Planes
-          </span>
-        </button>
-
-        <button onClick={() => navigate("/Perfil")} className="flex flex-col justify-center items-center gap-1 h-full w-full hover:bg-gray-50 transition-colors">
-          <div className="shrink-0 w-6 h-6 relative overflow-clip">
-            <img className="w-2.5 h-2.5 absolute top-[3px] left-2 z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/68c648d7a_426efabdf_2_3619.svg" alt="Profile Head" />
-            <img className="w-4 h-2 absolute top-[15px] left-[5px] z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/84786ad3e_3d001dfab_2_3618.svg" alt="Profile Body" />
-          </div>
-          <span className="text-figma-12 font-medium leading-figma-16 text-center text-figma-text-2-3">
-            Perfil
-          </span>
-        </button>
-      </nav>
+      <BottomNav active="Planes" />
     </div>
   );
 }
