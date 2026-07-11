@@ -8,7 +8,7 @@ import React from "react";
 export default function PhoneFrame({ children }) {
   return (
     <div className="flex min-h-screen w-full justify-center bg-[#0b132b]">
-      <div className="relative w-[392px] min-h-[852px] overflow-hidden rounded-[32px] bg-figma-secondary shadow-2xl">
+      <div className="relative w-[392px] min-h-[852px] overflow-hidden bg-figma-secondary shadow-2xl">
         {children}
       </div>
     </div>
