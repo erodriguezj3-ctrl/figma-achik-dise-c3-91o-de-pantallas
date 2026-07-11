@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import BottomNav from "@/components/BottomNav";
+import { useBasicProgress } from "@/hooks/useProgress";
 
 export default function PantallaDeInicio() {
   const navigate = useNavigate();
   const [isPremium, setIsPremium] = useState(false);
+  const { completedCount, totalCount, percentage } = useBasicProgress();
 
   useEffect(() => {
     base44.auth.me().then((user) => {
@@ -67,11 +69,16 @@ export default function PantallaDeInicio() {
             </div>
 
             <div className="mt-4 flex w-full flex-col gap-2">
-              <p className="font-heading text-figma-14 font-medium leading-figma-20 text-figma-text-1-3 uppercase">
-                Progreso
-              </p>
+              <div className="flex w-full items-center justify-between">
+                <p className="font-heading text-figma-14 font-medium leading-figma-20 text-figma-text-1-3 uppercase">
+                  Progreso
+                </p>
+                <p className="font-heading text-figma-12 font-medium leading-figma-16 text-figma-text-1-3">
+                  {completedCount} / {totalCount} Temas
+                </p>
+              </div>
               <div className="h-3 w-full shrink-0 overflow-clip rounded-[39311300px] bg-figma-border-3">
-                <div className="h-full w-0 bg-[#04d9d9] transition-all duration-500 ease-out" />
+                <div className="h-full bg-[#04d9d9] transition-all duration-500 ease-out" style={{ width: `${percentage}%` }} />
               </div>
             </div>
           </div>
