@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export default function AltaVelocidad() {
   return (
-    <div className="flex flex-col min-h-screen w-full bg-figma-secondary font-heading">
+    <div className="mx-auto flex flex-col min-h-screen w-full max-w-[392px] bg-figma-secondary font-heading shadow-xl">
       {/* Header */}
       <header className="flex items-center p-6 w-full border-b border-[#e5e7eb] bg-figma-secondary sticky top-0 z-10">
         <button className="flex items-center gap-2 hover:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-md">
@@ -28,7 +28,7 @@ export default function AltaVelocidad() {
       </header>
 
       {/* Main Content */}
-      <main className="flex flex-col flex-1 p-6 w-full max-w-3xl mx-auto">
+      <main className="flex flex-col flex-1 p-6 w-full">
         {/* Title Section */}
         <motion.section
           initial={{ opacity: 0, y: 10 }}
