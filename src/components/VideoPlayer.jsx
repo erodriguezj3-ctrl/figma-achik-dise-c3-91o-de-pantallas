@@ -27,6 +27,8 @@ export default function VideoPlayer({ src, poster, className = "" }) {
       src={src}
       poster={poster}
       controls
+      controlsList="play rewind fast-forward volume"
+      muted={false}
       playsInline
       preload="metadata"
       className={`w-full h-full object-contain bg-figma-accent rounded-[16px] overflow-clip ${className}`}
