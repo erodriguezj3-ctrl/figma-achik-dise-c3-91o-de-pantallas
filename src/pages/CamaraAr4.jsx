@@ -69,9 +69,9 @@ export default function CamaraAr4() {
   };
 
   const sliders = [
-    { label: "DIAFRAGMA", value: getApertureDisplay(), percentage: aperture, onChange: setAperture, ticks: apertureLabels },
     { label: "ISO", value: getIsoDisplay(), percentage: iso, onChange: setIso, ticks: isoLabels },
     { label: "OBTURACIÓN", value: getShutterDisplay(), percentage: shutter, onChange: setShutter, ticks: shutterLabels },
+    { label: "DIAFRAGMA", value: getApertureDisplay(), percentage: aperture, onChange: setAperture, ticks: apertureLabels },
   ];
 
   return (
