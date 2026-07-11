@@ -44,16 +44,14 @@ export default function OnboardingScreen() {
                 transition={{ type: "spring", damping: 15, stiffness: 100 }}
               >
                 <motion.div
-                  className="relative w-[72px] h-[72px]"
+                  className="relative w-[79.6%] h-[79.6%]"
                   animate={{ y: [0, -6, 0] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <div className="w-[102px] min-h-[102px] absolute top-[-15px] left-[-15px] z-[1]">
-                    <img className="w-[29px] h-[21px] absolute top-6 left-[34px] z-[3]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/76121b1a7_7d7d124fa_1_99.svg" alt="Rocket part" />
-                    <img className="w-[55px] h-[29px] absolute top-[23px] left-[38px] z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/6d42b28b5_ebbf3b0d5_1_98.svg" alt="Rocket part" />
-                    <img className="w-[27px] h-[19px] absolute top-[39px] left-[11px] z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/22f5ef662_5767dac9b_1_97.svg" alt="Rocket part" />
-                    <img className="w-[29px] h-[21px] absolute top-[53px] left-[34px] z-[4]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/0470a8d1d_bd6a19e0d_1_100.svg" alt="Rocket part" />
-                  </div>
+                  <img className="absolute left-[33.3%] top-[23.5%] z-[3] h-[20.5%] w-[28.4%]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/74a2ddc9a_5f0453112_1_99.svg" alt="Rocket part" />
+                  <img className="absolute left-[37.2%] top-[22.5%] z-[2] h-[28.4%] w-[53.9%]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/b569a6643_889b48186_1_98.svg" alt="Rocket part" />
+                  <img className="absolute left-[10.7%] top-[38.2%] z-[1] h-[18.6%] w-[26.4%]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/11f65f19c_5583be9fb_1_97.svg" alt="Rocket part" />
+                  <img className="absolute left-[33.3%] top-[51.9%] z-[4] h-[20.5%] w-[28.4%]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/16192997c_91ae7fc27_1_100.svg" alt="Rocket part" />
                 </motion.div>
               </motion.div>
             </div>
