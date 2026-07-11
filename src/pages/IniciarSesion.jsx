@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { base44 } from "@/api/base44Client";
 
 export default function IniciarSesion() {
   const navigate = useNavigate();
@@ -22,8 +23,12 @@ export default function IniciarSesion() {
     }, 600);
   };
 
+  const handleGoogle = () => {
+    base44.auth.loginWithProvider("google", "/PantallaDeInicio");
+  };
+
   return (
-    <main className="w-full max-w-[392px] mx-auto flex flex-col items-center bg-figma-secondary min-h-[853px] p-8">
+    <main className="w-full max-w-[392px] mx-auto flex flex-col items-center justify-center bg-figma-secondary min-h-screen py-12 px-8">
       <div className="w-full flex flex-col">
         {/* Header */}
         <h1 className="text-[clamp(14px,6.12vw,24px)] font-medium font-figma-arimo leading-[1.3333] text-center text-figma-text-1-2">
@@ -101,6 +106,7 @@ export default function IniciarSesion() {
         {/* Google Login */}
         <button
           type="button"
+          onClick={handleGoogle}
           className="flex items-center justify-center gap-3 w-full py-4 mt-8 bg-figma-secondary rounded-[39311300px] shadow-[inset_0_0_0_1px_#e5e7eb] hover:bg-gray-50 active:scale-[0.98] transition-all"
         >
           <div className="relative w-5 h-5 shrink-0">
