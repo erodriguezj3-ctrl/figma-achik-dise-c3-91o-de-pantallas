@@ -34,7 +34,7 @@ export default function FotografiaAvanzada() {
     {
       title: "Fotografía Nocturna",
       description: "Captura en condiciones de baja luz",
-      topic: "fotografia_nocturna",
+      topic: "nocturna",
       route: "/FotografiaNocturna",
     },
     {

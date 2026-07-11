@@ -1,11 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function FotografiaNocturna() {
+  const navigate = useNavigate();
   return (
     <main className="w-full min-h-screen flex flex-col bg-figma-secondary font-heading mx-auto max-w-md">
       {/* Header */}
       <header className="flex items-center p-6 w-full border-b border-[#e5e7eb] shrink-0">
-        <button className="flex items-center gap-2 hover:opacity-80 transition-opacity focus:outline-none">
+        <button onClick={() => navigate("/FotografiaAvanzada")} className="flex items-center gap-2 hover:opacity-80 transition-opacity focus:outline-none">
           <div className="relative w-5 h-5 shrink-0 overflow-clip">
             <img
               className="absolute top-1 left-1 w-[7px] h-[13px] z-[1]"
@@ -46,7 +48,7 @@ export default function FotografiaNocturna() {
         </div>
 
         {/* Action Section */}
-        <button className="w-full h-14 bg-[#04d9d9] hover:bg-[#03c2c2] transition-colors rounded-[39311300px] flex items-center justify-center shrink-0 mt-auto focus:outline-none focus:ring-2 focus:ring-[#04d9d9] focus:ring-offset-2">
+        <button onClick={() => navigate("/Practica", { state: { topic: "nocturna" } })} className="w-full h-14 bg-[#04d9d9] hover:bg-[#03c2c2] transition-colors rounded-[39311300px] flex items-center justify-center shrink-0 mt-auto focus:outline-none focus:ring-2 focus:ring-[#04d9d9] focus:ring-offset-2">
           <span className="text-figma-16 font-medium leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">
             Marcar como completado
           </span>
