@@ -40,6 +40,7 @@ import EfectoBokeh from './pages/EfectoBokeh';
 import PuntosDeLuzClave from './pages/PuntosDeLuzClave';
 import CamaraAr4 from './pages/CamaraAr4';
 import FotografiaAvanzada from './pages/FotografiaAvanzada';
+import LargaExposicion from './pages/LargaExposicion';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -100,6 +101,7 @@ const AuthenticatedApp = () => {
       <Route path="/PuntosDeLuzClave" element={<PuntosDeLuzClave />} />
       <Route path="/CamaraAr4" element={<CamaraAr4 />} />
       <Route path="/FotografiaAvanzada" element={<FotografiaAvanzada />} />
+      <Route path="/LargaExposicion" element={<LargaExposicion />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
