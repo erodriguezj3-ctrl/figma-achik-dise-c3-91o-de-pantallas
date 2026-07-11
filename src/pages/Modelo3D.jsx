@@ -80,7 +80,7 @@ export default function Modelo3D() {
 
   const handleSelectModel = (modelKey) => {
     setModeloSeleccionado(modelKey);
-    const target = topic === "profundidad" || topic === "tercios" ? "/CamaraAr1" : "/Home";
+    const target = topic === "profundidad" || topic === "tercios" || topic === "bokeh" ? "/CamaraAr1" : "/Home";
     navigate(target, { state: { modelUrl: MODEL_URLS[modelKey], modelKey, topic } });
   };
 

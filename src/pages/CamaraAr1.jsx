@@ -7,7 +7,7 @@ export default function CamaraAr1() {
   const [gridActive, setGridActive] = useState(true);
   const [iso, setIso] = useState(0);
   const [shutter, setShutter] = useState(50);
-  const [aperture, setAperture] = useState(50);
+  const [aperture, setAperture] = useState(topic === "bokeh" ? 0 : 50);
   const [arActive, setArActive] = useState(true);
   const [arStatus, setArStatus] = useState(null);
   const [capturing, setCapturing] = useState(false);
@@ -79,6 +79,7 @@ export default function CamaraAr1() {
             iso={iso}
             aperture={aperture}
             modelUrl={modelUrl}
+            deepBokeh={topic === "bokeh"}
           />
 
           {/* Active Area Border */}

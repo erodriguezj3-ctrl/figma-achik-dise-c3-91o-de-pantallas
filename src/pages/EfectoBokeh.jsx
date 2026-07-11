@@ -1,12 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function EfectoBokeh() {
+  const navigate = useNavigate();
   return (
     <main className="w-full min-h-screen flex flex-col bg-figma-secondary font-heading overflow-x-clip">
       {/* Header */}
       <header className="w-full p-6 border-b border-[#e5e7eb] flex items-center bg-figma-secondary sticky top-0 z-10">
-        <button className="flex items-center gap-2 hover:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-md">
+        <button onClick={() => navigate("/FotografiaIntermedia")} className="flex items-center gap-2 hover:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-md">
           <div className="relative w-5 h-5 overflow-clip shrink-0">
             <img
               className="absolute top-1 left-1 w-[7px] h-[13px] z-[1]"
@@ -63,7 +65,7 @@ export default function EfectoBokeh() {
           transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="w-full flex justify-center mt-8"
         >
-          <button className="w-full max-w-[344px] h-14 bg-[#04d9d9] rounded-full flex items-center justify-center hover:bg-[#03c2c2] hover:shadow-md transition-all active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#04d9d9]">
+          <button onClick={() => navigate("/Practica", { state: { topic: "bokeh" } })} className="w-full max-w-[344px] h-14 bg-[#04d9d9] rounded-full flex items-center justify-center hover:bg-[#03c2c2] hover:shadow-md transition-all active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#04d9d9]">
             <span className="text-figma-16 font-medium tracking-[0.4px] text-figma-secondary uppercase leading-figma-24">
               Marcar como completado
             </span>

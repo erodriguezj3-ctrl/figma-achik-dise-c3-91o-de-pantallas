@@ -6,7 +6,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 // Default GLB model — overridden by the modelUrl prop when a model is selected.
 const DEFAULT_MODEL_URL = "https://modelviewer.dev/shared-assets/models/Astronaut.glb";
 
-const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, shutter = 50, aperture = 50, modelUrl = DEFAULT_MODEL_URL, lights = { frontal: true, fill: false, back: true } }, ref) {
+const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, shutter = 50, aperture = 50, modelUrl = DEFAULT_MODEL_URL, lights = { frontal: true, fill: false, back: true }, deepBokeh = false }, ref) {
   const overlayRef = useRef(null);
   const containerRef = useRef(null);
   const videoRef = useRef(null);
@@ -21,8 +21,9 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
   const shutterExposure = 0.5 + (shutter / 100) * 1.0;
   // Combined brightness from ISO gain × shutter exposure
   const brightness = isoGain * shutterExposure;
-  // Aperture → background blur (lower f-stop = shallower depth of field): 10px → 0px
-  const blur = (1 - aperture / 100) * 10;
+  // Aperture → background blur (lower f-stop = shallower depth of field).
+  // deepBokeh mode intensifies the blur for the Bokeh lesson flow.
+  const blur = (1 - aperture / 100) * (deepBokeh ? 24 : 10);
   const overlayFilter = `brightness(${brightness.toFixed(2)})`;
 
   // ---- Three.js scene setup (runs once) ----
