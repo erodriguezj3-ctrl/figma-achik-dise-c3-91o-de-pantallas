@@ -1,11 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LargaExposicion() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col w-full min-h-screen bg-figma-secondary font-sans mx-auto max-w-md shadow-sm">
       {/* Header */}
       <header className="flex flex-row justify-start items-center gap-2 p-6 w-full border-b border-[#e5e7eb] shrink-0">
-        <button className="flex flex-row items-center gap-2 group cursor-pointer transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-md">
+        <button onClick={() => navigate("/FotografiaAvanzada")} className="flex flex-row items-center gap-2 group cursor-pointer transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-md">
           <div className="relative w-5 h-5 overflow-clip shrink-0">
             <img
               className="absolute top-1 left-1 w-[7px] h-[13px] z-[1] transition-transform group-hover:-translate-x-0.5"
@@ -47,7 +49,7 @@ export default function LargaExposicion() {
 
         {/* Action Button */}
         <section className="w-full shrink-0 mt-auto">
-          <button className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-[#03c2c2] hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#04d9d9]/50 active:translate-y-0 active:shadow-md">
+          <button onClick={() => navigate("/Practica", { state: { topic: "larga_exposicion" } })} className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-[#03c2c2] hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#04d9d9]/50 active:translate-y-0 active:shadow-md">
             <span className="text-figma-16 font-medium font-heading leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">
               Marcar como completado
             </span>

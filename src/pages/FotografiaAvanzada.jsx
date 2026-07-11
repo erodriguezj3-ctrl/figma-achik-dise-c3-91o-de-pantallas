@@ -1,7 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function FotografiaAvanzada() {
+  const navigate = useNavigate();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -26,14 +28,20 @@ export default function FotografiaAvanzada() {
     {
       title: "Larga Exposición",
       description: "Técnicas de exposición prolongada",
+      topic: "larga_exposicion",
+      route: "/LargaExposicion",
     },
     {
       title: "Fotografía Nocturna",
       description: "Captura en condiciones de baja luz",
+      topic: "fotografia_nocturna",
+      route: "/FotografiaNocturna",
     },
     {
       title: "Alta Velocidad",
       description: "Congelación del movimiento",
+      topic: "alta_velocidad",
+      route: "/AltaVelocidad",
     },
   ];
 
@@ -41,7 +49,7 @@ export default function FotografiaAvanzada() {
     <main className="w-full max-w-md mx-auto min-h-screen bg-figma-secondary flex flex-col font-heading">
       {/* Header */}
       <header className="flex items-center p-6 w-full border-b border-[#e5e7eb] shrink-0 bg-figma-secondary sticky top-0 z-10">
-        <button className="flex items-center gap-2 hover:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-md">
+        <button onClick={() => navigate("/PantallaDeInicio")} className="flex items-center gap-2 hover:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-md">
           <div className="shrink-0 w-5 h-5 relative overflow-clip">
             <img
               className="w-[7px] h-[13px] absolute top-1 left-1 z-[1]"
@@ -98,19 +106,20 @@ export default function FotografiaAvanzada() {
           </h2>
 
           <div className="flex flex-col gap-3 w-full">
-            {courseTopics.map((topic, index) => (
+            {courseTopics.map((courseTopic, index) => (
               <motion.button
                 key={index}
                 variants={itemVariants}
                 whileHover={{ scale: 1.015, backgroundColor: "#f8fafc" }}
                 whileTap={{ scale: 0.98 }}
+                onClick={() => navigate(courseTopic.route, { state: { topic: courseTopic.topic } })}
                 className="flex flex-col justify-center text-left bg-figma-secondary rounded-[16px] shadow-[inset_0_0_0_1px_#04d9d9] w-full p-[17px] gap-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] focus-visible:ring-offset-2"
               >
                 <h3 className="text-figma-16 font-bold leading-figma-24 text-figma-text-1-2">
-                  {topic.title}
+                  {courseTopic.title}
                 </h3>
                 <p className="text-figma-14 font-medium leading-figma-20 text-figma-text-5">
-                  {topic.description}
+                  {courseTopic.description}
                 </p>
               </motion.button>
             ))}

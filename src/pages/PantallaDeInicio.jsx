@@ -151,7 +151,7 @@ export default function PantallaDeInicio() {
             </button>
 
             {/* Advanced Course Card */}
-            <button className={`relative flex w-full items-start gap-4 rounded-[24px] bg-figma-accent-4 p-[25px] text-left ${isPremium ? "" : "opacity-[0.85]"} shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10),_0px_10px_15px_-3px_rgba(0,0,0,0.10),_inset_0_0_0_1px_#9ca3af] transition-transform hover:scale-[1.02] active:scale-[0.98]`}>
+            <button onClick={() => navigate("/FotografiaAvanzada")} className={`relative flex w-full items-start gap-4 rounded-[24px] bg-figma-accent-4 p-[25px] text-left ${isPremium ? "" : "opacity-[0.85]"} shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10),_0px_10px_15px_-3px_rgba(0,0,0,0.10),_inset_0_0_0_1px_#9ca3af] transition-transform hover:scale-[1.02] active:scale-[0.98]`}>
               <div className="relative mt-1 h-8 w-8 shrink-0 overflow-clip">
                 <img
                   className="absolute left-[3px] top-[5px] z-[1] h-6 w-[29px]"
