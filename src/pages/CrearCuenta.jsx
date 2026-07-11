@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function CrearCuenta() {
+  const navigate = useNavigate();
   const [aceptaTerminos, setAceptaTerminos] = useState(false);
   const [error, setError] = useState("");
 
@@ -135,6 +137,7 @@ export default function CrearCuenta() {
         {/* Google Login */}
         <button
           type="button"
+          onClick={() => navigate("/PantallaDeInicio")}
           className="w-full flex flex-row items-center justify-center gap-3 py-4 bg-figma-secondary rounded-[39311300px] shadow-[inset_0_0_0_1px_#e5e7eb] hover:bg-gray-50 active:scale-[0.98] transition-all duration-200 mb-6"
         >
           <div className="w-5 h-5 relative overflow-clip shrink-0">
@@ -151,9 +154,9 @@ export default function CrearCuenta() {
         {/* Footer Link */}
         <p className="text-figma-14 font-normal font-heading leading-figma-20 text-center text-figma-text-5">
           ¿Ya tienes una cuenta?{" "}
-          <a href="#login" className="font-medium text-[#04d9d9] hover:underline focus:outline-none focus:ring-2 focus:ring-[#04d9d9] focus:ring-offset-2 rounded-sm">
+          <button type="button" onClick={() => navigate("/Bienvenida")} className="font-medium text-[#04d9d9] hover:underline focus:outline-none focus:ring-2 focus:ring-[#04d9d9] focus:ring-offset-2 rounded-sm">
             Iniciar sesión
-          </a>
+          </button>
         </p>
 
       </motion.div>
