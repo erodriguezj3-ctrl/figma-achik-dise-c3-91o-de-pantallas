@@ -55,8 +55,8 @@ export default function Perfil() {
               Estadísticas
             </h3>
             <div className="flex flex-col gap-3 w-full">
-              {/* Stat Item 1 */}
-              <div className="flex flex-row justify-between items-center p-4 bg-figma-primary-2 rounded-[16px] w-full">
+              {/* Stat Item 1 - Progress Bar */}
+              <div className="flex flex-col p-4 bg-figma-primary-2 rounded-[16px] w-full gap-3">
                 <div className="flex flex-row items-center gap-3">
                   <div className="flex justify-center items-center h-10 w-10 bg-[#04d9d9] rounded-full shrink-0">
                     <div className="w-5 h-5 relative overflow-clip">
@@ -68,9 +68,14 @@ export default function Perfil() {
                     Puntos Totales
                   </span>
                 </div>
-                <span className="text-figma-16 font-bold leading-figma-24 text-figma-accent">
-                  0
-                </span>
+                <div className="flex flex-col gap-1.5 w-full">
+                  <div className="bg-gray-100 h-3 w-full rounded-full overflow-hidden">
+                    <div className="bg-cyan-400 h-3 rounded-full w-0 transition-all duration-500" />
+                  </div>
+                  <span className="text-figma-12 font-medium leading-figma-16 text-figma-text-1-3">
+                    0 temas completados
+                  </span>
+                </div>
               </div>
 
               {/* Stat Item 2 */}
