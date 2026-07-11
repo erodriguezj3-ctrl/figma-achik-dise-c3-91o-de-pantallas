@@ -15,13 +15,13 @@
 
 export const VIDEO_SOURCES = {
   // --- Videos de Introducción (menús de curso) ---
-  intro_basica:"https://drive.google.com/file/d/1ZRTVP7hcpVuG1OzXTsIeKi48idbAZtiv/view?usp=sharing",
-  intro_intermedia:"https://drive.google.com/file/d/10CXhS7crxdVKuMWhCNyzKmO27XmuI1sI/view?usp=sharing",
+  intro_basica: "https://drive.google.com/file/d/1ZRTVP7hcpVuG1OzXTsIeKi48idbAZtiv/view?usp=sharing",
+  intro_intermedia: "https://drive.google.com/file/d/10CXhS7crxdVKuMWhCNyzKmO27XmuI1sI/view?usp=sharing",
   intro_avanzada: "",
 
   // --- Videos de Clases Específicas ---
-  clase_triangulo:"https://drive.google.com/file/d/1Vrkt-ivZxgTb0NQn3WSWiqfDP1HRKHyw/view?usp=sharing",
-  clase_composicion:"https://drive.google.com/file/d/1m5DZHciHCifosDlVO53LYzY8Hf1tQXXB/view?usp=sharing",
+  clase_triangulo: "https://drive.google.com/file/d/1Vrkt-ivZxgTb0NQn3WSWiqfDP1HRKHyw/view?usp=sharing",
+  clase_composicion: "https://drive.google.com/file/d/1m5DZHciHCifosDlVO53LYzY8Hf1tQXXB/view?usp=sharing",
   clase_larga_exposicion: "",
   clase_nocturna: "",
   clase_alta_velocidad: "",
