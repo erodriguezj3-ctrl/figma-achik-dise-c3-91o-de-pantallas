@@ -37,6 +37,7 @@ import Planes from './pages/Planes';
 import FotografiaIntermedia from './pages/FotografiaIntermedia';
 import ProfundidadDeCampo from './pages/ProfundidadDeCampo';
 import EfectoBokeh from './pages/EfectoBokeh';
+import PuntosDeLuzClave from './pages/PuntosDeLuzClave';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -94,6 +95,7 @@ const AuthenticatedApp = () => {
       <Route path="/FotografiaIntermedia" element={<FotografiaIntermedia />} />
       <Route path="/ProfundidadDeCampo" element={<ProfundidadDeCampo />} />
       <Route path="/EfectoBokeh" element={<EfectoBokeh />} />
+      <Route path="/PuntosDeLuzClave" element={<PuntosDeLuzClave />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
