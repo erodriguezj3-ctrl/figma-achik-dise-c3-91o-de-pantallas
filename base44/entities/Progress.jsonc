@@ -1,0 +1,18 @@
+{
+  "name": "Progress",
+  "type": "object",
+  "properties": {
+    "topic_key": {
+      "type": "string",
+      "description": "Identificador del tema del curso"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Si el tema fue completado"
+    }
+  },
+  "required": [
+    "topic_key"
+  ]
+}

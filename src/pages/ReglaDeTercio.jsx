@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import VideoPlayer from "@/components/VideoPlayer";
 import { VIDEO_SOURCES } from "@/config/videos";
+import { markTopicComplete } from "@/hooks/useProgress";
 
 export default function ReglaDeTercio() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export default function ReglaDeTercio() {
 
           {/* Action Footer */}
           <div className="mt-auto pt-6 flex-shrink-0 w-full">
-            <button onClick={() => navigate("/Practica", { state: { topic: "tercios" } })} className="w-full h-14 bg-[#04d9d9] rounded-full flex items-center justify-center text-figma-secondary text-figma-16 font-medium tracking-[0.4px] uppercase hover:bg-[#03c2c2] transition-all active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#04d9d9]">
+            <button onClick={async () => { await markTopicComplete("tercios"); navigate("/Practica", { state: { topic: "tercios" } }); }} className="w-full h-14 bg-[#04d9d9] rounded-full flex items-center justify-center text-figma-secondary text-figma-16 font-medium tracking-[0.4px] uppercase hover:bg-[#03c2c2] transition-all active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#04d9d9]">
               Marcar como completado
             </button>
           </div>
