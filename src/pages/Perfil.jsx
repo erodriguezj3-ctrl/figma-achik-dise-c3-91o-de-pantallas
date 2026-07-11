@@ -126,7 +126,7 @@ export default function Perfil() {
             <motion.button
               whileHover={{ backgroundColor: "rgba(0,0,0,0.02)" }}
               whileTap={{ scale: 0.98 }}
-              onClick={async () => { await base44.auth.logout(); navigate("/Bienvenida"); }}
+              onClick={() => { localStorage.clear(); window.location.href = "/Bienvenida"; }}
               className="flex flex-row justify-center items-center gap-3 p-4 w-full rounded-[16px] shadow-[inset_0_0_0_1px_#d1d5dc] bg-transparent transition-colors"
             >
               <div className="w-5 h-5 relative overflow-clip shrink-0">
