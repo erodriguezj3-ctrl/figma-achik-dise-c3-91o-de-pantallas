@@ -2,8 +2,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
 import { useBasicProgress } from "@/hooks/useProgress";
+import { base44 } from "@/api/base44Client";
+import { useNavigate } from "react-router-dom";
 
 export default function Perfil() {
+  const navigate = useNavigate();
   const { completedCount, totalCount, percentage, cursosCompletados, photoCount } = useBasicProgress();
   return (
     <div className="flex flex-col min-h-screen bg-figma-secondary w-full max-w-[392px] mx-auto relative font-heading">
@@ -123,6 +126,7 @@ export default function Perfil() {
             <motion.button
               whileHover={{ backgroundColor: "rgba(0,0,0,0.02)" }}
               whileTap={{ scale: 0.98 }}
+              onClick={async () => { await base44.auth.logout(); navigate("/Bienvenida"); }}
               className="flex flex-row justify-center items-center gap-3 p-4 w-full rounded-[16px] shadow-[inset_0_0_0_1px_#d1d5dc] bg-transparent transition-colors"
             >
               <div className="w-5 h-5 relative overflow-clip shrink-0">
