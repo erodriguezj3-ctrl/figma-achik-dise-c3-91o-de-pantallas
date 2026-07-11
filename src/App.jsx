@@ -28,6 +28,7 @@ import ReglaDeTercio from './pages/ReglaDeTercio';
 import Practica1 from './pages/Practica1';
 import CamaraAr1 from './pages/CamaraAr1';
 import Progreso from './pages/Progreso';
+import Perfil from './pages/Perfil';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -76,6 +77,7 @@ const AuthenticatedApp = () => {
       <Route path="/Practica1" element={<Practica1 />} />
       <Route path="/CamaraAr1" element={<CamaraAr1 />} />
       <Route path="/Progreso" element={<Progreso />} />
+      <Route path="/Perfil" element={<Perfil />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
