@@ -59,11 +59,6 @@ export default function Bienvenida() {
           <button onClick={() => navigate("/CrearCuenta")} className="w-full h-14 bg-[#04d9d9] rounded-full flex items-center justify-center text-figma-16 font-medium font-heading leading-figma-24 tracking-[0.4px] uppercase text-figma-secondary transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] focus-visible:ring-offset-2 focus-visible:ring-offset-figma-secondary">
             Registrarse
           </button>
-
-          {/* Terms & Conditions */}
-          <p className="text-center text-xs text-gray-500 mt-6 px-4 leading-relaxed">
-            Al continuar, aceptas nuestros Términos y Condiciones y Políticas de Privacidad.
-          </p>
         </motion.div>
       </motion.div>
     </main>

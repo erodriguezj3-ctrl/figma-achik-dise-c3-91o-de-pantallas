@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 export default function CrearCuenta() {
+  const [aceptaTerminos, setAceptaTerminos] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!aceptaTerminos) {
+      setError("Debes aceptar los términos y condiciones para continuar.");
+      return;
+    }
+    setError("");
+    // Continue registration flow
+  };
+
   return (
     <main className="min-h-screen w-full bg-figma-secondary flex flex-col items-center justify-start py-12 px-4 sm:px-8 font-sans">
       <motion.div
@@ -19,7 +32,7 @@ export default function CrearCuenta() {
         </div>
 
         {/* Form */}
-        <form className="w-full flex flex-col" onSubmit={(e) => e.preventDefault()}>
+        <form className="w-full flex flex-col" onSubmit={handleSubmit}>
 
           {/* Nombres Completos */}
           <div className="w-full flex flex-col mb-4">
@@ -70,19 +83,34 @@ export default function CrearCuenta() {
           </div>
 
           {/* Terms Checkbox */}
-          <label className="w-full flex flex-row items-start gap-3 mb-6 cursor-pointer group">
-            <div className="pt-1 shrink-0 relative flex items-center justify-center">
-              <input type="checkbox" className="peer sr-only" />
-              <div className="w-[13px] h-4 bg-figma-secondary rounded-[2px] shadow-[inset_0_0_0_1px_#767676] peer-checked:bg-[#04d9d9] peer-checked:shadow-[inset_0_0_0_1px_#04d9d9] transition-all duration-200 flex items-center justify-center">
-                <svg className="w-2.5 h-2.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+          <label className="w-full flex flex-row items-start gap-3 mb-3 cursor-pointer group">
+            <div className="pt-0.5 shrink-0 relative flex items-center justify-center">
+              <input
+                type="checkbox"
+                checked={aceptaTerminos}
+                onChange={(e) => {
+                  setAceptaTerminos(e.target.checked);
+                  if (e.target.checked) setError("");
+                }}
+                className="peer sr-only"
+              />
+              <div className={`w-5 h-5 rounded-[4px] flex items-center justify-center transition-all duration-200 ${aceptaTerminos ? "bg-[#04d9d9] shadow-[inset_0_0_0_1px_#04d9d9]" : "bg-figma-secondary shadow-[inset_0_0_0_1px_#767676]"}`}>
+                <svg className={`w-3 h-3 text-white transition-opacity duration-200 ${aceptaTerminos ? "opacity-100" : "opacity-0"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
             </div>
             <span className="text-figma-14 font-medium font-heading leading-figma-20 text-figma-text-5 select-none">
-              Acepto los términos de servicio y la política de privacidad
+              Acepto los Términos y Condiciones y las Políticas de Privacidad.
             </span>
           </label>
+
+          {/* Error message */}
+          {error && (
+            <p className="text-figma-14 font-medium font-heading leading-figma-20 text-red-500 mb-3 px-1">
+              {error}
+            </p>
+          )}
 
           {/* Submit Button */}
           <button
