@@ -9,7 +9,19 @@ export default function IniciarSesion() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const resetProgress = async () => {
+    try {
+      localStorage.clear();
+      const records = await base44.entities.Progress.filter({});
+      for (const record of records) {
+        await base44.entities.Progress.delete(record.id);
+      }
+    } catch (e) {
+      // si no hay sesión previa, no hay nada que limpiar
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     if (!email.trim() || !password.trim()) {
@@ -17,13 +29,15 @@ export default function IniciarSesion() {
       return;
     }
     setLoading(true);
+    await resetProgress();
     setTimeout(() => {
       setLoading(false);
       navigate("/PantallaDeInicio");
     }, 600);
   };
 
-  const handleGoogle = () => {
+  const handleGoogle = async () => {
+    await resetProgress();
     base44.auth.loginWithProvider("google", "/PantallaDeInicio");
   };
 
