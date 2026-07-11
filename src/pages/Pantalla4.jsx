@@ -36,9 +36,9 @@ export default function OnboardingScreen() {
             </div>
 
             {/* Center Rocket */}
-            <div className="absolute inset-0 m-auto w-[128px] min-h-[128px] z-[3]">
+            <div className="absolute inset-0 m-auto w-[128px] h-[128px] z-[3]">
               <motion.div
-                className="w-full h-full bg-[#04d9d9] shadow-[0px_8px_10px_-6px_rgba(0,0,0,0.10),_0px_20px_25px_-5px_rgba(0,0,0,0.10)] rounded-[39311300px] flex items-center justify-center"
+                className="w-[128px] h-[128px] bg-[#04d9d9] shadow-[0px_8px_10px_-6px_rgba(0,0,0,0.10),_0px_20px_25px_-5px_rgba(0,0,0,0.10)] rounded-full flex items-center justify-center"
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ type: "spring", damping: 15, stiffness: 100 }}
