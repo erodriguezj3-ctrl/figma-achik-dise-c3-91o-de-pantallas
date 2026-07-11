@@ -6,7 +6,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 // Default GLB model — overridden by the modelUrl prop when a model is selected.
 const DEFAULT_MODEL_URL = "https://modelviewer.dev/shared-assets/models/Astronaut.glb";
 
-const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, aperture = 50, modelUrl = DEFAULT_MODEL_URL, lights = { frontal: true, fill: false, back: true } }, ref) {
+const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, shutter = 50, aperture = 50, modelUrl = DEFAULT_MODEL_URL, lights = { frontal: true, fill: false, back: true } }, ref) {
   const overlayRef = useRef(null);
   const containerRef = useRef(null);
   const videoRef = useRef(null);
@@ -15,8 +15,12 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
   const hitSourceRef = useRef(null);
   const [error, setError] = useState(null);
 
-  // ISO → brightness (higher ISO = brighter image): 0.6x → 1.6x
-  const brightness = 0.6 + (iso / 100) * 1.0;
+  // ISO → digital gain (higher ISO = brighter): 0.8x → 1.8x
+  const isoGain = 0.8 + (iso / 100) * 1.0;
+  // Shutter → exposure time (slower shutter = more light, brighter): 0.5x → 1.5x
+  const shutterExposure = 0.5 + (shutter / 100) * 1.0;
+  // Combined brightness from ISO gain × shutter exposure
+  const brightness = isoGain * shutterExposure;
   // Aperture → background blur (lower f-stop = shallower depth of field): 10px → 0px
   const blur = (1 - aperture / 100) * 10;
   const overlayFilter = `brightness(${brightness.toFixed(2)})`;

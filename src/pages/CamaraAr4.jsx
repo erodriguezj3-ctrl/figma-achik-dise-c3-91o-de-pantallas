@@ -9,24 +9,76 @@ const lightModes = [
   { key: "back", icon: "🌅", label: "Contraluz" },
 ];
 
+const isoLabels = ["100", "400", "1600", "3200", "6400"];
+const shutterLabels = ["1/2000", "1/500", "1/100", "1/8", '2"'];
+const apertureLabels = ["f/2.8", "f/4", "f/5.6", "f/8", "f/16"];
+
+const isoValues = ["100", "400", "1600", "3200", "6400"];
+const shutterValues = ["1/2000", "1/500", "1/100", "1/8", '2"'];
+const apertureValues = ["f/2.8", "f/4", "f/5.6", "f/8", "f/16"];
+
 export default function CamaraAr4() {
   const navigate = useNavigate();
   const location = useLocation();
   const modelUrl = location.state?.modelUrl;
+  const topic = location.state?.topic;
 
   const viewerRef = useRef(null);
-  const [arActive, setArActive] = useState(false);
+  const [arActive, setArActive] = useState(true);
   const [arStatus, setArStatus] = useState(null);
   const [lights, setLights] = useState({ frontal: true, fill: true, back: true });
+  const [iso, setIso] = useState(0);
+  const [shutter, setShutter] = useState(50);
+  const [aperture, setAperture] = useState(50);
+  const [capturing, setCapturing] = useState(false);
+  const [flash, setFlash] = useState(false);
 
   const toggleLight = (key) =>
     setLights((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  const getIsoDisplay = () => {
+    const idx = Math.round((iso / 100) * (isoValues.length - 1));
+    return isoValues[idx];
+  };
+  const getShutterDisplay = () => {
+    const idx = Math.round((shutter / 100) * (shutterValues.length - 1));
+    return shutterValues[idx];
+  };
+  const getApertureDisplay = () => {
+    const idx = Math.round((aperture / 100) * (apertureValues.length - 1));
+    return apertureValues[idx];
+  };
+
+  const handleCapture = async () => {
+    if (capturing) return;
+    setCapturing(true);
+    setFlash(true);
+    await new Promise((r) => setTimeout(r, 120));
+    const image = viewerRef.current?.capture();
+    setFlash(false);
+    setCapturing(false);
+    navigate("/Captura2", {
+      state: {
+        image,
+        iso: getIsoDisplay(),
+        shutter: getShutterDisplay(),
+        aperture: getApertureDisplay(),
+        topic,
+      },
+    });
+  };
+
+  const sliders = [
+    { label: "DIAFRAGMA", value: getApertureDisplay(), percentage: aperture, onChange: setAperture, ticks: apertureLabels },
+    { label: "ISO", value: getIsoDisplay(), percentage: iso, onChange: setIso, ticks: isoLabels },
+    { label: "OBTURACIÓN", value: getShutterDisplay(), percentage: shutter, onChange: setShutter, ticks: shutterLabels },
+  ];
 
   return (
     <main className="w-full max-w-[392px] mx-auto flex flex-col min-h-screen bg-figma-accent relative overflow-clip">
       {/* Viewfinder Section */}
       <div className="relative w-full min-h-[401px] shrink-0 bg-figma-surface overflow-clip z-0">
-        {/* AR 3D Viewer — camera feed + selected model */}
+        {/* AR 3D Viewer — rear camera + selected model */}
         <ThreeDViewer
           ref={viewerRef}
           arActive={arActive}
@@ -34,10 +86,18 @@ export default function CamaraAr4() {
           onARExit={() => setArActive(false)}
           modelUrl={modelUrl}
           lights={lights}
+          iso={iso}
+          shutter={shutter}
+          aperture={aperture}
         />
 
         {/* Inner Cyan Border */}
         <div className="absolute inset-4 rounded-[10px] shadow-[inset_0_0_0_1px_rgba(0,211,243,0.60)] pointer-events-none z-10" />
+
+        {/* Capture flash */}
+        {flash && (
+          <div className="absolute inset-0 bg-white pointer-events-none z-40" />
+        )}
 
         {/* Top Controls - Volver */}
         <motion.button
@@ -78,7 +138,7 @@ export default function CamaraAr4() {
 
         {/* AR status indicator */}
         {arStatus && (
-          <div className="absolute left-4 right-4 bottom-20 z-20 bg-[#111827]/80 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center gap-2">
+          <div className="absolute left-4 right-4 z-20 bg-[#111827]/80 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center gap-2" style={{ bottom: "60px" }}>
             <span className="w-2 h-2 rounded-full bg-[#00d3f3] animate-pulse" />
             <p className="text-figma-12 font-medium text-[#00d3f3]">{arStatus}</p>
           </div>
@@ -131,71 +191,52 @@ export default function CamaraAr4() {
       {/* Camera Controls Section */}
       <div className="flex-1 flex flex-col justify-start items-start p-6 w-full bg-figma-text-1-2 rounded-[24px_24px_0px_0px] z-10 relative gap-6">
 
-        {/* ISO Slider */}
-        <div className="flex flex-col justify-start items-start w-full">
-          <div className="flex flex-row justify-between items-center pb-[8px] w-full">
-            <div className="flex flex-col justify-start items-start py-1 px-3 bg-[#04d9d9] rounded-[4px]">
-              <p className="text-figma-12 font-bold font-heading leading-figma-16 text-figma-text-2">ISO</p>
-            </div>
-            <p className="text-figma-18 font-bold font-heading leading-figma-28 text-figma-secondary">100</p>
-          </div>
-          <div className="w-full min-h-[27px] relative flex items-center">
-            <div className="bg-[linear-gradient(90deg,_rgba(4,217,217,1.00)_0%,_rgba(4,217,217,1.00)_0%,_rgba(75,85,99,1.00)_0%,_rgba(75,85,99,1.00)_100%)] rounded-[39311300px] w-full h-2" />
-          </div>
-          <div className="flex flex-row justify-between items-start w-full">
-            {["100", "400", "1600", "3200", "6400"].map((val) => (
-              <p key={val} className="text-figma-12 font-normal font-heading leading-figma-16 text-figma-text-1">
-                {val}
+        {/* Sliders */}
+        {sliders.map((slider, index) => (
+          <div key={index} className="flex flex-col w-full">
+            <div className="flex flex-row justify-between items-center pb-2">
+              <div className="py-1 px-3 bg-[#04d9d9] rounded-[4px]">
+                <p className="text-figma-12 font-bold font-heading leading-figma-16 text-figma-text-2 uppercase">
+                  {slider.label}
+                </p>
+              </div>
+              <p className="text-figma-18 font-bold font-heading leading-figma-28 text-figma-secondary">
+                {slider.value}
               </p>
-            ))}
-          </div>
-        </div>
+            </div>
 
-        {/* OBTURACIÓN Slider */}
-        <div className="flex flex-col justify-start items-start w-full">
-          <div className="flex flex-row justify-between items-center pb-[8px] w-full">
-            <div className="flex flex-col justify-start items-start py-1 px-3 bg-[#04d9d9] rounded-[4px]">
-              <p className="text-figma-12 font-bold font-heading leading-figma-16 text-figma-text-2">OBTURACIÓN</p>
+            <div className="w-full min-h-[27px] relative cursor-pointer">
+              <div className="absolute inset-x-0 top-[11px] h-2 rounded-[39311300px] overflow-clip bg-[#4b5563]">
+                <div className="h-full bg-[#04d9d9] rounded-full" style={{ width: `${slider.percentage}%` }} />
+              </div>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                value={slider.percentage}
+                onChange={(e) => slider.onChange(Number(e.target.value))}
+                className="absolute inset-x-0 w-full opacity-0 cursor-pointer h-8"
+                style={{ zIndex: 10 }}
+              />
             </div>
-            <p className="text-figma-18 font-bold font-heading leading-figma-28 text-figma-secondary">1/100</p>
-          </div>
-          <div className="w-full min-h-[27px] relative flex items-center">
-            <div className="bg-[linear-gradient(90deg,_rgba(4,217,217,1.00)_0%,_rgba(4,217,217,1.00)_50%,_rgba(75,85,99,1.00)_50%,_rgba(75,85,99,1.00)_100%)] rounded-[39311300px] w-full h-2" />
-          </div>
-          <div className="flex flex-row justify-between items-start w-full">
-            {["1/2000", "1/500", "1/100", "1/8", '2"'].map((val) => (
-              <p key={val} className="text-figma-12 font-normal font-heading leading-figma-16 text-figma-text-1">
-                {val}
-              </p>
-            ))}
-          </div>
-        </div>
 
-        {/* DIAFRAGMA Slider */}
-        <div className="flex flex-col justify-start items-start w-full">
-          <div className="flex flex-row justify-between items-center pb-[8px] w-full">
-            <div className="flex flex-col justify-start items-start py-1 px-3 bg-[#04d9d9] rounded-[4px]">
-              <p className="text-figma-12 font-bold font-heading leading-figma-16 text-figma-text-2">DIAFRAGMA</p>
+            <div className="flex flex-row justify-between items-start w-full h-4">
+              {slider.ticks.map((tick, i) => (
+                <p key={i} className="text-figma-12 font-normal font-heading leading-figma-16 text-figma-text-1">
+                  {tick}
+                </p>
+              ))}
             </div>
-            <p className="text-figma-18 font-bold font-heading leading-figma-28 text-figma-secondary">f/5.6</p>
           </div>
-          <div className="w-full min-h-[27px] relative flex items-center">
-            <div className="bg-[linear-gradient(90deg,_rgba(4,217,217,1.00)_0%,_rgba(4,217,217,1.00)_50%,_rgba(75,85,99,1.00)_50%,_rgba(75,85,99,1.00)_100%)] rounded-[39311300px] w-full h-2" />
-          </div>
-          <div className="flex flex-row justify-between items-start w-full">
-            {["f/2.8", "f/4", "f/5.6", "f/8", "f/16"].map((val) => (
-              <p key={val} className="text-figma-12 font-normal font-heading leading-figma-16 text-figma-text-1">
-                {val}
-              </p>
-            ))}
-          </div>
-        </div>
+        ))}
 
         {/* Shutter Button */}
         <div className="flex flex-row justify-center items-start w-full mt-auto pt-4 pb-2">
           <motion.button
             whileTap={{ scale: 0.9 }}
-            className="flex flex-row justify-center items-center h-20 w-20 bg-[#04d9d9] rounded-[39311300px] shadow-[inset_0_0_0_4px_#ffffff]"
+            onClick={handleCapture}
+            disabled={capturing}
+            className="flex flex-row justify-center items-center h-20 w-20 bg-[#04d9d9] rounded-[39311300px] shadow-[inset_0_0_0_4px_#ffffff] disabled:opacity-60"
           >
             <div className="bg-figma-secondary rounded-[39311300px] w-14 h-14" />
           </motion.button>
