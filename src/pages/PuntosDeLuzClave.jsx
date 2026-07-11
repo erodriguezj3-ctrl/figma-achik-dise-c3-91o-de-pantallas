@@ -1,12 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function PuntosDeLuzClave() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col min-h-[100dvh] bg-figma-secondary w-full max-w-[392px] mx-auto font-heading relative overflow-clip shadow-2xl">
       {/* Header */}
       <header className="flex items-center p-6 border-b border-[#e5e7eb] w-full bg-figma-secondary sticky top-0 z-20">
-        <button className="flex items-center gap-2 hover:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-md group">
+        <button onClick={() => navigate("/FotografiaIntermedia")} className="flex items-center gap-2 hover:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-md group">
           <div className="relative w-5 h-5 overflow-clip shrink-0 group-hover:-translate-x-0.5 transition-transform">
             <img
               className="absolute top-1 left-1 w-[7px] h-[13px] z-[1]"
@@ -68,7 +70,7 @@ export default function PuntosDeLuzClave() {
           transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
           className="w-full mt-auto shrink-0"
         >
-          <button className="w-full h-14 bg-[#04d9d9] rounded-full flex items-center justify-center hover:bg-[#03c8c8] hover:shadow-md transition-all duration-200 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#04d9d9]">
+          <button onClick={() => navigate("/Practica", { state: { topic: "luces" } })} className="w-full h-14 bg-[#04d9d9] rounded-full flex items-center justify-center hover:bg-[#03c8c8] hover:shadow-md transition-all duration-200 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#04d9d9]">
             <span className="text-figma-16 font-medium leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">
               Marcar como completado
             </span>

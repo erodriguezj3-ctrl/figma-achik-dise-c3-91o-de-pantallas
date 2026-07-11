@@ -67,7 +67,7 @@ export default function FotografiaIntermedia() {
             </button>
 
             {/* Topic Card 3 */}
-            <button className="flex flex-col justify-center p-[17px] bg-figma-secondary rounded-[16px] shadow-[inset_0_0_0_1px_#04d9d9] w-full text-left hover:bg-[#04d9d9]/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] focus-visible:ring-offset-2 group">
+            <button onClick={() => navigate("/PuntosDeLuzClave", { state: { topic: "luces" } })} className="flex flex-col justify-center p-[17px] bg-figma-secondary rounded-[16px] shadow-[inset_0_0_0_1px_#04d9d9] w-full text-left hover:bg-[#04d9d9]/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] focus-visible:ring-offset-2 group">
               <h3 className="text-figma-16 font-bold leading-figma-24 text-figma-text-1-2 group-hover:text-[#04d9d9] transition-colors">
                 Puntos de Luz Clave
               </h3>
