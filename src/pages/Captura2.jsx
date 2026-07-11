@@ -146,7 +146,7 @@ export default function Captura2() {
 
           {/* Secondary Actions Row */}
           <div className="flex gap-3">
-            <button onClick={() => navigate("/Home")} className="flex-1 flex justify-center items-center gap-2 py-4 bg-[#04d9d9] rounded-[16px] transition-transform active:scale-95">
+            <button onClick={() => navigate(-1)} className="flex-1 flex justify-center items-center gap-2 py-4 bg-[#04d9d9] rounded-[16px] transition-transform active:scale-95">
               <div className="shrink-0 w-4 h-4 relative overflow-clip">
                 <img
                   className="absolute top-0.5 left-0.5 w-[13px] h-[13px]"
