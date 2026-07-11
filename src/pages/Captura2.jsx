@@ -163,7 +163,7 @@ export default function Captura2() {
                 Otra foto
               </span>
             </button>
-            <button onClick={() => navigate(topic === "tercios" ? "/PantallaDeInicio" : "/FotografiaBasica")} className="flex-1 flex justify-center items-center gap-2 py-4 bg-figma-color-9 rounded-[16px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.30)] transition-transform active:scale-95 hover:bg-white/5">
+            <button onClick={() => navigate(topic === "profundidad" ? "/FotografiaIntermedia" : topic === "tercios" ? "/PantallaDeInicio" : "/FotografiaBasica")} className="flex-1 flex justify-center items-center gap-2 py-4 bg-figma-color-9 rounded-[16px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.30)] transition-transform active:scale-95 hover:bg-white/5">
               <span className="text-figma-16 font-bold leading-figma-24 text-figma-secondary">
                 Siguiente →
               </span>

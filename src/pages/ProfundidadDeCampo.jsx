@@ -1,11 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfundidadDeCampo() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col w-full max-w-[392px] mx-auto min-h-[852px] bg-figma-secondary font-heading relative">
       {/* Header */}
       <header className="flex flex-row items-center gap-2 p-6 w-full border-b border-[#e5e7eb] shrink-0">
         <button
+          onClick={() => navigate("/FotografiaIntermedia")}
           className="relative w-5 h-5 shrink-0 hover:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-sm"
           aria-label="Volver"
         >
@@ -50,7 +53,7 @@ export default function ProfundidadDeCampo() {
 
         {/* Action Footer */}
         <div className="w-full shrink-0 mt-auto pt-6">
-          <button className="flex items-center justify-center w-full h-14 bg-[#04d9d9] rounded-[39311300px] hover:bg-[#03c2c2] transition-colors focus:outline-none focus-visible:ring-4 focus-visible:ring-[#04d9d9]/30">
+          <button onClick={() => navigate("/Practica", { state: { topic: "profundidad" } })} className="flex items-center justify-center w-full h-14 bg-[#04d9d9] rounded-[39311300px] hover:bg-[#03c2c2] transition-colors focus:outline-none focus-visible:ring-4 focus-visible:ring-[#04d9d9]/30">
             <span className="text-figma-16 font-medium leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">
               Marcar como completado
             </span>
