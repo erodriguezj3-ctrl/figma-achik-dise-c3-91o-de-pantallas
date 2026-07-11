@@ -87,7 +87,7 @@ export default function FotografiaBasica() {
               <motion.div
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
-                onClick={() => navigate("/TraianguloDeExposiciN")}
+                onClick={() => navigate("/TraianguloDeExposiciN", { state: { topic: "triangulo" } })}
                 className="flex flex-col w-full bg-figma-surface-4 rounded-[16px] shadow-[inset_0_0_0_1px_#04d9d9] p-[17px] gap-2 cursor-pointer transition-colors hover:bg-figma-surface-4/80"
               >
                 <h3 className="text-figma-16 font-bold font-heading leading-figma-24 text-figma-text-1-2">
@@ -113,6 +113,7 @@ export default function FotografiaBasica() {
               <motion.div
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
+                onClick={() => navigate("/ReglaDeTercio", { state: { topic: "tercios" } })}
                 className="flex flex-col w-full bg-figma-secondary rounded-[16px] shadow-[inset_0_0_0_1px_#04d9d9] p-[17px] gap-1 cursor-pointer transition-colors hover:bg-gray-50"
               >
                 <h3 className="text-figma-16 font-bold font-heading leading-figma-24 text-figma-text-1-2">

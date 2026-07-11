@@ -35,7 +35,7 @@ export default function TraianguloDeExposiciN() {
 
         {/* Bottom Action */}
         <div className="w-full shrink-0 mt-auto">
-          <button onClick={() => navigate("/Practica")} className="w-full h-14 bg-[#04d9d9] rounded-full flex items-center justify-center hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#04d9d9]">
+          <button onClick={() => navigate("/Practica", { state: { topic: "triangulo" } })} className="w-full h-14 bg-[#04d9d9] rounded-full flex items-center justify-center hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#04d9d9]">
             <span className="text-figma-16 font-medium leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">
               Marcar como completado
             </span>

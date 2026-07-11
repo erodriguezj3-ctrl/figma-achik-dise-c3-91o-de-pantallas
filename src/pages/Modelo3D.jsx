@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const MODEL_URLS = {
   patineta: "https://media.base44.com/files/public/6a4f1af577955f105897f7c2/63c27d6bb_PATINETAGLB.glb",
@@ -74,11 +74,14 @@ const navItems = [
 
 export default function Modelo3D() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const topic = location.state?.topic;
   const [modelo_seleccionado, setModeloSeleccionado] = useState(null);
 
   const handleSelectModel = (modelKey) => {
     setModeloSeleccionado(modelKey);
-    navigate("/CamaraAr1", { state: { modelUrl: MODEL_URLS[modelKey], modelKey } });
+    const target = topic === "tercios" ? "/CamaraAr1" : "/Home";
+    navigate(target, { state: { modelUrl: MODEL_URLS[modelKey], modelKey, topic } });
   };
 
   return (

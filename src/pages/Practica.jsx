@@ -1,9 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Practica() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const topic = location.state?.topic;
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -47,7 +49,7 @@ export default function Practica() {
 
         {/* Main Card */}
         <motion.div variants={itemVariants} className="mt-12 w-full">
-          <button onClick={() => navigate("/Modelo3D")} className="group relative flex aspect-[328/262] w-full flex-col items-center justify-center gap-4 rounded-[24px] bg-[#04d9d9] p-8 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10),_0px_10px_15px_-3px_rgba(0,0,0,0.10),_inset_0_0_0_1px_#04d9d9] transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]">
+          <button onClick={() => navigate("/Modelo3D", { state: { topic } })} className="group relative flex aspect-[328/262] w-full flex-col items-center justify-center gap-4 rounded-[24px] bg-[#04d9d9] p-8 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10),_0px_10px_15px_-3px_rgba(0,0,0,0.10),_inset_0_0_0_1px_#04d9d9] transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]">
             {/* Icon Circle */}
             <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-figma-accent-3 transition-transform duration-500 group-hover:rotate-12">
               <div className="relative h-8 w-8 overflow-clip">

@@ -8,7 +8,7 @@ const PLACEHOLDER = "https://media.base44.com/images/public/6a4f1af577955f105897
 export default function Captura2() {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { image, iso, shutter, aperture } = state || {};
+  const { image, iso, shutter, aperture, topic } = state || {};
   const dateStr = format(new Date(), "d MMM yyyy", { locale: es });
   const metadata = image
     ? `ISO ${iso} · ${shutter} · ${aperture}`
@@ -163,7 +163,7 @@ export default function Captura2() {
                 Otra foto
               </span>
             </button>
-            <button onClick={() => navigate("/FotografiaBasica")} className="flex-1 flex justify-center items-center gap-2 py-4 bg-figma-color-9 rounded-[16px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.30)] transition-transform active:scale-95 hover:bg-white/5">
+            <button onClick={() => navigate(topic === "tercios" ? "/PantallaDeInicio" : "/FotografiaBasica")} className="flex-1 flex justify-center items-center gap-2 py-4 bg-figma-color-9 rounded-[16px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.30)] transition-transform active:scale-95 hover:bg-white/5">
               <span className="text-figma-16 font-bold leading-figma-24 text-figma-secondary">
                 Siguiente →
               </span>

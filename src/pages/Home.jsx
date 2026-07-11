@@ -14,6 +14,7 @@ export default function Home() {
   const navigate = useNavigate();
   const location = useLocation();
   const modelUrl = location.state?.modelUrl;
+  const topic = location.state?.topic;
 
   const handleCapture = async () => {
     if (capturing) return;
@@ -30,6 +31,7 @@ export default function Home() {
         iso: getIsoDisplay(),
         shutter: getShutterDisplay(),
         aperture: getApertureDisplay(),
+        topic,
       },
     });
   };

@@ -16,6 +16,7 @@ export default function CamaraAr1() {
   const navigate = useNavigate();
   const location = useLocation();
   const modelUrl = location.state?.modelUrl;
+  const topic = location.state?.topic;
 
   const isoLabels = ["100", "400", "1600", "3200", "6400"];
   const shutterLabels = ["1/2000", "1/500", "1/100", "1/8", '2"'];
@@ -52,6 +53,7 @@ export default function CamaraAr1() {
         iso: getIsoDisplay(),
         shutter: getShutterDisplay(),
         aperture: getApertureDisplay(),
+        topic,
       },
     });
   };
