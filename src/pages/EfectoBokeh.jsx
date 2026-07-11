@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import VideoPlayer from "@/components/VideoPlayer";
+import { VIDEO_SOURCES } from "@/config/videos";
 
 export default function EfectoBokeh() {
   const navigate = useNavigate();
@@ -44,17 +46,15 @@ export default function EfectoBokeh() {
           </p>
         </motion.div>
 
-        {/* Visual Area */}
+        {/* Video de la Clase (placeholder) */}
         <div className="flex-1 w-full flex items-center justify-center py-4 min-h-[320px]">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-[344px] aspect-[344/320] bg-figma-accent rounded-[16px] flex items-center justify-center overflow-clip shadow-sm"
+            className="w-full max-w-[344px] aspect-[344/320]"
           >
-            <p className="text-figma-18 font-medium text-[#00d3f3] leading-figma-28 text-center px-6">
-              Efecto Bokeh
-            </p>
+            <VideoPlayer src={VIDEO_SOURCES.clase_bokeh} className="w-full h-full" />
           </motion.div>
         </div>
 

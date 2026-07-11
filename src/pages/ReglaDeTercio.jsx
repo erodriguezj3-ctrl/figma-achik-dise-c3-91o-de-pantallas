@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import VideoPlayer from "@/components/VideoPlayer";
+import { VIDEO_SOURCES } from "@/config/videos";
 
 export default function ReglaDeTercio() {
   const navigate = useNavigate();
@@ -31,11 +33,10 @@ export default function ReglaDeTercio() {
             </p>
           </div>
 
-          {/* Media Placeholder - Fluidly centers in available space */}
+          {/* Video de la Clase */}
           <div className="flex-1 flex items-center justify-center w-full min-h-[320px] py-4">
-            <div className="w-full max-w-[344px] aspect-[344/320] bg-figma-surface rounded-[16px] overflow-clip relative group cursor-pointer">
-              {/* Interactive overlay for the placeholder to imply it's playable/viewable media */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300" />
+            <div className="w-full max-w-[344px] aspect-[344/320]">
+              <VideoPlayer src={VIDEO_SOURCES.clase_composicion} className="w-full h-full" />
             </div>
           </div>
 

@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import VideoPlayer from "@/components/VideoPlayer";
+import { VIDEO_SOURCES } from "@/config/videos";
 
 export default function FotografiaAvanzada() {
   const navigate = useNavigate();
@@ -87,15 +89,14 @@ export default function FotografiaAvanzada() {
           </p>
         </motion.section>
 
-        {/* Hero Media */}
+        {/* Video Introductorio (placeholder) */}
         <motion.section variants={itemVariants} className="w-full mb-6">
-          <div className="w-full aspect-[344/194] bg-figma-accent rounded-[16px] overflow-clip shadow-sm relative group cursor-pointer">
-            <img
-              className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/1eea09981_52931c677_ce6a26a88401c55139833af1f167da166cb4f27e.png"
-              alt="Larga Exposición"
+          <div className="w-full aspect-[344/194] rounded-[16px] overflow-clip shadow-sm">
+            <VideoPlayer
+              src={VIDEO_SOURCES.intro_avanzada}
+              poster="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/1eea09981_52931c677_ce6a26a88401c55139833af1f167da166cb4f27e.png"
+              className="w-full h-full"
             />
-            <div className="absolute inset-0 bg-black/10 transition-colors duration-300 group-hover:bg-transparent" />
           </div>
         </motion.section>
 

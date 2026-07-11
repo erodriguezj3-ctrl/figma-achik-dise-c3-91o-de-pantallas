@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import VideoPlayer from "@/components/VideoPlayer";
+import { VIDEO_SOURCES } from "@/config/videos";
 
 export default function FotografiaNocturna() {
   const navigate = useNavigate();
@@ -38,12 +40,10 @@ export default function FotografiaNocturna() {
           </p>
         </div>
 
-        {/* Card Section */}
+        {/* Video de la Clase (placeholder) */}
         <div className="flex-1 flex items-center justify-center w-full py-6 min-h-[320px]">
-          <div className="w-full max-w-[344px] min-h-[320px] bg-figma-accent rounded-[16px] flex items-center justify-center p-6 overflow-clip shadow-sm">
-            <p className="text-figma-18 font-medium leading-figma-28 text-center text-[#00d3f3]">
-              Fotografía Nocturna
-            </p>
+          <div className="w-full max-w-[344px] min-h-[320px]">
+            <VideoPlayer src={VIDEO_SOURCES.clase_nocturna} className="w-full h-full min-h-[320px]" />
           </div>
         </div>
 

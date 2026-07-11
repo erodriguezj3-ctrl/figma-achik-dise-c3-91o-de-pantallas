@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import VideoPlayer from "@/components/VideoPlayer";
+import { VIDEO_SOURCES } from "@/config/videos";
 
 export default function AltaVelocidad() {
   const navigate = useNavigate();
@@ -46,17 +48,15 @@ export default function AltaVelocidad() {
           </p>
         </motion.section>
 
-        {/* Card Section */}
+        {/* Video de la Clase (placeholder) */}
         <motion.section
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
           className="flex flex-col flex-1 justify-center items-center pb-6 w-full min-h-[320px]"
         >
-          <div className="flex justify-center items-center w-full max-w-[344px] min-h-[320px] bg-figma-accent rounded-[16px] overflow-clip shadow-sm hover:shadow-md transition-shadow">
-            <span className="text-figma-18 font-medium font-heading leading-figma-28 text-center text-[#00d3f3] px-6">
-              Alta Velocidad
-            </span>
+          <div className="w-full max-w-[344px] min-h-[320px]">
+            <VideoPlayer src={VIDEO_SOURCES.clase_alta_velocidad} className="w-full h-full min-h-[320px]" />
           </div>
         </motion.section>
 

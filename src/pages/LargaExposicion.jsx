@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import VideoPlayer from "@/components/VideoPlayer";
+import { VIDEO_SOURCES } from "@/config/videos";
 
 export default function LargaExposicion() {
   const navigate = useNavigate();
@@ -38,12 +40,10 @@ export default function LargaExposicion() {
           </p>
         </section>
 
-        {/* Card Section - Flex-1 allows it to fill space and center the card vertically */}
+        {/* Video de la Clase (placeholder) */}
         <section className="flex-1 flex flex-col justify-center items-center pb-6 w-full min-h-[320px]">
-          <div className="flex flex-col justify-center items-center w-full max-w-[344px] aspect-[344/320] bg-figma-accent rounded-[16px] overflow-clip px-6 transition-transform duration-500 hover:scale-[1.02]">
-            <p className="text-figma-18 font-medium font-heading leading-figma-28 text-center text-[#00d3f3]">
-              Larga Exposición
-            </p>
+          <div className="w-full max-w-[344px] aspect-[344/320]">
+            <VideoPlayer src={VIDEO_SOURCES.clase_larga_exposicion} className="w-full h-full" />
           </div>
         </section>
 

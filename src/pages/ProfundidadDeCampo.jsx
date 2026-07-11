@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import VideoPlayer from "@/components/VideoPlayer";
+import { VIDEO_SOURCES } from "@/config/videos";
 
 export default function ProfundidadDeCampo() {
   const navigate = useNavigate();
@@ -42,12 +44,10 @@ export default function ProfundidadDeCampo() {
           </p>
         </div>
 
-        {/* Interactive / Media Area */}
+        {/* Video de la Clase (placeholder) */}
         <div className="flex flex-col items-center justify-center flex-1 w-full min-h-[320px] py-6">
-          <div className="flex flex-col items-center justify-center w-full max-w-[344px] min-h-[320px] p-6 bg-figma-accent rounded-[16px] overflow-clip shadow-sm">
-            <p className="text-figma-18 font-medium leading-figma-28 text-center text-[#00d3f3]">
-              Profundidad de Campo
-            </p>
+          <div className="w-full max-w-[344px] min-h-[320px]">
+            <VideoPlayer src={VIDEO_SOURCES.clase_profundidad} className="w-full h-full min-h-[320px]" />
           </div>
         </div>
 

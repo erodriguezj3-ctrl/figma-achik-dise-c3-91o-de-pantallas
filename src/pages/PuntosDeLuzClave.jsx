@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import VideoPlayer from "@/components/VideoPlayer";
+import { VIDEO_SOURCES } from "@/config/videos";
 
 export default function PuntosDeLuzClave() {
   const navigate = useNavigate();
@@ -52,13 +54,8 @@ export default function PuntosDeLuzClave() {
             transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
             className="w-full max-w-[344px]"
           >
-            <div className="flex items-center justify-center w-full min-h-[320px] bg-figma-accent rounded-[16px] overflow-clip shadow-lg relative group cursor-pointer">
-              {/* Subtle interactive overlay */}
-              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
-
-              <p className="text-figma-18 font-medium leading-figma-28 text-center text-[#00d3f3] relative z-10">
-                Condiciones de Luz
-              </p>
+            <div className="w-full min-h-[320px]">
+              <VideoPlayer src={VIDEO_SOURCES.clase_luces} className="w-full h-full min-h-[320px]" />
             </div>
           </motion.div>
         </div>

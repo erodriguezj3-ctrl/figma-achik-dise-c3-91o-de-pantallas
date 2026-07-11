@@ -1,6 +1,8 @@
 import React from "react";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import VideoPlayer from "@/components/VideoPlayer";
+import { VIDEO_SOURCES } from "@/config/videos";
 
 export default function FotografiaIntermedia() {
   const navigate = useNavigate();
@@ -28,13 +30,13 @@ export default function FotografiaIntermedia() {
           </p>
         </section>
 
-        {/* Featured Media */}
+        {/* Video Introductorio */}
         <section className="w-full mb-6">
-          <div className="w-full aspect-[344/194] bg-figma-accent rounded-[16px] overflow-clip shadow-sm">
-            <img
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/984dce783_93152e8d4_5c19ad9595102b399436f3b8733c7165e433c894.png"
-              alt="Video de introducción al curso"
-              className="w-full h-full object-cover object-center"
+          <div className="w-full aspect-[344/194] rounded-[16px] overflow-clip shadow-sm">
+            <VideoPlayer
+              src={VIDEO_SOURCES.intro_intermedia}
+              poster="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/984dce783_93152e8d4_5c19ad9595102b399436f3b8733c7165e433c894.png"
+              className="w-full h-full"
             />
           </div>
         </section>

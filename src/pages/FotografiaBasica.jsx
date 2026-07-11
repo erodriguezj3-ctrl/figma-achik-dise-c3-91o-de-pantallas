@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import VideoPlayer from "@/components/VideoPlayer";
+import { VIDEO_SOURCES } from "@/config/videos";
 
 export default function FotografiaBasica() {
   const navigate = useNavigate();
@@ -69,10 +71,10 @@ export default function FotografiaBasica() {
             </p>
           </motion.section>
 
-          {/* Hero Image Placeholder */}
+          {/* Video Introductorio */}
           <motion.section variants={itemVariants} className="w-full pb-6">
-            <div className="w-full aspect-[344/280] bg-figma-accent rounded-[16px] overflow-clip flex">
-              <div className="bg-figma-surface w-full h-full" />
+            <div className="w-full aspect-[344/280] rounded-[16px] overflow-clip">
+              <VideoPlayer src={VIDEO_SOURCES.intro_basica} className="w-full h-full" />
             </div>
           </motion.section>
 

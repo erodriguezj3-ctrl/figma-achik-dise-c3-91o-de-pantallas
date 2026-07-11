@@ -1,6 +1,8 @@
 import React from "react";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import VideoPlayer from "@/components/VideoPlayer";
+import { VIDEO_SOURCES } from "@/config/videos";
 
 export default function TraianguloDeExposiciN() {
   const navigate = useNavigate();
@@ -28,9 +30,11 @@ export default function TraianguloDeExposiciN() {
           </p>
         </div>
 
-        {/* Media Placeholder - Flex-grow allows it to center vertically in available space */}
+        {/* Video de la Clase */}
         <div className="flex-grow flex items-center justify-center pb-6 w-full">
-          <div className="w-full max-w-[344px] min-h-[320px] bg-figma-surface rounded-[16px] overflow-clip shadow-sm" />
+          <div className="w-full max-w-[344px] min-h-[320px]">
+            <VideoPlayer src={VIDEO_SOURCES.clase_triangulo} className="w-full h-full min-h-[320px]" />
+          </div>
         </div>
 
         {/* Bottom Action */}
