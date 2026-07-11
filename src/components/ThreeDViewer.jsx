@@ -6,7 +6,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 // Default GLB model — overridden by the modelUrl prop when a model is selected.
 const DEFAULT_MODEL_URL = "https://modelviewer.dev/shared-assets/models/Astronaut.glb";
 
-const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, aperture = 50, modelUrl = DEFAULT_MODEL_URL }, ref) {
+const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, aperture = 50, modelUrl = DEFAULT_MODEL_URL, lights = { frontal: true, fill: false, back: true } }, ref) {
   const overlayRef = useRef(null);
   const containerRef = useRef(null);
   const videoRef = useRef(null);
@@ -44,11 +44,14 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     renderer.xr.enabled = true;
     container.appendChild(renderer.domElement);
 
-    // Lighting
+    // Lighting — frontal (key), fill (lateral), and back (rim/contraluz)
     scene.add(new THREE.AmbientLight(0xffffff, 0.7));
     const keyLight = new THREE.DirectionalLight(0xffffff, 1.3);
     keyLight.position.set(5, 8, 6);
     scene.add(keyLight);
+    const fillLight = new THREE.DirectionalLight(0xddeeff, 0.5);
+    fillLight.position.set(-6, 3, 4);
+    scene.add(fillLight);
     const rimLight = new THREE.DirectionalLight(0x00d3f3, 0.6);
     rimLight.position.set(-4, 2, -5);
     scene.add(rimLight);
@@ -89,7 +92,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     controls.minDistance = 2;
     controls.maxDistance = 8;
 
-    threeRef.current = { scene, camera, renderer, modelGroup, controls, reticle };
+    threeRef.current = { scene, camera, renderer, modelGroup, controls, reticle, keyLight, fillLight, rimLight };
 
     // Render loop (works for both regular and WebXR)
     renderer.setAnimationLoop((time, frame) => {
@@ -174,6 +177,14 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     else stopAR();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arActive]);
+
+  // ---- Toggle studio lights (frontal / fill / back) ----
+  useEffect(() => {
+    const { keyLight, fillLight, rimLight } = threeRef.current;
+    if (keyLight) keyLight.visible = lights.frontal;
+    if (fillLight) fillLight.visible = lights.fill;
+    if (rimLight) rimLight.visible = lights.back;
+  }, [lights.frontal, lights.fill, lights.back]);
 
   // Expose capture() so the shutter button can grab a composite of the
   // camera feed + 3D render, with the current ISO/aperture filters baked in.
