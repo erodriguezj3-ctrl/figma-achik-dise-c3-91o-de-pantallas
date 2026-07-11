@@ -39,21 +39,23 @@ export default function FotografiaBasica() {
           variants={itemVariants}
           className="flex flex-row justify-start items-center gap-2 p-6 w-full border-b border-[#e5e7eb] bg-figma-secondary z-10 sticky top-0"
         >
-          <button onClick={() => navigate("/PantallaDeInicio")} className="flex items-center justify-center w-5 h-5 relative overflow-clip hover:opacity-70 transition-opacity cursor-pointer">
-            <img
-              className="w-[7px] h-[13px] absolute top-1 left-1 z-[1]"
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/8eff3cbcb_025d55880_1_422.svg"
-              alt="Back arrow part 1"
-            />
-            <img
-              className="w-[13px] h-0.5 absolute top-2.5 left-1 z-[2]"
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/89c47ec90_f1de0bb18_1_423.svg"
-              alt="Back arrow part 2"
-            />
+          <button onClick={() => navigate("/PantallaDeInicio")} className="flex items-center gap-2 hover:opacity-70 transition-opacity cursor-pointer">
+            <div className="flex items-center justify-center w-5 h-5 relative overflow-clip">
+              <img
+                className="w-[7px] h-[13px] absolute top-1 left-1 z-[1]"
+                src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/8eff3cbcb_025d55880_1_422.svg"
+                alt="Back arrow part 1"
+              />
+              <img
+                className="w-[13px] h-0.5 absolute top-2.5 left-1 z-[2]"
+                src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/89c47ec90_f1de0bb18_1_423.svg"
+                alt="Back arrow part 2"
+              />
+            </div>
+            <p className="text-figma-16 font-medium font-heading leading-figma-24 text-figma-text-1-3">
+              Volver
+            </p>
           </button>
-          <p className="text-figma-16 font-medium font-heading leading-figma-24 text-figma-text-1-3">
-            Volver
-          </p>
         </motion.header>
 
         {/* Main Content */}

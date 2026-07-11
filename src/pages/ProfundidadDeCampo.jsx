@@ -11,25 +11,27 @@ export default function ProfundidadDeCampo() {
       <header className="flex flex-row items-center gap-2 p-6 w-full border-b border-[#e5e7eb] shrink-0">
         <button
           onClick={() => navigate("/FotografiaIntermedia")}
-          className="relative w-5 h-5 shrink-0 hover:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-sm"
+          className="flex items-center gap-2 hover:opacity-70 transition-opacity cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-sm"
           aria-label="Volver"
         >
-          <img
-            className="absolute top-1 left-1 w-[7px] h-[13px] z-[1]"
-            src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/11b57f5c4_809bc5d1d_2_769.svg"
-            alt=""
-            aria-hidden="true"
-          />
-          <img
-            className="absolute top-2.5 left-1 w-[13px] h-0.5 z-[2]"
-            src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/345ae3aaf_848524c5f_2_770.svg"
-            alt=""
-            aria-hidden="true"
-          />
+          <div className="relative w-5 h-5 shrink-0">
+            <img
+              className="absolute top-1 left-1 w-[7px] h-[13px] z-[1]"
+              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/11b57f5c4_809bc5d1d_2_769.svg"
+              alt=""
+              aria-hidden="true"
+            />
+            <img
+              className="absolute top-2.5 left-1 w-[13px] h-0.5 z-[2]"
+              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/345ae3aaf_848524c5f_2_770.svg"
+              alt=""
+              aria-hidden="true"
+            />
+          </div>
+          <span className="text-figma-16 font-medium leading-figma-24 text-figma-text-1-3">
+            Volver
+          </span>
         </button>
-        <span className="text-figma-16 font-medium leading-figma-24 text-figma-text-1-3">
-          Volver
-        </span>
       </header>
 
       {/* Main Content */}
