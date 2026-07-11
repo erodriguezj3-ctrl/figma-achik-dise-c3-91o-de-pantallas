@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
 export default function ReglaDeTercio() {
+  const navigate = useNavigate();
   return (
     <div className="w-full min-h-screen bg-figma-secondary flex flex-col items-center font-heading">
       <div className="w-full max-w-[392px] flex flex-col flex-1 bg-figma-secondary shadow-sm">
@@ -39,7 +41,7 @@ export default function ReglaDeTercio() {
 
           {/* Action Footer */}
           <div className="mt-auto pt-6 flex-shrink-0 w-full">
-            <button className="w-full h-14 bg-[#04d9d9] rounded-full flex items-center justify-center text-figma-secondary text-figma-16 font-medium tracking-[0.4px] uppercase hover:bg-[#03c2c2] transition-all active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#04d9d9]">
+            <button onClick={() => navigate("/Practica1")} className="w-full h-14 bg-[#04d9d9] rounded-full flex items-center justify-center text-figma-secondary text-figma-16 font-medium tracking-[0.4px] uppercase hover:bg-[#03c2c2] transition-all active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#04d9d9]">
               Marcar como completado
             </button>
           </div>
