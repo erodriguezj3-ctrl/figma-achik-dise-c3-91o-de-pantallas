@@ -35,6 +35,7 @@ import PagoExitoso1 from './pages/PagoExitoso1';
 import Pago1 from './pages/Pago1';
 import Planes from './pages/Planes';
 import FotografiaIntermedia from './pages/FotografiaIntermedia';
+import ProfundidadDeCampo from './pages/ProfundidadDeCampo';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -90,6 +91,7 @@ const AuthenticatedApp = () => {
       <Route path="/Pago1" element={<Pago1 />} />
       <Route path="/Planes" element={<Planes />} />
       <Route path="/FotografiaIntermedia" element={<FotografiaIntermedia />} />
+      <Route path="/ProfundidadDeCampo" element={<ProfundidadDeCampo />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
