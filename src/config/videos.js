@@ -15,7 +15,7 @@
 
 export const VIDEO_SOURCES = {
   // --- Videos de Introducción (menús de curso) ---
-  intro_basica: "https://drive.google.com/file/d/161-ld4iIenLHDJSOKOzmplK9r90IUDHR/view?usp=drive_link",
+  intro_basica: "https://drive.google.com/file/d/10CXhS7crxdVKuMWhCNyzKmO27XmuI1sI/view?usp=sharing",
   intro_intermedia: "https://drive.google.com/file/d/1YhIl_ZdNF-8PBz9bARisq57vrZWmHVof/view?usp=drive_link",
   intro_avanzada: "",
 
