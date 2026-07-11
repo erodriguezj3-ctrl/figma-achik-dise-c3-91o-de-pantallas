@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { base44 } from "@/api/base44Client";
 
 export default function PagoExitoso() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const handleGoHome = async () => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      await base44.auth.updateMe({ subscription: "premium", subscription_plan: "annual" });
+    } catch (e) {}
+    setLoading(false);
+    navigate("/PantallaDeInicio");
+  };
+
   return (
     <div className="w-full max-w-[392px] mx-auto min-h-[100dvh] sm:min-h-[853px] flex flex-col bg-figma-secondary relative shadow-2xl sm:rounded-[40px] sm:my-8 overflow-clip font-sans">
       {/* Main Content Area */}
@@ -63,15 +78,17 @@ export default function PagoExitoso() {
 
         {/* Action Button */}
         <motion.button
+          onClick={handleGoHome}
+          disabled={loading}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           transition={{ delay: 0.4, duration: 0.4 }}
-          className="flex flex-col justify-center items-center py-4 px-0 w-full max-w-[328px] bg-[#04d9d9] rounded-[39311300px] cursor-pointer hover:bg-[#03c2c2] transition-colors shadow-sm"
+          className="flex flex-col justify-center items-center py-4 px-0 w-full max-w-[328px] bg-[#04d9d9] rounded-[39311300px] cursor-pointer hover:bg-[#03c2c2] transition-colors shadow-sm disabled:opacity-60"
         >
           <span className="text-figma-16 font-bold font-heading leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">
-            Ir al inicio
+            {loading ? "Activando..." : "Ir al inicio"}
           </span>
         </motion.button>
       </main>
@@ -79,7 +96,7 @@ export default function PagoExitoso() {
       {/* Bottom Navigation */}
       <nav className="w-full h-16 bg-figma-secondary border-t-[1px] border-[#e5e7eb] flex flex-row items-center justify-between px-2 shrink-0 z-10 pb-safe">
         {/* Nav Item: Inicio */}
-        <button className="flex-1 flex flex-col justify-center items-center gap-1 h-full group cursor-pointer">
+        <button onClick={() => navigate("/PantallaDeInicio")} className="flex-1 flex flex-col justify-center items-center gap-1 h-full group cursor-pointer">
           <div className="relative w-6 h-6 overflow-clip">
             <img
               className="w-5 h-[21px] absolute top-0.5 left-[3px] z-[2] group-hover:opacity-80 transition-opacity"
@@ -98,7 +115,7 @@ export default function PagoExitoso() {
         </button>
 
         {/* Nav Item: Progreso */}
-        <button className="flex-1 flex flex-col justify-center items-center gap-1 h-full group cursor-pointer">
+        <button onClick={() => navigate("/Progreso")} className="flex-1 flex flex-col justify-center items-center gap-1 h-full group cursor-pointer">
           <div className="relative w-6 h-6 overflow-clip">
             <img
               className="w-[22px] h-5 absolute top-[3px] left-0.5 z-[2] group-hover:opacity-80 transition-opacity"
@@ -117,7 +134,7 @@ export default function PagoExitoso() {
         </button>
 
         {/* Nav Item: Planes (Active) */}
-        <button className="flex-1 flex flex-col justify-center items-center gap-1 h-full cursor-pointer">
+        <button onClick={() => navigate("/Planes")} className="flex-1 flex flex-col justify-center items-center gap-1 h-full cursor-pointer">
           <div className="relative w-6 h-6 overflow-clip">
             <img
               className="w-[22px] h-4 absolute top-[3px] left-0.5 z-[1]"
@@ -136,7 +153,7 @@ export default function PagoExitoso() {
         </button>
 
         {/* Nav Item: Perfil */}
-        <button className="flex-1 flex flex-col justify-center items-center gap-1 h-full group cursor-pointer">
+        <button onClick={() => navigate("/Perfil")} className="flex-1 flex flex-col justify-center items-center gap-1 h-full group cursor-pointer">
           <div className="relative w-6 h-6 overflow-clip">
             <img
               className="w-2.5 h-2.5 absolute top-[3px] left-2 z-[2] group-hover:opacity-80 transition-opacity"

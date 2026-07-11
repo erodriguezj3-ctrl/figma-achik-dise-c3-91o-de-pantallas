@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { base44 } from "@/api/base44Client";
 
 export default function PantallaDeInicio() {
   const navigate = useNavigate();
+  const [isPremium, setIsPremium] = useState(false);
+
+  useEffect(() => {
+    base44.auth.me().then((user) => {
+      if (user?.subscription === "premium") setIsPremium(true);
+    }).catch(() => {});
+  }, []);
+
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[392px] flex-col bg-figma-secondary relative shadow-sm">
       {/* Header */}
@@ -99,7 +108,7 @@ export default function PantallaDeInicio() {
             </button>
 
             {/* Intermediate Course Card */}
-            <button className="relative flex w-full items-start gap-4 rounded-[24px] bg-figma-accent-4 p-[25px] text-left opacity-[0.85] shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10),_0px_10px_15px_-3px_rgba(0,0,0,0.10),_inset_0_0_0_1px_#9ca3af] transition-transform hover:scale-[1.02] active:scale-[0.98]">
+            <button className={`relative flex w-full items-start gap-4 rounded-[24px] bg-figma-accent-4 p-[25px] text-left ${isPremium ? "" : "opacity-[0.85]"} shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10),_0px_10px_15px_-3px_rgba(0,0,0,0.10),_inset_0_0_0_1px_#9ca3af] transition-transform hover:scale-[1.02] active:scale-[0.98]`}>
               <div className="relative mt-1 h-8 w-8 shrink-0 overflow-clip">
                 <img
                   className="absolute left-[3px] top-[5px] z-[1] h-6 w-[29px]"
@@ -121,7 +130,7 @@ export default function PantallaDeInicio() {
                 </p>
               </div>
               {/* Premium Badge */}
-              <div className="absolute right-[17px] top-[17px] flex h-6 items-center gap-1 rounded-[39311300px] bg-[#fdc700] px-3 py-1 shadow-[0px_2px_4px_-2px_rgba(0,0,0,0.10),_0px_4px_6px_-1px_rgba(0,0,0,0.10)]">
+              <div className={`absolute right-[17px] top-[17px] flex h-6 items-center gap-1 rounded-[39311300px] bg-[#fdc700] px-3 py-1 shadow-[0px_2px_4px_-2px_rgba(0,0,0,0.10),_0px_4px_6px_-1px_rgba(0,0,0,0.10)] ${isPremium ? "hidden" : ""}`}>
                 <div className="relative h-4 w-4 shrink-0 overflow-clip">
                   <img
                     className="absolute left-px top-0.5 z-[1] h-[11px] w-[15px]"
@@ -141,7 +150,7 @@ export default function PantallaDeInicio() {
             </button>
 
             {/* Advanced Course Card */}
-            <button className="relative flex w-full items-start gap-4 rounded-[24px] bg-figma-accent-4 p-[25px] text-left opacity-[0.85] shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10),_0px_10px_15px_-3px_rgba(0,0,0,0.10),_inset_0_0_0_1px_#9ca3af] transition-transform hover:scale-[1.02] active:scale-[0.98]">
+            <button className={`relative flex w-full items-start gap-4 rounded-[24px] bg-figma-accent-4 p-[25px] text-left ${isPremium ? "" : "opacity-[0.85]"} shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10),_0px_10px_15px_-3px_rgba(0,0,0,0.10),_inset_0_0_0_1px_#9ca3af] transition-transform hover:scale-[1.02] active:scale-[0.98]`}>
               <div className="relative mt-1 h-8 w-8 shrink-0 overflow-clip">
                 <img
                   className="absolute left-[3px] top-[5px] z-[1] h-6 w-[29px]"
@@ -163,7 +172,7 @@ export default function PantallaDeInicio() {
                 </p>
               </div>
               {/* Premium Badge */}
-              <div className="absolute right-[17px] top-[17px] flex h-6 items-center gap-1 rounded-[39311300px] bg-[#fdc700] px-3 py-1 shadow-[0px_2px_4px_-2px_rgba(0,0,0,0.10),_0px_4px_6px_-1px_rgba(0,0,0,0.10)]">
+              <div className={`absolute right-[17px] top-[17px] flex h-6 items-center gap-1 rounded-[39311300px] bg-[#fdc700] px-3 py-1 shadow-[0px_2px_4px_-2px_rgba(0,0,0,0.10),_0px_4px_6px_-1px_rgba(0,0,0,0.10)] ${isPremium ? "hidden" : ""}`}>
                 <div className="relative h-4 w-4 shrink-0 overflow-clip">
                   <img
                     className="absolute left-px top-0.5 z-[1] h-[11px] w-[15px]"

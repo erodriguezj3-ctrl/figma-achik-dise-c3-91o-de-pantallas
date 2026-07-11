@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Pago1() {
+  const navigate = useNavigate();
+  const [processing, setProcessing] = useState(false);
+
+  const handlePayment = (e) => {
+    e.preventDefault();
+    if (processing) return;
+    setProcessing(true);
+    setTimeout(() => {
+      setProcessing(false);
+      navigate("/PagoExitoso1");
+    }, 1500);
+  };
+
   return (
     <div className="w-full max-w-[392px] mx-auto min-h-screen flex flex-col bg-figma-secondary relative font-heading">
       {/* Header */}
       <header className="flex flex-row justify-start items-center gap-3 p-6 border-b-[1px] border-figma-muted-3 w-full bg-figma-secondary z-10 shrink-0">
-        <button className="flex flex-row justify-center items-center h-9 w-9 bg-figma-muted-3 rounded-[39311300px] shrink-0 transition-colors hover:bg-gray-200">
+        <button onClick={() => navigate("/Planes")} className="flex flex-row justify-center items-center h-9 w-9 bg-figma-muted-3 rounded-[39311300px] shrink-0 transition-colors hover:bg-gray-200">
           <div className="shrink-0 w-5 h-5 relative overflow-clip">
             <img className="w-[7px] h-[13px] absolute top-1 left-1 z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/713348d26_84a2541ab_2_3518.svg" alt="Back" />
             <img className="w-[13px] h-0.5 absolute top-2.5 left-1 z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/df7c99b2f_c92184ab8_2_3519.svg" alt="Back Arrow" />
@@ -64,7 +78,7 @@ export default function Pago1() {
             </h2>
           </div>
 
-          <form className="flex flex-col w-full mt-[8px]" onSubmit={(e) => e.preventDefault()}>
+          <form className="flex flex-col w-full mt-[8px]" onSubmit={handlePayment}>
             {/* Name Input */}
             <div className="flex flex-col w-full relative">
               <label className="text-figma-14 font-medium leading-figma-20 text-figma-text-2-3 ml-1 mb-1">
@@ -135,10 +149,11 @@ export default function Pago1() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-[#04d9d9] rounded-[39311300px] h-14 flex items-center justify-center mt-[16px] transition-transform active:scale-[0.98] hover:opacity-90"
+              disabled={processing}
+              className="w-full bg-[#04d9d9] rounded-[39311300px] h-14 flex items-center justify-center mt-[16px] transition-transform active:scale-[0.98] hover:opacity-90 disabled:opacity-60"
             >
               <span className="text-figma-16 font-bold leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">
-                Pagar $9.99
+                {processing ? "Procesando..." : "Pagar $9.99"}
               </span>
             </button>
           </form>
@@ -147,7 +162,7 @@ export default function Pago1() {
 
       {/* Bottom Navigation */}
       <nav className="w-full bg-figma-secondary border-t-[1px] border-[#e5e7eb] h-16 grid grid-cols-4 mt-auto sticky bottom-0 z-20 shrink-0">
-        <button className="flex flex-col justify-center items-center gap-1 h-full w-full hover:bg-gray-50 transition-colors">
+        <button onClick={() => navigate("/PantallaDeInicio")} className="flex flex-col justify-center items-center gap-1 h-full w-full hover:bg-gray-50 transition-colors">
           <div className="shrink-0 w-6 h-6 relative overflow-clip">
             <img className="w-5 h-[21px] absolute top-0.5 left-[3px] z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/cf13a3ce9_7b65d3e0a_2_3598.svg" alt="Home Icon" />
             <img className="w-2 h-[11px] absolute top-3 left-[9px] z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/9885ea10c_e4d2a22fe_2_3597.svg" alt="Home Door" />
@@ -157,7 +172,7 @@ export default function Pago1() {
           </span>
         </button>
 
-        <button className="flex flex-col justify-center items-center gap-1 h-full w-full hover:bg-gray-50 transition-colors">
+        <button onClick={() => navigate("/Progreso")} className="flex flex-col justify-center items-center gap-1 h-full w-full hover:bg-gray-50 transition-colors">
           <div className="shrink-0 w-6 h-6 relative overflow-clip">
             <img className="w-[22px] h-5 absolute top-[3px] left-0.5 z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/662b22cbf_946db0596_2_3605.svg" alt="Progress Icon" />
             <img className="w-0.5 h-4 absolute top-[7px] left-3 z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/697485a8d_2c5e64019_2_3604.svg" alt="Progress Line" />
@@ -167,7 +182,7 @@ export default function Pago1() {
           </span>
         </button>
 
-        <button className="flex flex-col justify-center items-center gap-1 h-full w-full hover:bg-gray-50 transition-colors">
+        <button onClick={() => navigate("/Planes")} className="flex flex-col justify-center items-center gap-1 h-full w-full hover:bg-gray-50 transition-colors">
           <div className="shrink-0 w-6 h-6 relative overflow-clip">
             <img className="w-[22px] h-4 absolute top-[3px] left-0.5 z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/203c8485f_b2ab8d254_2_3611.svg" alt="Plans Icon" />
             <img className="w-4 h-0.5 absolute top-[21px] left-[5px] z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/35cf33bed_8fd56fe73_2_3612.svg" alt="Plans Line" />
@@ -177,7 +192,7 @@ export default function Pago1() {
           </span>
         </button>
 
-        <button className="flex flex-col justify-center items-center gap-1 h-full w-full hover:bg-gray-50 transition-colors">
+        <button onClick={() => navigate("/Perfil")} className="flex flex-col justify-center items-center gap-1 h-full w-full hover:bg-gray-50 transition-colors">
           <div className="shrink-0 w-6 h-6 relative overflow-clip">
             <img className="w-2.5 h-2.5 absolute top-[3px] left-2 z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/68c648d7a_426efabdf_2_3619.svg" alt="Profile Head" />
             <img className="w-4 h-2 absolute top-[15px] left-[5px] z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/84786ad3e_3d001dfab_2_3618.svg" alt="Profile Body" />

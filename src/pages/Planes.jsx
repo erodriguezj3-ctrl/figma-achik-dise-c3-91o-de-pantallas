@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 export default function Planes() {
+  const navigate = useNavigate();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -62,7 +64,7 @@ export default function Planes() {
                 <span className="text-[36px] font-extrabold tracking-tight text-[#111827]">$9.99</span>
                 <span className="text-[14px] text-[#6b7280] font-medium">/ mes</span>
               </div>
-              <button className="mt-5 w-full bg-[#04d9d9] text-white text-[14px] font-bold py-4 rounded-[39311300px] hover:bg-[#03c0c0] transition-colors active:scale-[0.98]">
+              <button onClick={() => navigate("/Pago1")} className="mt-5 w-full bg-[#04d9d9] text-white text-[14px] font-bold py-4 rounded-[39311300px] hover:bg-[#03c0c0] transition-colors active:scale-[0.98]">
                 SUSCRIBIRME
               </button>
             </motion.div>
@@ -85,7 +87,7 @@ export default function Planes() {
                 <span className="text-[36px] font-extrabold tracking-tight text-[#111827]">$79.99</span>
                 <span className="text-[14px] text-[#6b7280] font-medium">/ año</span>
               </div>
-              <button className="mt-5 w-full bg-[#04d9d9] text-white text-[14px] font-bold py-4 rounded-[39311300px] hover:bg-[#03c0c0] transition-colors active:scale-[0.98]">
+              <button onClick={() => navigate("/Pago2")} className="mt-5 w-full bg-[#04d9d9] text-white text-[14px] font-bold py-4 rounded-[39311300px] hover:bg-[#03c0c0] transition-colors active:scale-[0.98]">
                 SUSCRIBIRME
               </button>
             </motion.div>
@@ -113,7 +115,7 @@ export default function Planes() {
 
       {/* Bottom Navigation */}
       <nav className="absolute bottom-0 left-0 right-0 w-full bg-figma-secondary border-t border-[#e5e7eb] min-h-[72px] flex justify-between items-center px-2 z-50 pb-safe">
-        <button className="flex flex-col items-center justify-center gap-1 w-[88px] h-full group">
+        <button onClick={() => navigate("/PantallaDeInicio")} className="flex flex-col items-center justify-center gap-1 w-[88px] h-full group">
           <div className="w-6 h-6 relative shrink-0 opacity-50 group-hover:opacity-100 transition-opacity">
             <img src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/a7c806deb_2c8e9d202_64_6288.svg" alt="Inicio" className="absolute top-px left-0.5 w-5 h-[21px]" />
             <img src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/c95e86d60_ebd36dd57_64_6287.svg" alt="Inicio detail" className="absolute top-[11px] left-2 w-2 h-[11px]" />
@@ -121,7 +123,7 @@ export default function Planes() {
           <span className="text-[11px] text-[#6b7280] font-medium group-hover:text-[#374151] transition-colors">Inicio</span>
         </button>
 
-        <button className="flex flex-col items-center justify-center gap-1 w-[88px] h-full group">
+        <button onClick={() => navigate("/Progreso")} className="flex flex-col items-center justify-center gap-1 w-[88px] h-full group">
           <div className="w-6 h-6 relative shrink-0 opacity-50 group-hover:opacity-100 transition-opacity">
             <img src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/a6dee80a6_f5d89ad9a_64_6298.svg" alt="Progreso" className="absolute top-0.5 left-px w-[22px] h-5" />
             <img src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/8522b5880_2d52b4403_64_6297.svg" alt="Progreso detail" className="absolute top-1.5 left-[11px] w-0.5 h-4" />
@@ -137,7 +139,7 @@ export default function Planes() {
           <span className="text-[11px] text-[#04d9d9] font-medium">Planes</span>
         </button>
 
-        <button className="flex flex-col items-center justify-center gap-1 w-[88px] h-full group">
+        <button onClick={() => navigate("/Perfil")} className="flex flex-col items-center justify-center gap-1 w-[88px] h-full group">
           <div className="w-6 h-6 relative shrink-0 opacity-50 group-hover:opacity-100 transition-opacity">
             <img src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/62db2a0ce_5d5e18bc4_64_6320.svg" alt="Perfil" className="absolute top-0.5 left-[7px] w-2.5 h-2.5" />
             <img src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/12594244a_538161392_64_6319.svg" alt="Perfil detail" className="absolute top-3.5 left-1 w-4 h-2" />

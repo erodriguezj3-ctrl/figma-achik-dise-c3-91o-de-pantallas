@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Pago2() {
+  const navigate = useNavigate();
+  const [processing, setProcessing] = useState(false);
+
+  const handlePayment = (e) => {
+    e.preventDefault();
+    if (processing) return;
+    setProcessing(true);
+    setTimeout(() => {
+      setProcessing(false);
+      navigate("/PagoExitoso2");
+    }, 1500);
+  };
+
   return (
     <div className="w-full max-w-[392px] mx-auto h-[100dvh] flex flex-col bg-figma-secondary relative overflow-clip shadow-xl">
       {/* Header */}
       <header className="flex flex-row justify-between items-center p-6 border-b border-figma-muted-3 shrink-0 bg-figma-secondary z-10">
         <button
           type="button"
+          onClick={() => navigate("/Planes")}
           className="flex justify-center items-center w-9 h-9 bg-figma-muted-3 rounded-full shrink-0 transition-colors hover:bg-gray-200 active:scale-95"
           aria-label="Volver"
         >
@@ -66,7 +81,7 @@ export default function Pago2() {
             </h3>
           </div>
 
-          <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
+          <form className="flex flex-col gap-4" onSubmit={handlePayment}>
             {/* Cardholder Name */}
             <div className="flex flex-col gap-1">
               <label htmlFor="cardName" className="text-figma-14 font-medium font-heading leading-figma-20 text-figma-text-2-3 ml-1">
@@ -144,10 +159,11 @@ export default function Pago2() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex justify-center items-center transition-transform active:scale-[0.98] hover:bg-[#03c2c2]"
+              disabled={processing}
+              className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex justify-center items-center transition-transform active:scale-[0.98] hover:bg-[#03c2c2] disabled:opacity-60"
             >
               <span className="text-figma-16 font-bold font-heading leading-figma-24 tracking-[0.4px] uppercase text-figma-secondary">
-                Pagar $79.99
+                {processing ? "Procesando..." : "Pagar $79.99"}
               </span>
             </button>
           </form>
@@ -156,7 +172,7 @@ export default function Pago2() {
 
       {/* Bottom Navigation */}
       <nav className="absolute bottom-0 left-0 w-full h-16 bg-figma-secondary border-t border-[#e5e7eb] grid grid-cols-4 z-20 pb-safe">
-        <button className="flex flex-col justify-center items-center gap-1 h-full hover:bg-gray-50 transition-colors active:bg-gray-100">
+        <button onClick={() => navigate("/PantallaDeInicio")} className="flex flex-col justify-center items-center gap-1 h-full hover:bg-gray-50 transition-colors active:bg-gray-100">
           <div className="w-6 h-6 relative">
             <img className="w-5 h-[21px] absolute top-0.5 left-[3px] z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/b5c0d80fa_b755d508d_2_3770.svg" alt="" aria-hidden="true" />
             <img className="w-2 h-[11px] absolute top-3 left-[9px] z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/39792c3d0_118230756_2_3769.svg" alt="" aria-hidden="true" />
@@ -165,7 +181,7 @@ export default function Pago2() {
             Inicio
           </span>
         </button>
-        <button className="flex flex-col justify-center items-center gap-1 h-full hover:bg-gray-50 transition-colors active:bg-gray-100">
+        <button onClick={() => navigate("/Progreso")} className="flex flex-col justify-center items-center gap-1 h-full hover:bg-gray-50 transition-colors active:bg-gray-100">
           <div className="w-6 h-6 relative">
             <img className="w-[22px] h-5 absolute top-[3px] left-0.5 z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/2a9c51499_2037bad12_2_3777.svg" alt="" aria-hidden="true" />
             <img className="w-0.5 h-4 absolute top-[7px] left-3 z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/9a5d346bc_cf5048d2e_2_3776.svg" alt="" aria-hidden="true" />
@@ -174,7 +190,7 @@ export default function Pago2() {
             Progreso
           </span>
         </button>
-        <button className="flex flex-col justify-center items-center gap-1 h-full hover:bg-gray-50 transition-colors active:bg-gray-100">
+        <button onClick={() => navigate("/Planes")} className="flex flex-col justify-center items-center gap-1 h-full hover:bg-gray-50 transition-colors active:bg-gray-100">
           <div className="w-6 h-6 relative">
             <img className="w-[22px] h-4 absolute top-[3px] left-0.5 z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/25afa796d_e20711d4c_2_3783.svg" alt="" aria-hidden="true" />
             <img className="w-4 h-0.5 absolute top-[21px] left-[5px] z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/fd42b0f2d_ee80a0ba7_2_3784.svg" alt="" aria-hidden="true" />
@@ -183,7 +199,7 @@ export default function Pago2() {
             Planes
           </span>
         </button>
-        <button className="flex flex-col justify-center items-center gap-1 h-full hover:bg-gray-50 transition-colors active:bg-gray-100">
+        <button onClick={() => navigate("/Perfil")} className="flex flex-col justify-center items-center gap-1 h-full hover:bg-gray-50 transition-colors active:bg-gray-100">
           <div className="w-6 h-6 relative">
             <img className="w-2.5 h-2.5 absolute top-[3px] left-2 z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/82b39928c_588798cb6_2_3791.svg" alt="" aria-hidden="true" />
             <img className="w-4 h-2 absolute top-[15px] left-[5px] z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/09dd3323a_d71027afe_2_3790.svg" alt="" aria-hidden="true" />

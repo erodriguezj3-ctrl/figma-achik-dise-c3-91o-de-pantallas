@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { base44 } from "@/api/base44Client";
 
 export default function PagoExitoso() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const handleGoHome = async () => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      await base44.auth.updateMe({ subscription: "premium", subscription_plan: "monthly" });
+    } catch (e) {}
+    setLoading(false);
+    navigate("/PantallaDeInicio");
+  };
+
   const navItems = [
     {
       label: "Inicio",
@@ -79,12 +94,14 @@ export default function PagoExitoso() {
 
           {/* Action Button */}
           <motion.button
+            onClick={handleGoHome}
+            disabled={loading}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="flex flex-col justify-center items-center py-4 px-0 w-full max-w-[328px] bg-[#04d9d9] rounded-full shadow-sm transition-colors hover:bg-[#03c4c4]"
+            className="flex flex-col justify-center items-center py-4 px-0 w-full max-w-[328px] bg-[#04d9d9] rounded-full shadow-sm transition-colors hover:bg-[#03c4c4] disabled:opacity-60"
           >
             <span className="text-figma-16 font-bold font-heading leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">
-              Ir al inicio
+              {loading ? "Activando..." : "Ir al inicio"}
             </span>
           </motion.button>
         </motion.div>
@@ -96,6 +113,12 @@ export default function PagoExitoso() {
           {navItems.map((item, index) => (
             <button
               key={index}
+              onClick={() => {
+                if (item.label === "Inicio") navigate("/PantallaDeInicio");
+                else if (item.label === "Progreso") navigate("/Progreso");
+                else if (item.label === "Planes") navigate("/Planes");
+                else if (item.label === "Perfil") navigate("/Perfil");
+              }}
               className="flex flex-col justify-center items-center gap-1 w-full h-full focus:outline-none group"
             >
               <div className="shrink-0 grow-0 w-6 h-6 overflow-clip relative transition-transform group-hover:scale-110 group-active:scale-95">
