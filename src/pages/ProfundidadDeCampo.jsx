@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ProfundidadDeCampo() {
   return (
-    <div className="flex flex-col w-full min-h-screen bg-figma-secondary font-heading">
+    <div className="flex flex-col w-full max-w-[392px] mx-auto min-h-[852px] bg-figma-secondary font-heading relative">
       {/* Header */}
       <header className="flex flex-row items-center gap-2 p-6 w-full border-b border-[#e5e7eb] shrink-0">
         <button
