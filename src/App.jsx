@@ -30,6 +30,7 @@ import CamaraAr1 from './pages/CamaraAr1';
 import Progreso from './pages/Progreso';
 import Perfil from './pages/Perfil';
 import PagoExitoso2 from './pages/PagoExitoso2';
+import Pago2 from './pages/Pago2';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -80,6 +81,7 @@ const AuthenticatedApp = () => {
       <Route path="/Progreso" element={<Progreso />} />
       <Route path="/Perfil" element={<Perfil />} />
       <Route path="/PagoExitoso2" element={<PagoExitoso2 />} />
+      <Route path="/Pago2" element={<Pago2 />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
