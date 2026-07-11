@@ -227,11 +227,9 @@
   html, body {
     margin: 0;
     padding: 0;
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     background-color: #0b132b;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
     font-family: 'Segoe UI Emoji', sans-serif;
   }
 

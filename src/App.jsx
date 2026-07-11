@@ -43,6 +43,7 @@ import FotografiaAvanzada from './pages/FotografiaAvanzada';
 import LargaExposicion from './pages/LargaExposicion';
 import FotografiaNocturna from './pages/FotografiaNocturna';
 import AltaVelocidad from './pages/AltaVelocidad';
+import PhoneFrame from '@/components/PhoneFrame';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -66,6 +67,7 @@ const AuthenticatedApp = () => {
   }
 
   return (
+    <PhoneFrame>
     <Routes>
       <Route path="/" element={<Pantalla1 />} />
       <Route path="/Home" element={<Home />} />
@@ -109,6 +111,7 @@ const AuthenticatedApp = () => {
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
+    </PhoneFrame>
   );
 };
 
