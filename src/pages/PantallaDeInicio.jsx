@@ -46,7 +46,7 @@ export default function PantallaDeInicio() {
                 <p className="font-heading text-figma-14 font-normal leading-figma-20 text-figma-text-5">
                   Nivel Actual
                 </p>
-                <p className="mt-1 font-heading text-[clamp(14px,6.12vw,24px)] font-bold leading-[1.3333] text-figma-accent">
+                <p className="mt-1 max-w-[160px] font-heading text-[clamp(14px,6.12vw,24px)] font-bold leading-tight text-figma-accent">
                   Fotógrafo Principiante
                 </p>
               </div>
@@ -165,11 +165,11 @@ export default function PantallaDeInicio() {
                 />
               </div>
               <div className="flex flex-col pr-20">
-                <p className="whitespace-pre-line font-figma-inter text-figma-20 font-semibold leading-figma-28 text-figma-secondary">
-                  FOTOGRAFIA{"\n"}AVANZADA{"\n"}
-                  <span className="text-figma-12 font-normal">
-                    Larga Exposicón y Alta Exposicón
-                  </span>
+                <h3 className="font-heading text-figma-20 font-bold leading-figma-28 text-figma-secondary uppercase">
+                  Fotografía Avanzada
+                </h3>
+                <p className="mt-2 font-heading text-figma-14 font-medium leading-figma-20 text-figma-text-2-4">
+                  Larga exposición y alta velocidad
                 </p>
               </div>
               {/* Premium Badge */}
