@@ -8,7 +8,7 @@ export default function FotografiaIntermedia() {
     <main className="w-full max-w-[392px] mx-auto min-h-screen bg-figma-secondary flex flex-col font-heading">
       {/* Header */}
       <header className="flex items-center p-6 border-b border-[#e5e7eb] w-full shrink-0">
-        <button className="flex items-center gap-2 hover:opacity-70 transition-opacity focus:outline-none rounded-md focus-visible:ring-2 focus-visible:ring-[#04d9d9] focus-visible:ring-offset-2">
+        <button onClick={() => navigate("/PantallaDeInicio")} className="flex items-center gap-2 hover:opacity-70 transition-opacity focus:outline-none rounded-md focus-visible:ring-2 focus-visible:ring-[#04d9d9] focus-visible:ring-offset-2">
           <ArrowLeft className="w-5 h-5 text-figma-text-1-3" strokeWidth={2} />
           <span className="text-figma-16 font-medium leading-figma-24 text-figma-text-1-3">
             Volver
