@@ -4,6 +4,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import ThreeDViewer from "@/components/ThreeDViewer";
 
 export default function CamaraAr1() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const modelUrl = location.state?.modelUrl;
+  const topic = location.state?.topic;
   const [gridActive, setGridActive] = useState(true);
   const [iso, setIso] = useState(0);
   const [shutter, setShutter] = useState(50);
@@ -13,10 +17,6 @@ export default function CamaraAr1() {
   const [capturing, setCapturing] = useState(false);
   const [flash, setFlash] = useState(false);
   const viewerRef = useRef(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const modelUrl = location.state?.modelUrl;
-  const topic = location.state?.topic;
 
   const isoLabels = ["100", "400", "1600", "3200", "6400"];
   const shutterLabels = ["1/2000", "1/500", "1/100", "1/8", '2"'];
