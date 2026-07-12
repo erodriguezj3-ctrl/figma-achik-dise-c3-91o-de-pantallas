@@ -102,7 +102,7 @@ export default function CamaraAr1() {
 
           {/* Top Bar Controls */}
           <div className="absolute top-4 left-4 z-20">
-            <button onClick={() => navigate("/Modelo3D")} className="flex flex-row justify-start items-center gap-2 py-2 px-4 bg-figma-highlight rounded-[39311300px] hover:bg-white/20 transition-colors">
+            <button onClick={() => navigate("/Modelo3D", { state: { topic } })} className="flex flex-row justify-start items-center gap-2 py-2 px-4 bg-figma-highlight rounded-[39311300px] hover:bg-white/20 transition-colors">
               <div className="shrink-0 grow-0 w-5 h-5 overflow-clip relative">
                 <img className="w-[7px] h-[13px] absolute top-1 left-1 z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/916bcb6fc_42c97639d_2_535.svg" alt="Back Arrow Part 1" />
                 <img className="w-[13px] h-0.5 absolute top-2.5 left-1 z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/d73607472_9ec2f3555_2_536.svg" alt="Back Arrow Part 2" />
