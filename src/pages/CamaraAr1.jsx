@@ -128,16 +128,6 @@ export default function CamaraAr1() {
             </div>
           )}
 
-          {/* EV Slider (Vertical) */}
-          <div className="absolute top-16 right-2 flex flex-col justify-start items-center gap-0.5 p-2 bg-figma-highlight-4 rounded-[14px] w-[33px] z-20">
-            <p className="text-figma-12 font-normal font-heading leading-figma-16 text-figma-text-1 mb-1">
-              EV
-            </p>
-            {[...Array(7)].map((_, i) => (
-              <div key={i} className="bg-figma-color-9 rounded-[6px] shrink-0 grow-0 w-2 h-2" />
-            ))}
-          </div>
-
           {/* Rule of Thirds Toggle */}
           <button
             onClick={() => setGridActive(!gridActive)}

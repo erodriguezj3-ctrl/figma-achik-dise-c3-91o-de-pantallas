@@ -139,14 +139,6 @@ export default function CamaraAr4() {
           </p>
         </button>
 
-        {/* EV Slider (Right) */}
-        <div className="absolute top-16 right-2 z-20 flex flex-col justify-start items-center gap-0.5 p-2 bg-figma-highlight-4 rounded-[14px] w-[33px]">
-          <p className="text-figma-12 font-normal font-heading leading-figma-16 text-figma-text-1 mb-1">EV</p>
-          {[...Array(7)].map((_, i) => (
-            <div key={i} className="bg-figma-color-9 rounded-[6px] shrink-0 grow-0 w-2 h-2" />
-          ))}
-        </div>
-
         {/* AR status indicator */}
         {arStatus && (
           <div className="absolute left-4 right-4 z-20 bg-[#111827]/80 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center gap-2" style={{ bottom: "60px" }}>
