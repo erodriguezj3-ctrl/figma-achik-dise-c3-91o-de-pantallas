@@ -32,6 +32,7 @@ export default function CamaraAr4() {
   const [aperture, setAperture] = useState(50);
   const [capturing, setCapturing] = useState(false);
   const [flash, setFlash] = useState(false);
+  const [showGrid, setShowGrid] = useState(false);
 
   const toggleLight = (key) =>
     setLights((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -93,6 +94,16 @@ export default function CamaraAr4() {
 
         {/* Inner Cyan Border */}
         <div className="absolute inset-4 rounded-[10px] shadow-[inset_0_0_0_1px_rgba(0,211,243,0.60)] pointer-events-none z-10" />
+
+        {/* Rule of Thirds Grid Overlay */}
+        {showGrid && (
+          <div className="absolute inset-4 rounded-[10px] pointer-events-none z-10 overflow-clip">
+            <div className="absolute top-0 bottom-0 left-1/3 w-px bg-white/70" />
+            <div className="absolute top-0 bottom-0 left-2/3 w-px bg-white/70" />
+            <div className="absolute left-0 right-0 top-1/3 h-px bg-white/70" />
+            <div className="absolute left-0 right-0 top-2/3 h-px bg-white/70" />
+          </div>
+        )}
 
         {/* Capture flash */}
         {flash && (
@@ -173,7 +184,12 @@ export default function CamaraAr4() {
         {/* Regla de Tercios (Bottom Right) */}
         <motion.button
           whileTap={{ scale: 0.95 }}
-          className="absolute bottom-4 right-3 z-20 flex flex-row justify-start items-center gap-1.5 py-2 px-3 bg-figma-highlight-2 rounded-[14px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)] w-[140px] h-[34px]"
+          onClick={() => setShowGrid((v) => !v)}
+          className={`absolute bottom-4 right-3 z-20 flex flex-row justify-start items-center gap-1.5 py-2 px-3 rounded-[14px] w-[140px] h-[34px] transition-colors ${
+            showGrid
+              ? "bg-[#04d9d9] shadow-[inset_0_0_0_1px_#ffffff]"
+              : "bg-figma-highlight-2 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)]"
+          }`}
         >
           <div className="shrink-0 grow-0 w-4 h-4 overflow-clip relative">
             <img className="w-[13px] h-[13px] absolute top-0.5 left-0.5 z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/c0333e52a_be42764b8_2_1588.svg" alt="Grid" />
@@ -182,7 +198,7 @@ export default function CamaraAr4() {
             <img className="w-px h-[13px] absolute top-0.5 left-2.5 z-[5]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/cd738eae0_f70ac8401_2_1592.svg" alt="Grid Line" />
             <img className="w-[13px] h-px absolute top-2.5 left-0.5 z-[3]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/02ed739a9_e3d850614_2_1590.svg" alt="Grid Line" />
           </div>
-          <p className="text-figma-12 font-medium font-heading leading-figma-16 text-center text-figma-secondary">
+          <p className={`text-figma-12 font-medium font-heading leading-figma-16 text-center ${showGrid ? "text-figma-secondary" : "text-figma-secondary/80"}`}>
             Regla de Tercios
           </p>
         </motion.button>
