@@ -76,9 +76,9 @@ export default function CamaraAr4() {
   ];
 
   return (
-    <main className="w-full max-w-[392px] mx-auto h-screen max-h-screen min-h-screen flex flex-col overflow-hidden bg-figma-accent relative">
+    <main className="w-full max-w-[392px] mx-auto h-[100dvh] flex flex-col overflow-hidden bg-figma-accent relative">
       {/* Viewfinder Section */}
-      <div className="relative w-full flex-1 min-h-0 bg-figma-surface overflow-clip z-0">
+      <div className="relative w-full flex-1 min-h-0 bg-figma-surface overflow-clip z-0 max-h-[55dvh]">
         {/* AR 3D Viewer — rear camera + selected model */}
         <ThreeDViewer
           ref={viewerRef}
@@ -197,7 +197,7 @@ export default function CamaraAr4() {
       </div>
 
       {/* Camera Controls Section */}
-      <div className="shrink-0 flex flex-col justify-start items-start p-4 w-full bg-[#0f172a] rounded-[24px_24px_0px_0px] z-10 relative gap-2">
+      <div className="shrink-0 mt-auto flex flex-col justify-start items-start p-4 w-full bg-[#0f172a] rounded-[24px_24px_0px_0px] z-10 relative gap-1">
 
         {/* Sliders */}
         {sliders.map((slider, index) => (
@@ -239,7 +239,7 @@ export default function CamaraAr4() {
         ))}
 
         {/* Shutter Button */}
-        <div className="flex flex-row justify-center items-center w-full pt-2 pb-4 mt-auto">
+        <div className="flex flex-row justify-center items-center w-full pt-1 pb-2 mt-auto">
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={handleCapture}

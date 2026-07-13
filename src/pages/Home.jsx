@@ -60,9 +60,9 @@ export default function Home() {
   };
 
   return (
-    <main className="max-w-[392px] w-full mx-auto h-screen flex flex-col bg-[#1f2937] overflow-hidden relative">
+    <main className="max-w-[392px] w-full mx-auto h-[100dvh] flex flex-col bg-[#1f2937] overflow-hidden relative">
       {/* Camera viewfinder area */}
-      <div className="relative w-full flex-1 min-h-0 overflow-clip">
+      <div className="relative w-full flex-1 min-h-0 overflow-clip max-h-[55dvh]">
         {/* 3D Viewer / AR surface */}
         <ThreeDViewer
           ref={viewerRef}
@@ -132,7 +132,7 @@ export default function Home() {
       </div>
 
       {/* Controls panel */}
-      <div className="shrink-0 flex flex-col px-4 pt-2 pb-4 w-full bg-[#111827] rounded-[24px_24px_0px_0px] gap-2">
+      <div className="shrink-0 mt-auto flex flex-col px-4 pt-2 pb-4 w-full bg-[#111827] rounded-[24px_24px_0px_0px] gap-1">
         {/* ISO Slider */}
         <SliderControl
           label="ISO"
@@ -149,7 +149,7 @@ export default function Home() {
           onChange={setShutter}
           display={getShutterDisplay()}
           labels={shutterLabels}
-          className="mt-1.5"
+          className="mt-0.5"
         />
 
         {/* Aperture Slider */}
@@ -159,11 +159,11 @@ export default function Home() {
           onChange={setAperture}
           display={getApertureDisplay()}
           labels={apertureLabels}
-          className="mt-1.5"
+          className="mt-0.5"
         />
 
         {/* Shutter button */}
-        <div className="flex flex-row justify-center items-center w-full pt-2 pb-4 mt-auto">
+        <div className="flex flex-row justify-center items-center w-full pt-1 pb-2 mt-auto">
           <button
             onClick={handleCapture}
             disabled={capturing}
