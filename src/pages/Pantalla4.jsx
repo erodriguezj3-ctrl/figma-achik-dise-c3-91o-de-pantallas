@@ -6,10 +6,10 @@ export default function OnboardingScreen() {
   const navigate = useNavigate();
   return (
     <main className="h-screen w-full overflow-hidden bg-figma-secondary flex justify-center font-heading">
-      <div className="w-full max-w-[392px] h-full flex flex-col justify-between px-8 pt-4 pb-5">
+      <div className="w-full max-w-[392px] h-full flex flex-col justify-around px-8 pt-4 pb-5">
 
         {/* Illustration Section */}
-        <div className="flex-1 flex items-center justify-center w-full min-h-0">
+        <div className="flex items-center justify-center w-full">
           <div className="relative w-full max-w-[256px] min-h-[256px] scale-90">
 
             {/* Top Right Star */}
