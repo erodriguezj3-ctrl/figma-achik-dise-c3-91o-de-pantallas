@@ -7,7 +7,7 @@ import { VIDEO_SOURCES } from "@/config/videos";
 export default function EfectoBokeh() {
   const navigate = useNavigate();
   return (
-    <main className="w-full min-h-screen flex flex-col bg-figma-secondary font-heading overflow-x-clip">
+    <main className="flex flex-col min-h-[100dvh] bg-figma-secondary w-full max-w-[392px] mx-auto font-heading relative overflow-clip shadow-2xl">
       {/* Header */}
       <header className="w-full p-6 border-b border-[#e5e7eb] flex items-center bg-figma-secondary sticky top-0 z-10">
         <button onClick={() => navigate("/FotografiaIntermedia")} className="flex items-center gap-2 hover:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-md">
@@ -30,7 +30,7 @@ export default function EfectoBokeh() {
       </header>
 
       {/* Content */}
-      <section className="flex-1 flex flex-col p-6 w-full max-w-2xl mx-auto">
+      <section className="flex flex-col flex-1 p-6 w-full z-10">
         {/* Title Area */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -47,14 +47,16 @@ export default function EfectoBokeh() {
         </motion.div>
 
         {/* Video de la Clase (placeholder) */}
-        <div className="flex-1 w-full flex items-center justify-center py-4 min-h-[320px]">
+        <div className="flex flex-col flex-1 items-center justify-center w-full pb-6 min-h-[340px]">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-[344px] aspect-[344/320]"
+            className="w-full max-w-[344px]"
           >
-            <VideoPlayer src={VIDEO_SOURCES.clase_bokeh} className="w-full h-full" />
+            <div className="w-full min-h-[320px]">
+              <VideoPlayer src={VIDEO_SOURCES.clase_bokeh} className="w-full h-full min-h-[320px]" />
+            </div>
           </motion.div>
         </div>
 
@@ -63,9 +65,9 @@ export default function EfectoBokeh() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full flex justify-center mt-8"
+          className="w-full mt-auto shrink-0"
         >
-          <button onClick={() => navigate("/Practica", { state: { topic: "bokeh" } })} className="w-full max-w-[344px] h-14 bg-[#04d9d9] rounded-full flex items-center justify-center hover:bg-[#03c2c2] hover:shadow-md transition-all active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#04d9d9]">
+          <button onClick={() => navigate("/Practica", { state: { topic: "bokeh" } })} className="w-full h-14 bg-[#04d9d9] rounded-full flex items-center justify-center hover:bg-[#03c2c2] hover:shadow-md transition-all active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#04d9d9]">
             <span className="text-figma-16 font-medium tracking-[0.4px] text-figma-secondary uppercase leading-figma-24">
               Marcar como completado
             </span>

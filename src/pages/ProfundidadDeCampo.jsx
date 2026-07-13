@@ -6,7 +6,7 @@ import { VIDEO_SOURCES } from "@/config/videos";
 export default function ProfundidadDeCampo() {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col w-full max-w-[392px] mx-auto min-h-[852px] bg-figma-secondary font-heading relative">
+    <div className="flex flex-col min-h-[100dvh] bg-figma-secondary w-full max-w-[392px] mx-auto font-heading relative overflow-clip shadow-2xl">
       {/* Header */}
       <header className="flex flex-row items-center gap-2 p-6 w-full border-b border-[#e5e7eb] shrink-0">
         <button
@@ -35,9 +35,9 @@ export default function ProfundidadDeCampo() {
       </header>
 
       {/* Main Content */}
-      <main className="flex flex-col flex-1 p-6 w-full">
+      <main className="flex flex-col flex-1 p-6 w-full z-10">
         {/* Title Section */}
-        <div className="flex flex-col items-center w-full shrink-0 mb-6">
+        <div className="flex flex-col items-center w-full shrink-0 pb-6">
           <h1 className="text-[clamp(14px,6.12vw,24px)] font-bold leading-[1.3333] text-center text-figma-text-1-2">
             Profundidad de Campo
           </h1>
@@ -47,14 +47,16 @@ export default function ProfundidadDeCampo() {
         </div>
 
         {/* Video de la Clase (placeholder) */}
-        <div className="flex flex-col items-center justify-center flex-1 w-full min-h-[320px] py-6">
-          <div className="w-full max-w-[344px] min-h-[320px]">
-            <VideoPlayer src={VIDEO_SOURCES.clase_profundidad} className="w-full h-full min-h-[320px]" />
+        <div className="flex flex-col flex-1 items-center justify-center w-full pb-6 min-h-[340px]">
+          <div className="w-full max-w-[344px]">
+            <div className="w-full min-h-[320px]">
+              <VideoPlayer src={VIDEO_SOURCES.clase_profundidad} className="w-full h-full min-h-[320px]" />
+            </div>
           </div>
         </div>
 
         {/* Action Footer */}
-        <div className="w-full shrink-0 mt-auto pt-6">
+        <div className="w-full mt-auto shrink-0">
           <button onClick={() => navigate("/Practica", { state: { topic: "profundidad" } })} className="flex items-center justify-center w-full h-14 bg-[#04d9d9] rounded-[39311300px] hover:bg-[#03c2c2] transition-colors focus:outline-none focus-visible:ring-4 focus-visible:ring-[#04d9d9]/30">
             <span className="text-figma-16 font-medium leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">
               Marcar como completado
