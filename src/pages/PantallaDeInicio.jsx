@@ -16,7 +16,7 @@ export default function PantallaDeInicio() {
   }, []);
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-[392px] flex-col bg-figma-secondary relative shadow-sm">
+    <div className="mx-auto flex h-full w-full max-w-[392px] flex-col bg-figma-secondary relative shadow-sm overflow-hidden">
       {/* Header */}
       <header className="sticky top-0 z-20 flex w-full shrink-0 items-center justify-between border-b-[1px] border-figma-border-3 bg-figma-secondary p-6">
         <p className="font-heading text-[clamp(16px,7.65vw,30px)] font-bold leading-[1.2] text-figma-accent">
@@ -39,7 +39,7 @@ export default function PantallaDeInicio() {
       </header>
 
       {/* Main Content */}
-      <main className="flex w-full flex-1 flex-col pb-[clamp(20px,20.4vw,80px)]">
+      <main className="flex w-full flex-1 flex-col overflow-y-auto pb-[clamp(20px,20.4vw,80px)]">
         {/* Progress Section */}
         <section className="w-full p-6 pb-0">
           <div className="flex w-full flex-col rounded-[16px] bg-figma-primary-2 p-6">

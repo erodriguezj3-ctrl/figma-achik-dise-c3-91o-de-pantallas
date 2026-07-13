@@ -49,7 +49,7 @@ const itemVariants = {
 
 export default function Progreso() {
   return (
-    <main className="w-full max-w-[392px] mx-auto min-h-screen bg-figma-secondary flex flex-col relative overflow-clip font-heading">
+    <main className="w-full max-w-[392px] mx-auto h-full bg-figma-secondary flex flex-col relative overflow-hidden font-heading">
       {/* Header */}
       <header className="flex flex-col p-6 border-b border-[#e5e7eb] bg-figma-secondary z-10 sticky top-0">
         <h1 className="text-[clamp(14px,6.12vw,24px)] font-bold leading-[1.3333] text-figma-text-1-2">

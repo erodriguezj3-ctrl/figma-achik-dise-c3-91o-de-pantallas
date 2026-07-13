@@ -9,7 +9,7 @@ export default function Perfil() {
   const navigate = useNavigate();
   const { completedCount, totalCount, percentage, cursosCompletados, photoCount } = useBasicProgress();
   return (
-    <div className="flex flex-col min-h-screen bg-figma-secondary w-full max-w-[392px] mx-auto relative font-heading">
+    <div className="flex flex-col h-full bg-figma-secondary w-full max-w-[392px] mx-auto relative font-heading overflow-hidden">
       {/* Header */}
       <header className="sticky top-0 z-20 flex flex-col justify-center p-6 w-full border-b border-[#e5e7eb] bg-figma-secondary">
         <h1 className="text-[clamp(14px,6.12vw,24px)] font-bold leading-[1.3333] text-figma-text-1-2">
@@ -18,7 +18,7 @@ export default function Perfil() {
       </header>
 
       {/* Main Scrollable Content */}
-      <main className="flex-1 flex flex-col pb-[clamp(22px,22.4vw,88px)]">
+      <main className="flex-1 flex flex-col overflow-y-auto pb-[clamp(22px,22.4vw,88px)]">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}

@@ -30,7 +30,7 @@ export default function Planes() {
   ];
 
   return (
-    <div className="w-full max-w-[392px] mx-auto bg-figma-secondary min-h-screen flex flex-col relative font-sans text-[#111827] overflow-clip">
+    <div className="w-full max-w-[392px] mx-auto bg-figma-secondary h-full flex flex-col relative font-sans text-[#111827] overflow-hidden">
       {/* Top Banner */}
       <div className="flex flex-col items-center justify-center py-6 px-4 bg-[linear-gradient(90deg,_rgba(254,252,232,1.00)_0%,_rgba(254,249,194,1.00)_100%)] border-b border-[#e5e7eb] shrink-0">
         <div className="flex items-center gap-2">

@@ -85,9 +85,9 @@ export default function Modelo3D() {
   };
 
   return (
-    <div className="w-full max-w-[392px] mx-auto min-h-screen bg-figma-secondary flex flex-col relative pb-16 overflow-clip shadow-xl">
+    <div className="w-full max-w-[392px] mx-auto h-full bg-figma-secondary flex flex-col relative overflow-hidden shadow-xl">
       {/* Header */}
-      <header className="p-6 border-b border-figma-accent-2 flex flex-col gap-1 bg-figma-secondary z-10">
+      <header className="p-6 border-b border-figma-accent-2 flex flex-col gap-1 bg-figma-secondary z-10 shrink-0">
         <h1 className="text-[clamp(14px,6.12vw,24px)] font-bold font-heading leading-[1.3333] text-figma-text-1-2">
           Modelos 3D
         </h1>
@@ -97,7 +97,7 @@ export default function Modelo3D() {
       </header>
 
       {/* Content Grid */}
-      <main className="p-6 grid grid-cols-2 gap-4 flex-1 content-start bg-figma-secondary">
+      <main className="p-6 grid grid-cols-2 gap-4 flex-1 content-start bg-figma-secondary overflow-y-auto pb-20">
         {models.map((model, i) => (
           <motion.div
             key={model.id}
