@@ -7,7 +7,7 @@ import { VIDEO_SOURCES } from "@/config/videos";
 export default function AltaVelocidad() {
   const navigate = useNavigate();
   return (
-    <div className="mx-auto flex flex-col min-h-screen w-full max-w-[392px] bg-figma-secondary font-heading shadow-xl">
+    <div className="flex flex-col min-h-[100dvh] bg-figma-secondary w-full max-w-[392px] mx-auto font-heading relative overflow-clip shadow-2xl">
       {/* Header */}
       <header className="flex items-center p-6 w-full border-b border-[#e5e7eb] bg-figma-secondary sticky top-0 z-10">
         <button onClick={() => navigate("/FotografiaAvanzada")} className="flex items-center gap-2 hover:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-md">
@@ -53,10 +53,12 @@ export default function AltaVelocidad() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-          className="flex flex-col flex-1 justify-center items-center pb-6 w-full min-h-[320px]"
+          className="flex flex-col flex-1 justify-center items-center pb-6 w-full min-h-[340px]"
         >
-          <div className="w-full max-w-[344px] min-h-[320px]">
-            <VideoPlayer src={VIDEO_SOURCES.clase_alta_velocidad} className="w-full h-full min-h-[320px]" />
+          <div className="w-full max-w-[344px]">
+            <div className="w-full min-h-[320px]">
+              <VideoPlayer src={VIDEO_SOURCES.clase_alta_velocidad} className="w-full h-full min-h-[320px]" />
+            </div>
           </div>
         </motion.section>
 
@@ -65,7 +67,7 @@ export default function AltaVelocidad() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-          className="w-full mt-auto pt-4"
+          className="w-full mt-auto shrink-0"
         >
           <button onClick={() => navigate("/Practica", { state: { topic: "alta_velocidad" } })} className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex items-center justify-center hover:bg-[#03c2c2] active:scale-[0.98] transition-all focus:outline-none focus-visible:ring-4 focus-visible:ring-[#04d9d9]/50">
             <span className="text-figma-16 font-medium font-heading leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">

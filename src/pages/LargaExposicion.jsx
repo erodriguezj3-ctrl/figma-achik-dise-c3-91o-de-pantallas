@@ -6,7 +6,7 @@ import { VIDEO_SOURCES } from "@/config/videos";
 export default function LargaExposicion() {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col w-full min-h-screen bg-figma-secondary font-sans mx-auto max-w-md shadow-sm">
+    <div className="flex flex-col min-h-[100dvh] bg-figma-secondary w-full max-w-[392px] mx-auto font-heading relative overflow-clip shadow-2xl">
       {/* Header */}
       <header className="flex flex-row justify-start items-center gap-2 p-6 w-full border-b border-[#e5e7eb] shrink-0">
         <button onClick={() => navigate("/FotografiaAvanzada")} className="flex flex-row items-center gap-2 group cursor-pointer transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#04d9d9] rounded-md">
@@ -41,9 +41,11 @@ export default function LargaExposicion() {
         </section>
 
         {/* Video de la Clase (placeholder) */}
-        <section className="flex-1 flex flex-col justify-center items-center pb-6 w-full min-h-[320px]">
-          <div className="w-full max-w-[344px] aspect-[344/320]">
-            <VideoPlayer src={VIDEO_SOURCES.clase_larga_exposicion} className="w-full h-full" />
+        <section className="flex flex-col flex-1 items-center justify-center w-full pb-6 min-h-[340px]">
+          <div className="w-full max-w-[344px]">
+            <div className="w-full min-h-[320px]">
+              <VideoPlayer src={VIDEO_SOURCES.clase_larga_exposicion} className="w-full h-full min-h-[320px]" />
+            </div>
           </div>
         </section>
 

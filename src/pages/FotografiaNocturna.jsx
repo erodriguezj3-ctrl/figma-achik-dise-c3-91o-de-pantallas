@@ -6,7 +6,7 @@ import { VIDEO_SOURCES } from "@/config/videos";
 export default function FotografiaNocturna() {
   const navigate = useNavigate();
   return (
-    <main className="w-full min-h-screen flex flex-col bg-figma-secondary font-heading mx-auto max-w-md">
+    <main className="flex flex-col min-h-[100dvh] bg-figma-secondary w-full max-w-[392px] mx-auto font-heading relative overflow-clip shadow-2xl">
       {/* Header */}
       <header className="flex items-center p-6 w-full border-b border-[#e5e7eb] shrink-0">
         <button onClick={() => navigate("/FotografiaAvanzada")} className="flex items-center gap-2 hover:opacity-80 transition-opacity focus:outline-none">
@@ -41,9 +41,11 @@ export default function FotografiaNocturna() {
         </div>
 
         {/* Video de la Clase (placeholder) */}
-        <div className="flex-1 flex items-center justify-center w-full py-6 min-h-[320px]">
-          <div className="w-full max-w-[344px] min-h-[320px]">
-            <VideoPlayer src={VIDEO_SOURCES.clase_nocturna} className="w-full h-full min-h-[320px]" />
+        <div className="flex flex-col flex-1 items-center justify-center w-full pb-6 min-h-[340px]">
+          <div className="w-full max-w-[344px]">
+            <div className="w-full min-h-[320px]">
+              <VideoPlayer src={VIDEO_SOURCES.clase_nocturna} className="w-full h-full min-h-[320px]" />
+            </div>
           </div>
         </div>
 
