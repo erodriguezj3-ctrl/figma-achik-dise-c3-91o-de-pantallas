@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
+import BottomNav from "@/components/BottomNav";
 
 const MODEL_URLS = {
   patineta: "https://media.base44.com/files/public/6a4f1af577955f105897f7c2/63c27d6bb_PATINETAGLB.glb",
@@ -63,13 +64,6 @@ const models = [
     isPremium: true,
     icons: ["https://media.base44.com/images/public/6a4f1af577955f105897f7c2/7179a2ebd_402e307b5_1_648.svg", "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/240202d52_c1832b06b_1_647.svg"],
   },
-];
-
-const navItems = [
-  { label: "Inicio", path: "/PantallaDeInicio", icons: ["https://media.base44.com/images/public/6a4f1af577955f105897f7c2/540285dc1_3aca3d825_1_662.svg", "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/b203f87db_a0d9b4e9d_1_661.svg"] },
-  { label: "Progreso", path: "/Progreso", icons: ["https://media.base44.com/images/public/6a4f1af577955f105897f7c2/e172ae5ea_2f09fbe5b_1_669.svg", "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/5137ff67f_b70009ae5_1_668.svg"] },
-  { label: "Planes", path: "/Planes", icons: ["https://media.base44.com/images/public/6a4f1af577955f105897f7c2/7d328eaa2_edaf5ef76_1_675.svg", "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/78e8a36fe_665184e30_1_676.svg"] },
-  { label: "Perfil", path: "/Perfil", icons: ["https://media.base44.com/images/public/6a4f1af577955f105897f7c2/ac6154563_970f7d48a_1_683.svg", "https://media.base44.com/images/public/6a4f1af577955f105897f7c2/cc600577b_26aaa530b_1_682.svg"] },
 ];
 
 export default function Modelo3D() {
@@ -180,77 +174,7 @@ export default function Modelo3D() {
       </main>
 
       {/* Bottom Navigation */}
-      <nav className="absolute bottom-0 w-full bg-figma-secondary border-t border-figma-accent-2 h-16 grid grid-cols-4 z-50">
-        {navItems.map((item, i) => (
-          <button
-            key={i}
-            onClick={() => navigate(item.path)}
-            className="flex flex-col items-center justify-center gap-1 h-full w-full hover:bg-black/5 active:bg-black/10 transition-colors"
-          >
-            <div className="w-6 h-6 relative flex items-center justify-center shrink-0">
-              {i === 0 && (
-                <>
-                  <img
-                    className="w-5 h-[21px] absolute top-0.5 left-[3px] z-[2]"
-                    src={item.icons[0]}
-                    alt=""
-                  />
-                  <img
-                    className="w-2 h-[11px] absolute top-3 left-[9px] z-[1]"
-                    src={item.icons[1]}
-                    alt=""
-                  />
-                </>
-              )}
-              {i === 1 && (
-                <>
-                  <img
-                    className="w-[22px] h-5 absolute top-[3px] left-0.5 z-[2]"
-                    src={item.icons[0]}
-                    alt=""
-                  />
-                  <img
-                    className="w-0.5 h-4 absolute top-[7px] left-3 z-[1]"
-                    src={item.icons[1]}
-                    alt=""
-                  />
-                </>
-              )}
-              {i === 2 && (
-                <>
-                  <img
-                    className="w-[22px] h-4 absolute top-[3px] left-0.5 z-[1]"
-                    src={item.icons[0]}
-                    alt=""
-                  />
-                  <img
-                    className="w-4 h-0.5 absolute top-[21px] left-[5px] z-[2]"
-                    src={item.icons[1]}
-                    alt=""
-                  />
-                </>
-              )}
-              {i === 3 && (
-                <>
-                  <img
-                    className="w-2.5 h-2.5 absolute top-[3px] left-2 z-[2]"
-                    src={item.icons[0]}
-                    alt=""
-                  />
-                  <img
-                    className="w-4 h-2 absolute top-[15px] left-[5px] z-[1]"
-                    src={item.icons[1]}
-                    alt=""
-                  />
-                </>
-              )}
-            </div>
-            <span className="text-figma-12 font-medium font-heading leading-figma-16 text-center text-figma-text-2-3">
-              {item.label}
-            </span>
-          </button>
-        ))}
-      </nav>
+      <BottomNav />
     </div>
   );
 }

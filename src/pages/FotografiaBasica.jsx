@@ -75,7 +75,7 @@ export default function FotografiaBasica() {
 
           {/* Video Introductorio */}
           <motion.section variants={itemVariants} className="w-full pb-6">
-            <div className="w-full aspect-[344/280] rounded-[16px] overflow-clip">
+            <div className="w-full aspect-[16/9] rounded-[16px] overflow-clip">
               <VideoPlayer src={VIDEO_SOURCES.intro_basica} className="w-full h-full" />
             </div>
           </motion.section>
