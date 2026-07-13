@@ -60,9 +60,9 @@ export default function Home() {
   };
 
   return (
-    <main className="max-w-[392px] w-full mx-auto flex flex-col bg-[#1f2937] min-h-screen relative">
+    <main className="max-w-[392px] w-full mx-auto h-screen flex flex-col bg-[#1f2937] overflow-hidden relative">
       {/* Camera viewfinder area */}
-      <div className="relative w-full" style={{ height: "490px" }}>
+      <div className="relative w-full flex-1 min-h-0 overflow-clip">
         {/* 3D Viewer / AR surface */}
         <ThreeDViewer
           ref={viewerRef}
@@ -132,7 +132,7 @@ export default function Home() {
       </div>
 
       {/* Controls panel */}
-      <div className="flex flex-col px-6 pt-1.5 pb-2 w-full bg-[#111827] rounded-t-3xl">
+      <div className="shrink-0 flex flex-col px-4 pt-2 pb-4 w-full bg-[#111827] rounded-[24px_24px_0px_0px] gap-2">
         {/* ISO Slider */}
         <SliderControl
           label="ISO"
@@ -163,7 +163,7 @@ export default function Home() {
         />
 
         {/* Shutter button */}
-        <div className="flex flex-row justify-center items-start pt-6 pb-2 mt-1.5">
+        <div className="flex flex-row justify-center items-center w-full pt-2 pb-4 mt-auto">
           <button
             onClick={handleCapture}
             disabled={capturing}

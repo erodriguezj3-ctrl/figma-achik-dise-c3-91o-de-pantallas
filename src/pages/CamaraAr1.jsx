@@ -65,11 +65,11 @@ export default function CamaraAr1() {
   ];
 
   return (
-    <main className="min-h-screen w-full bg-figma-secondary flex justify-center items-start">
-      <div className="w-full max-w-[392px] bg-figma-accent min-h-[853px] flex flex-col relative overflow-clip shadow-2xl">
+    <main className="h-screen w-full bg-figma-secondary flex justify-center overflow-hidden">
+      <div className="w-full max-w-[392px] bg-figma-accent h-screen flex flex-col relative overflow-hidden shadow-2xl">
 
         {/* Viewfinder Area */}
-        <div className="flex-1 relative bg-figma-surface min-h-[401px] w-full overflow-clip">
+        <div className="relative w-full flex-1 min-h-0 bg-figma-surface overflow-clip">
           {/* 3D Viewer / AR surface */}
           <ThreeDViewer
             ref={viewerRef}
@@ -147,7 +147,7 @@ export default function CamaraAr1() {
         </div>
 
         {/* Camera Controls Bottom Sheet */}
-        <div className="w-full bg-figma-text-1-2 rounded-[24px_24px_0px_0px] p-6 flex flex-col gap-6 z-30 relative">
+        <div className="shrink-0 flex flex-col justify-start items-start p-4 w-full bg-[#0f172a] rounded-[24px_24px_0px_0px] z-10 relative gap-2">
 
           {/* Sliders */}
           {sliders.map((slider, index) => (
@@ -189,7 +189,7 @@ export default function CamaraAr1() {
           ))}
 
           {/* Shutter Button */}
-          <div className="flex justify-center items-center mt-4 mb-2 w-full">
+          <div className="flex flex-row justify-center items-center w-full pt-2 pb-4 mt-auto">
             <motion.button
               onClick={handleCapture}
               disabled={capturing}
