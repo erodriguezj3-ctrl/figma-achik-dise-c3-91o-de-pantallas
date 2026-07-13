@@ -229,7 +229,8 @@
     padding: 0;
     @apply text-foreground;
     background-color: #0b132b;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
     font-family: 'Segoe UI Emoji', sans-serif;
   }
 
