@@ -17,7 +17,7 @@ export default function Pago1() {
   };
 
   return (
-    <div className="w-full max-w-[392px] mx-auto min-h-screen flex flex-col bg-figma-secondary relative font-heading">
+    <div className="w-full max-w-[392px] mx-auto h-[100dvh] flex flex-col bg-figma-secondary relative overflow-clip font-heading">
       {/* Header */}
       <header className="flex flex-row justify-start items-center gap-3 p-6 border-b-[1px] border-figma-muted-3 w-full bg-figma-secondary z-10 shrink-0">
         <button onClick={() => navigate("/Planes")} className="flex flex-row justify-center items-center h-9 w-9 bg-figma-muted-3 rounded-[39311300px] shrink-0 transition-colors hover:bg-gray-200">
@@ -38,10 +38,10 @@ export default function Pago1() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col w-full pb-6">
+      <main className="flex-1 overflow-y-auto flex flex-col w-full pb-[90px]">
         {/* Plan Summary */}
-        <section className="pt-[20px] px-[24px] w-full shrink-0">
-          <div className="flex flex-row justify-start items-center gap-4 p-5 bg-figma-surface-4 rounded-[24px] w-full shadow-[inset_0_0_0_1px_#04d9d9]">
+        <section className="pt-4 px-6 w-full shrink-0">
+          <div className="flex flex-row justify-start items-center gap-3 p-4 bg-figma-surface-4 rounded-[24px] w-full shadow-[inset_0_0_0_1px_#04d9d9]">
             <div className="flex flex-row justify-center items-center h-12 w-12 bg-[#04d9d9] rounded-[39311300px] shrink-0">
               <div className="shrink-0 w-6 h-6 relative overflow-clip">
                 <img className="w-[22px] h-4 absolute top-[3px] left-0.5 z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/15eb80d4d_c4a54fb37_2_3530.svg" alt="Crown Base" />
@@ -68,7 +68,7 @@ export default function Pago1() {
         </section>
 
         {/* Payment Form */}
-        <section className="pt-[24px] px-[24px] w-full flex flex-col shrink-0">
+        <section className="pt-5 px-6 w-full flex flex-col shrink-0">
           <div className="flex flex-row justify-start items-center gap-2 min-h-[30px]">
             <div className="shrink-0 w-5 h-5 relative overflow-clip">
               <img className="w-[18px] h-[13px] absolute top-1 left-0.5 z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/7e53bf7b0_69c61945e_2_3549.svg" alt="Card Icon" />
@@ -79,7 +79,7 @@ export default function Pago1() {
             </h2>
           </div>
 
-          <form className="flex flex-col w-full mt-[8px]" onSubmit={handlePayment}>
+          <form className="flex flex-col w-full mt-2" onSubmit={handlePayment}>
             {/* Name Input */}
             <div className="flex flex-col w-full relative">
               <label className="text-figma-14 font-medium leading-figma-20 text-figma-text-2-3 ml-1 mb-1">
@@ -95,7 +95,7 @@ export default function Pago1() {
             </div>
 
             {/* Card Number Input */}
-            <div className="flex flex-col w-full relative mt-[16px]">
+            <div className="flex flex-col w-full relative mt-3">
               <label className="text-figma-14 font-medium leading-figma-20 text-figma-text-2-3 ml-1 mb-1">
                 Número de tarjeta
               </label>
@@ -109,7 +109,7 @@ export default function Pago1() {
             </div>
 
             {/* Expiry & CVV Row */}
-            <div className="grid grid-cols-[220fr_112fr] gap-3 w-full mt-[16px]">
+            <div className="grid grid-cols-[220fr_112fr] gap-3 w-full mt-3">
               <div className="flex flex-col w-full relative">
                 <label className="text-figma-14 font-medium leading-figma-20 text-figma-text-2-3 ml-1 mb-1">
                   Expiración
@@ -137,7 +137,7 @@ export default function Pago1() {
             </div>
 
             {/* Security Notice */}
-            <div className="flex flex-row justify-start items-center gap-2 mt-[20px] min-h-[52px] pb-[16px]">
+            <div className="flex flex-row justify-start items-center gap-2 mt-4 min-h-[52px] pb-3">
               <div className="shrink-0 w-3 h-3 relative overflow-clip">
                 <img className="w-1.5 h-[5px] absolute top-px left-[3px] z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/0677e4cbe_15d116d19_2_3581.svg" alt="Lock Small Top" />
                 <img className="w-2.5 h-1.5 absolute top-[5px] left-px z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/f9222f3a0_5ddc69f03_2_3580.svg" alt="Lock Small Body" />
@@ -151,7 +151,7 @@ export default function Pago1() {
             <button
               type="submit"
               disabled={processing}
-              className="w-full bg-[#04d9d9] rounded-[39311300px] h-14 flex items-center justify-center mt-[16px] transition-transform active:scale-[0.98] hover:opacity-90 disabled:opacity-60"
+              className="w-full bg-[#04d9d9] rounded-[39311300px] h-14 flex items-center justify-center mt-3 transition-transform active:scale-[0.98] hover:opacity-90 disabled:opacity-60"
             >
               <span className="text-figma-16 font-bold leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">
                 {processing ? "Procesando..." : "Pagar $9.99"}

@@ -43,9 +43,9 @@ export default function Pago2() {
       </header>
 
       {/* Scrollable Content */}
-      <main className="flex-1 overflow-y-auto pb-24 flex flex-col">
+      <main className="flex-1 overflow-y-auto pb-[90px] flex flex-col">
         {/* Plan Summary Card */}
-        <div className="mt-5 mx-6 p-5 flex flex-row items-center gap-4 bg-figma-surface-4 rounded-[24px] shadow-[inset_0_0_0_1px_#04d9d9] shrink-0">
+        <div className="mt-4 mx-6 p-4 flex flex-row items-center gap-3 bg-figma-surface-4 rounded-[24px] shadow-[inset_0_0_0_1px_#04d9d9] shrink-0">
           <div className="w-12 h-12 bg-[#04d9d9] rounded-full flex justify-center items-center shrink-0">
             <div className="w-6 h-6 relative">
               <img className="w-[22px] h-4 absolute top-[3px] left-0.5 z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/1370dcce2_d1193b354_2_3702.svg" alt="" aria-hidden="true" />
@@ -71,7 +71,7 @@ export default function Pago2() {
         </div>
 
         {/* Payment Form Section */}
-        <section className="mt-6 px-6 flex flex-col shrink-0">
+        <section className="mt-5 px-6 flex flex-col shrink-0">
           <div className="flex flex-row items-center gap-2 mb-4">
             <div className="w-5 h-5 relative shrink-0">
               <img className="w-[18px] h-[13px] absolute top-1 left-0.5 z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/60d001df7_33b36fad1_2_3721.svg" alt="" aria-hidden="true" />
@@ -82,7 +82,7 @@ export default function Pago2() {
             </h3>
           </div>
 
-          <form className="flex flex-col gap-4" onSubmit={handlePayment}>
+          <form className="flex flex-col gap-3" onSubmit={handlePayment}>
             {/* Cardholder Name */}
             <div className="flex flex-col gap-1">
               <label htmlFor="cardName" className="text-figma-14 font-medium font-heading leading-figma-20 text-figma-text-2-3 ml-1">
@@ -147,7 +147,7 @@ export default function Pago2() {
             </div>
 
             {/* Security Note */}
-            <div className="flex flex-row items-center gap-2 mt-5 mb-4">
+            <div className="flex flex-row items-center gap-2 mt-4 mb-3">
               <div className="w-3 h-3 relative shrink-0">
                 <img className="w-1.5 h-[5px] absolute top-px left-[3px] z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/01595fe78_c7f655a81_2_3753.svg" alt="" aria-hidden="true" />
                 <img className="w-2.5 h-1.5 absolute top-[5px] left-px z-[1]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/86bd47ab7_e8db26305_2_3752.svg" alt="" aria-hidden="true" />
