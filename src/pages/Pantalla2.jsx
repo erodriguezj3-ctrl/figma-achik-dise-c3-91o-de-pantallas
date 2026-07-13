@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 export default function OnboardingScreen() {
   const navigate = useNavigate();
   return (
-    <main className="min-h-screen w-full bg-figma-secondary flex flex-col font-heading">
+    <main className="h-screen w-full overflow-hidden bg-figma-secondary flex flex-col font-heading">
       {/* Top Illustration Area */}
-      <div className="flex-1 flex items-center justify-center p-8 min-h-[400px]">
+      <div className="flex-1 flex items-center justify-center p-8 min-h-0">
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -38,7 +38,7 @@ export default function OnboardingScreen() {
       </div>
 
       {/* Bottom Content Area */}
-      <div className="w-full flex justify-center pb-8">
+      <div className="shrink-0 w-full flex justify-center pb-8">
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

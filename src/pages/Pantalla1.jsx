@@ -9,7 +9,7 @@ export default function Pantalla1() {
     return () => clearTimeout(timer);
   }, [navigate]);
   return (
-    <main className="w-full min-h-screen flex items-center justify-center bg-figma-secondary overflow-clip">
+    <main className="w-full h-screen overflow-hidden flex items-center justify-center bg-figma-secondary">
       <div className="flex flex-col items-center justify-center px-4">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}

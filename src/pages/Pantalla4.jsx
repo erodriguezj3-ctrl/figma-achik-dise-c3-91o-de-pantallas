@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 export default function OnboardingScreen() {
   const navigate = useNavigate();
   return (
-    <main className="min-h-[100dvh] w-full bg-figma-secondary flex justify-center overflow-clip font-heading">
-      <div className="w-full max-w-[392px] flex flex-col justify-between p-8">
+    <main className="h-screen w-full overflow-hidden bg-figma-secondary flex justify-center font-heading">
+      <div className="w-full max-w-[392px] h-full flex flex-col justify-between p-8">
 
         {/* Illustration Section */}
-        <div className="flex-1 flex items-center justify-center w-full min-h-[400px]">
+        <div className="flex-1 flex items-center justify-center w-full min-h-0">
           <div className="relative w-full max-w-[256px] min-h-[256px]">
 
             {/* Top Right Star */}
@@ -85,7 +85,7 @@ export default function OnboardingScreen() {
 
         {/* Content Section */}
         <motion.div
-          className="w-full flex flex-col items-center pb-4"
+          className="shrink-0 w-full flex flex-col items-center pb-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}

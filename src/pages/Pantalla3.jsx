@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 export default function Pantalla3() {
   const navigate = useNavigate();
   return (
-    <main className="w-full max-w-[392px] mx-auto min-h-screen flex flex-col bg-figma-secondary overflow-clip">
+    <main className="w-full max-w-[392px] mx-auto h-screen overflow-hidden flex flex-col bg-figma-secondary">
       {/* Top Graphic Section */}
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className="flex-1 flex items-center justify-center p-8 min-h-0">
         <motion.div
           initial={{ scale: 0.9, opacity: 0, filter: "blur(10px)" }}
           animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
@@ -55,7 +55,7 @@ export default function Pantalla3() {
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        className="flex flex-col items-center w-full px-8 pb-8"
+        className="shrink-0 flex flex-col items-center w-full px-8 pb-8"
       >
         {/* Pagination Dots */}
         <div className="flex flex-row justify-center items-center gap-2 mb-6">
