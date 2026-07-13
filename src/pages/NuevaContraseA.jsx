@@ -8,10 +8,10 @@ export default function PasswordReset() {
 
   return (
     <main className="w-full h-screen overflow-hidden bg-figma-secondary flex justify-center font-heading">
-      <div className="w-full max-w-[392px] flex flex-col p-8 h-screen">
+      <div className="w-full max-w-[392px] flex flex-col justify-around p-8 h-screen">
 
         {/* Top Navigation */}
-        <div className="mb-6 shrink-0">
+        <div className="shrink-0">
           <button
             type="button"
             onClick={() => navigate("/VerificarCodigo")}
@@ -26,7 +26,7 @@ export default function PasswordReset() {
         </div>
 
         {/* Header Section */}
-        <div className="flex flex-col mb-6 shrink-0">
+        <div className="flex flex-col shrink-0">
           <div className="w-16 h-16 bg-figma-secondary-2 rounded-[39311300px] flex justify-center items-center mb-4">
             <div className="w-8 h-8 relative">
               <img className="w-4 h-[15px] absolute top-[3px] left-[9px] z-[2]" src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/c7bd6a60f_00641f2e5_2_3106.svg" alt="" aria-hidden="true" />
@@ -98,11 +98,8 @@ export default function PasswordReset() {
 
         </form>
 
-        {/* Flexible Spacer to push button to bottom */}
-        <div className="flex-grow min-h-[8px]"></div>
-
         {/* Bottom Action */}
-        <div className="mt-auto shrink-0">
+        <div className="shrink-0">
           <button
             type="submit"
             onClick={() => navigate("/ContraseAActualizada")}

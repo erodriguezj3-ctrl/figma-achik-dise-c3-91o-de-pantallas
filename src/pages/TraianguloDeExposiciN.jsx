@@ -20,7 +20,7 @@ export default function TraianguloDeExposiciN() {
       </header>
 
       {/* Content Area */}
-      <div className="flex flex-col flex-grow p-6 w-full justify-around">
+      <div className="flex flex-col flex-1 p-6 pb-10 w-full justify-around">
         {/* Title Group */}
         <div className="flex flex-col items-center pb-6 w-full shrink-0">
           <h1 className="text-[clamp(14px,6.12vw,24px)] font-bold leading-[1.3333] text-center text-figma-text-1-2">

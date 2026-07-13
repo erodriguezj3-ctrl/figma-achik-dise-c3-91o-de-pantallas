@@ -52,7 +52,7 @@ export default function Captura2() {
       </header>
 
       {/* Main Content Card */}
-      <div className="flex-1 flex flex-col mx-4 mb-6 rounded-[10px] shadow-[inset_0_0_0_1px_rgba(0,211,243,0.60)] bg-figma-border relative z-10 overflow-hidden">
+      <div className="flex-1 flex flex-col justify-center mx-4 mb-6 rounded-[10px] shadow-[inset_0_0_0_1px_rgba(0,211,243,0.60)] bg-figma-border relative z-10 overflow-hidden">
         {/* Card Header */}
         <div className="flex justify-between items-center pt-4 px-4 pb-3 shrink-0">
           <h1 className="text-figma-16 font-bold leading-figma-24 text-figma-secondary">
@@ -66,8 +66,8 @@ export default function Captura2() {
         </div>
 
         {/* Photo Area */}
-        <div className="px-4 flex-1 flex flex-col min-h-0">
-          <div className="relative flex-1 rounded-[16px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)] overflow-clip w-full bg-figma-surface">
+        <div className="px-4 h-[300px] shrink-0">
+          <div className="relative h-full rounded-[16px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)] overflow-clip w-full bg-figma-surface">
             {/* Captured photo */}
             <img
               className="absolute inset-0 w-full h-full object-cover object-center z-0"
