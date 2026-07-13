@@ -76,9 +76,9 @@ export default function CamaraAr4() {
   ];
 
   return (
-    <main className="w-full max-w-[392px] mx-auto flex flex-col min-h-screen bg-figma-accent relative overflow-clip">
+    <main className="w-full max-w-[392px] mx-auto flex flex-col h-screen bg-figma-accent relative overflow-hidden">
       {/* Viewfinder Section */}
-      <div className="relative w-full min-h-[401px] shrink-0 bg-figma-surface overflow-clip z-0">
+      <div className="relative w-full flex-1 min-h-0 bg-figma-surface overflow-clip z-0">
         {/* AR 3D Viewer — rear camera + selected model */}
         <ThreeDViewer
           ref={viewerRef}
@@ -197,24 +197,24 @@ export default function CamaraAr4() {
       </div>
 
       {/* Camera Controls Section */}
-      <div className="flex-1 flex flex-col justify-start items-start p-6 w-full bg-figma-text-1-2 rounded-[24px_24px_0px_0px] z-10 relative gap-6">
+      <div className="shrink-0 flex flex-col justify-start items-start p-4 w-full bg-figma-text-1-2 rounded-[24px_24px_0px_0px] z-10 relative gap-2">
 
         {/* Sliders */}
         {sliders.map((slider, index) => (
           <div key={index} className="flex flex-col w-full">
-            <div className="flex flex-row justify-between items-center pb-2">
+            <div className="flex flex-row justify-between items-center pb-1">
               <div className="py-1 px-3 bg-[#04d9d9] rounded-[4px]">
                 <p className="text-figma-12 font-bold font-heading leading-figma-16 text-figma-text-2 uppercase">
                   {slider.label}
                 </p>
               </div>
-              <p className="text-figma-18 font-bold font-heading leading-figma-28 text-figma-secondary">
+              <p className="text-figma-16 font-bold font-heading leading-figma-24 text-figma-secondary">
                 {slider.value}
               </p>
             </div>
 
-            <div className="w-full min-h-[27px] relative cursor-pointer">
-              <div className="absolute inset-x-0 top-[11px] h-2 rounded-[39311300px] overflow-clip bg-[#4b5563]">
+            <div className="w-full min-h-[22px] relative cursor-pointer">
+              <div className="absolute inset-x-0 top-[9px] h-2 rounded-[39311300px] overflow-clip bg-[#4b5563]">
                 <div className="h-full bg-[#04d9d9] rounded-full" style={{ width: `${slider.percentage}%` }} />
               </div>
               <input
@@ -223,12 +223,12 @@ export default function CamaraAr4() {
                 max={100}
                 value={slider.percentage}
                 onChange={(e) => slider.onChange(Number(e.target.value))}
-                className="absolute inset-x-0 w-full opacity-0 cursor-pointer h-8"
+                className="absolute inset-x-0 w-full opacity-0 cursor-pointer h-7"
                 style={{ zIndex: 10 }}
               />
             </div>
 
-            <div className="flex flex-row justify-between items-start w-full h-4">
+            <div className="flex flex-row justify-between items-start w-full h-3">
               {slider.ticks.map((tick, i) => (
                 <p key={i} className="text-figma-12 font-normal font-heading leading-figma-16 text-figma-text-1">
                   {tick}
@@ -239,14 +239,14 @@ export default function CamaraAr4() {
         ))}
 
         {/* Shutter Button */}
-        <div className="flex flex-row justify-center items-start w-full mt-auto pt-4 pb-2">
+        <div className="flex flex-row justify-center items-start w-full pt-2 pb-1">
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={handleCapture}
             disabled={capturing}
-            className="flex flex-row justify-center items-center h-20 w-20 bg-[#04d9d9] rounded-[39311300px] shadow-[inset_0_0_0_4px_#ffffff] disabled:opacity-60"
+            className="flex flex-row justify-center items-center h-16 w-16 bg-[#04d9d9] rounded-[39311300px] shadow-[inset_0_0_0_4px_#ffffff] disabled:opacity-60"
           >
-            <div className="bg-figma-secondary rounded-[39311300px] w-14 h-14" />
+            <div className="bg-figma-secondary rounded-[39311300px] w-11 h-11" />
           </motion.button>
         </div>
 
