@@ -23,7 +23,7 @@ export default function Captura2() {
   }, [image]);
 
   return (
-    <main className="w-full max-w-[392px] mx-auto h-screen min-h-[853px] bg-figma-accent flex flex-col relative overflow-clip font-heading">
+    <main className="w-full max-w-[392px] mx-auto h-screen bg-figma-accent flex flex-col relative overflow-hidden font-heading">
       {/* Top Navigation */}
       <header className="flex justify-between items-center p-4 relative z-20 shrink-0">
         <button onClick={() => navigate("/Home")} className="flex items-center gap-2 py-2 px-4 bg-figma-highlight rounded-[39311300px] transition-opacity hover:opacity-80">
@@ -52,7 +52,7 @@ export default function Captura2() {
       </header>
 
       {/* Main Content Card */}
-      <div className="flex-1 flex flex-col mx-4 mb-4 rounded-[10px] shadow-[inset_0_0_0_1px_rgba(0,211,243,0.60)] bg-figma-border relative z-10 overflow-clip">
+      <div className="flex-1 flex flex-col mx-4 mb-6 rounded-[10px] shadow-[inset_0_0_0_1px_rgba(0,211,243,0.60)] bg-figma-border relative z-10 overflow-hidden">
         {/* Card Header */}
         <div className="flex justify-between items-center pt-4 px-4 pb-3 shrink-0">
           <h1 className="text-figma-16 font-bold leading-figma-24 text-figma-secondary">

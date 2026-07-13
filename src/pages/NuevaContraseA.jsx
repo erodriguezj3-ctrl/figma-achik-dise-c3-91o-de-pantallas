@@ -7,11 +7,11 @@ export default function PasswordReset() {
   const [showPassword2, setShowPassword2] = useState(false);
 
   return (
-    <main className="w-full min-h-screen bg-figma-secondary flex justify-center font-heading">
-      <div className="w-full max-w-[392px] flex flex-col p-8 min-h-screen">
+    <main className="w-full h-screen overflow-hidden bg-figma-secondary flex justify-center font-heading">
+      <div className="w-full max-w-[392px] flex flex-col p-8 h-screen">
 
         {/* Top Navigation */}
-        <div className="mb-8 shrink-0">
+        <div className="mb-6 shrink-0">
           <button
             type="button"
             onClick={() => navigate("/VerificarCodigo")}
@@ -99,7 +99,7 @@ export default function PasswordReset() {
         </form>
 
         {/* Flexible Spacer to push button to bottom */}
-        <div className="flex-grow min-h-[32px]"></div>
+        <div className="flex-grow min-h-[8px]"></div>
 
         {/* Bottom Action */}
         <div className="mt-auto shrink-0">
