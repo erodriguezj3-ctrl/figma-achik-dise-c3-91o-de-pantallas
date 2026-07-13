@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 export default function Pantalla3() {
   const navigate = useNavigate();
   return (
-    <main className="w-full max-w-[392px] mx-auto h-screen overflow-hidden flex flex-col bg-figma-secondary">
+    <main className="w-full max-w-[392px] mx-auto h-screen overflow-hidden flex flex-col justify-between bg-figma-secondary">
       {/* Top Graphic Section */}
       <div className="flex-1 flex items-center justify-center p-8 min-h-0">
         <motion.div
           initial={{ scale: 0.9, opacity: 0, filter: "blur(10px)" }}
-          animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+          animate={{ scale: 0.85, opacity: 1, filter: "blur(0px)" }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="relative flex items-center justify-center w-full max-w-[256px] h-[256px]"
         >
@@ -55,22 +55,22 @@ export default function Pantalla3() {
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        className="shrink-0 flex flex-col items-center w-full px-8 pb-8"
+        className="shrink-0 flex flex-col items-center w-full px-8 pb-5"
       >
         {/* Pagination Dots */}
-        <div className="flex flex-row justify-center items-center gap-2 mb-6">
+        <div className="flex flex-row justify-center items-center gap-2 mb-3">
           <div className="bg-figma-border-3 rounded-[39311300px] w-2 h-2 transition-colors" />
           <div className="bg-[#04d9d9] rounded-[39311300px] w-2 h-2 transition-colors" />
           <div className="bg-figma-border-3 rounded-[39311300px] w-2 h-2 transition-colors" />
         </div>
 
         {/* Text */}
-        <p className="text-figma-16 font-normal font-heading leading-figma-24 text-center text-figma-text-5 max-w-[297px] mb-10">
+        <p className="text-figma-16 font-normal font-heading leading-figma-24 text-center text-figma-text-5 max-w-[297px] mb-5">
           El aprendizaje interactivo que transforma tu forma de capturar momentos
         </p>
 
         {/* Buttons */}
-        <div className="flex flex-col w-full gap-6">
+        <div className="flex flex-col w-full gap-3">
           <button onClick={() => navigate("/Pantalla4")} className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex items-center justify-center text-figma-16 font-medium font-heading leading-figma-24 tracking-[0.4px] uppercase text-figma-secondary transition-all hover:bg-[#03c2c2] active:scale-[0.98] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#04d9d9]/50 shadow-sm">
             Continuar
           </button>

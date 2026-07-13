@@ -6,11 +6,11 @@ export default function OnboardingScreen() {
   const navigate = useNavigate();
   return (
     <main className="h-screen w-full overflow-hidden bg-figma-secondary flex justify-center font-heading">
-      <div className="w-full max-w-[392px] h-full flex flex-col justify-between p-8">
+      <div className="w-full max-w-[392px] h-full flex flex-col justify-between px-8 pt-4 pb-5">
 
         {/* Illustration Section */}
         <div className="flex-1 flex items-center justify-center w-full min-h-0">
-          <div className="relative w-full max-w-[256px] min-h-[256px]">
+          <div className="relative w-full max-w-[256px] min-h-[256px] scale-90">
 
             {/* Top Right Star */}
             <div className="absolute top-[-16px] left-[224px] z-[1]">
@@ -85,25 +85,25 @@ export default function OnboardingScreen() {
 
         {/* Content Section */}
         <motion.div
-          className="shrink-0 w-full flex flex-col items-center pb-4"
+          className="shrink-0 w-full flex flex-col items-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
         >
           {/* Pagination Dots */}
-          <div className="flex flex-row justify-center items-center gap-2 mb-8">
+          <div className="flex flex-row justify-center items-center gap-2 mb-4">
             <div className="bg-figma-border-3 rounded-[39311300px] w-2 h-2 transition-colors duration-300" />
             <div className="bg-figma-border-3 rounded-[39311300px] w-2 h-2 transition-colors duration-300" />
             <div className="bg-[#04d9d9] rounded-[39311300px] w-2 h-2 transition-colors duration-300" />
           </div>
 
           {/* Heading / Description */}
-          <p className="text-figma-16 font-normal leading-figma-24 text-center text-figma-text-5 max-w-[297px] mb-10">
+          <p className="text-figma-16 font-normal leading-figma-24 text-center text-figma-text-5 max-w-[297px] mb-5">
             Explora nuevas posibilidades creativas con herramientas intuitivas y potentes
           </p>
 
           {/* Actions */}
-          <div className="w-full flex flex-col gap-6">
+          <div className="w-full flex flex-col gap-3">
             <button onClick={() => navigate("/Bienvenida")} className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex items-center justify-center hover:bg-[#03c2c2] active:scale-[0.98] transition-all">
               <span className="text-figma-16 font-medium leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">
                 Continuar

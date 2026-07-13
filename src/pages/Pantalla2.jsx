@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 export default function OnboardingScreen() {
   const navigate = useNavigate();
   return (
-    <main className="h-screen w-full overflow-hidden bg-figma-secondary flex flex-col font-heading">
+    <main className="h-screen w-full overflow-hidden bg-figma-secondary flex flex-col justify-between font-heading">
       {/* Top Illustration Area */}
       <div className="flex-1 flex items-center justify-center p-8 min-h-0">
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
+          animate={{ scale: 0.85, opacity: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="relative flex items-center justify-center w-full max-w-[256px] h-[256px]"
         >
@@ -38,12 +38,12 @@ export default function OnboardingScreen() {
       </div>
 
       {/* Bottom Content Area */}
-      <div className="shrink-0 w-full flex justify-center pb-8">
+      <div className="shrink-0 w-full flex justify-center pb-5">
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="w-full max-w-[328px] flex flex-col items-center gap-6"
+          className="w-full max-w-[328px] flex flex-col items-center gap-4"
         >
           {/* Pagination */}
           <div className="flex flex-row justify-center items-center gap-2">
@@ -60,7 +60,7 @@ export default function OnboardingScreen() {
           </div>
 
           {/* Buttons */}
-          <div className="w-full flex flex-col items-center gap-6 mt-2">
+          <div className="w-full flex flex-col items-center gap-3">
             <button onClick={() => navigate("/Pantalla3")} className="w-full h-14 bg-[#04d9d9] rounded-[39311300px] flex items-center justify-center transition-transform active:scale-[0.98] hover:bg-[#03c2c2]">
               <span className="text-figma-16 font-medium leading-figma-24 tracking-[0.4px] text-center uppercase text-figma-secondary">
                 Continuar
