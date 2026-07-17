@@ -352,59 +352,9 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     const { renderer, modelGroup, controls, scene } = threeRef.current;
     if (!renderer) return;
     setError(null);
+    onStatusChange?.("Solicitando acceso a cámara...");
 
-    // 1. Detect WebXR immersive-ar support FIRST (explicit check). Do NOT
-    //    request getUserMedia beforehand — acquiring the camera can block or
-    //    conflict with the AR session. WebXR manages its own camera.
-    const webxrSupported = navigator.xr
-      ? await navigator.xr.isSessionSupported("immersive-ar").catch(() => false)
-      : false;
-
-    if (webxrSupported) {
-      try {
-        // Real planar tracking: immersive-ar anchored to the physical floor
-        // (local-floor → origin at floor level). The model stays fixed in
-        // world coordinates as the user walks or moves the phone.
-        const session = await navigator.xr.requestSession("immersive-ar", {
-          requiredFeatures: ["local-floor"],
-          optionalFeatures: ["dom-overlay", "hit-test", "plane-detection"],
-          domOverlay: { root: overlayRef.current },
-        });
-        session.addEventListener("end", () => {
-          hitSourceRef.current = null;
-          onStatusChange?.(null);
-          onARExit?.();
-        });
-        // Explicit local-floor reference space → floor-anchored world coords.
-        renderer.xr.setReferenceSpaceType("local-floor");
-        await renderer.xr.setSession(session);
-        const refSpace = renderer.xr.getReferenceSpace();
-        if (refSpace) {
-          try {
-            hitSourceRef.current = await session.requestHitTestSource({
-              space: refSpace,
-            });
-          } catch {
-            /* hit-testing optional */
-          }
-        }
-        modelGroup.scale.set(0.3, 0.3, 0.3);
-        modelGroup.visible = false;
-        controls.enabled = false;
-        placedRef.current = false;
-        setPlaced(false);
-        reticleVisibleRef.current = false;
-        pendingPoseRef.current = null;
-        setSurfaceDetected(false);
-        onStatusChange?.("RA anclada al suelo (WebXR) — apunta a una superficie");
-        return;
-      } catch (err) {
-        // WebXR session failed — fall through to the camera-overlay fallback.
-      }
-    }
-
-    // 2. Fallback: camera overlay (no real surface tracking)
-    onStatusChange?.("Solicitando acceso a cámara…");
+    // 1. Request camera permission + rear camera
     let stream;
     try {
       stream = await navigator.mediaDevices.getUserMedia({
@@ -418,6 +368,71 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       return;
     }
 
+    // 2. Try WebXR immersive-ar (true AR with surface detection)
+    if (navigator.xr) {
+      const supported = await navigator.xr
+        .isSessionSupported("immersive-ar")
+        .catch(() => false);
+      if (supported) {
+        // Release getUserMedia — WebXR manages its own camera
+        stream.getTracks().forEach((t) => t.stop());
+        streamRef.current = null;
+
+        try {
+          // Real planar tracking: immersive-ar anchored to the physical floor
+          // (local-floor → origin at floor level). The model stays fixed in
+          // world coordinates as the user walks or moves the phone.
+          const session = await navigator.xr.requestSession("immersive-ar", {
+            requiredFeatures: ["local-floor"],
+            optionalFeatures: ["dom-overlay", "hit-test", "plane-detection"],
+            domOverlay: { root: overlayRef.current },
+          });
+          session.addEventListener("end", () => {
+            hitSourceRef.current = null;
+            onStatusChange?.(null);
+            onARExit?.();
+          });
+          // Explicit local-floor reference space → floor-anchored world coords.
+          renderer.xr.setReferenceSpaceType("local-floor");
+          await renderer.xr.setSession(session);
+          const refSpace = renderer.xr.getReferenceSpace();
+          if (refSpace) {
+            try {
+              hitSourceRef.current = await session.requestHitTestSource({
+                space: refSpace,
+              });
+            } catch {
+              /* hit-testing optional */
+            }
+          }
+          modelGroup.scale.set(0.3, 0.3, 0.3);
+          modelGroup.visible = false;
+          controls.enabled = false;
+          placedRef.current = false;
+          setPlaced(false);
+          reticleVisibleRef.current = false;
+          pendingPoseRef.current = null;
+          setSurfaceDetected(false);
+          onStatusChange?.("RA anclada al suelo (WebXR) — apunta a una superficie");
+          return;
+        } catch (err) {
+          // Re-acquire camera for the overlay fallback
+          try {
+            stream = await navigator.mediaDevices.getUserMedia({
+              video: { facingMode: "environment" },
+              audio: false,
+            });
+            streamRef.current = stream;
+          } catch {
+            setError("Error al activar RA.");
+            onStatusChange?.(null);
+            return;
+          }
+        }
+      }
+    }
+
+    // 3. Fallback: camera overlay (works on all devices)
     try {
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
@@ -433,7 +448,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       reticleVisibleRef.current = false;
       pendingPoseRef.current = null;
       setSurfaceDetected(false);
-      onStatusChange?.("Sin WebXR: abre la app en pantalla completa en Chrome Android con ARCore");
+      onStatusChange?.("Sin WebXR: el modelo no se ancla al mundo real (usa Chrome en Android)");
     } catch (err) {
       setError("Error al activar la cámara.");
       onStatusChange?.(null);
