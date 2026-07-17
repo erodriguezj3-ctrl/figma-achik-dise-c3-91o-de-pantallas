@@ -379,12 +379,8 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
         streamRef.current = null;
 
         try {
-          // Real planar tracking: immersive-ar anchored to the physical floor
-          // (local-floor → origin at floor level). The model stays fixed in
-          // world coordinates as the user walks or moves the phone.
           const session = await navigator.xr.requestSession("immersive-ar", {
-            requiredFeatures: ["local-floor"],
-            optionalFeatures: ["dom-overlay", "hit-test", "plane-detection"],
+            optionalFeatures: ["local-floor", "dom-overlay", "hit-test", "plane-detection"],
             domOverlay: { root: overlayRef.current },
           });
           session.addEventListener("end", () => {
@@ -392,8 +388,6 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
             onStatusChange?.(null);
             onARExit?.();
           });
-          // Explicit local-floor reference space → floor-anchored world coords.
-          renderer.xr.setReferenceSpaceType("local-floor");
           await renderer.xr.setSession(session);
           const refSpace = renderer.xr.getReferenceSpace();
           if (refSpace) {
@@ -413,7 +407,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
           reticleVisibleRef.current = false;
           pendingPoseRef.current = null;
           setSurfaceDetected(false);
-          onStatusChange?.("RA anclada al suelo (WebXR) — apunta a una superficie");
+          onStatusChange?.("Detectando superficies — apunta al suelo o una mesa");
           return;
         } catch (err) {
           // Re-acquire camera for the overlay fallback
@@ -448,7 +442,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       reticleVisibleRef.current = false;
       pendingPoseRef.current = null;
       setSurfaceDetected(false);
-      onStatusChange?.("Sin WebXR: el modelo no se ancla al mundo real (usa Chrome en Android)");
+      onStatusChange?.("Detectando superficies — apunta al suelo o una mesa");
     } catch (err) {
       setError("Error al activar la cámara.");
       onStatusChange?.(null);
