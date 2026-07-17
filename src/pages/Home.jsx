@@ -15,6 +15,7 @@ export default function Home() {
   const location = useLocation();
   const modelUrl = location.state?.modelUrl;
   const topic = location.state?.topic;
+  const shadowsEnabled = ["luces", "larga_exposicion", "nocturna", "alta_velocidad"].includes(topic);
 
   const handleCapture = async () => {
     if (capturing) return;
@@ -72,6 +73,7 @@ export default function Home() {
           iso={iso}
           aperture={aperture}
           modelUrl={modelUrl}
+          shadowsEnabled={shadowsEnabled}
         />
         {/* Rounded border overlay */}
         <div

@@ -22,6 +22,7 @@ export default function CamaraAr4() {
   const location = useLocation();
   const modelUrl = location.state?.modelUrl;
   const topic = location.state?.topic;
+  const shadowsEnabled = ["luces", "larga_exposicion", "nocturna", "alta_velocidad"].includes(topic);
 
   const viewerRef = useRef(null);
   const [arActive, setArActive] = useState(true);
@@ -90,6 +91,7 @@ export default function CamaraAr4() {
           iso={iso}
           shutter={shutter}
           aperture={aperture}
+          shadowsEnabled={shadowsEnabled}
         />
 
         {/* Inner Cyan Border */}

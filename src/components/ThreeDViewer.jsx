@@ -6,7 +6,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 // Default GLB model — overridden by the modelUrl prop when a model is selected.
 const DEFAULT_MODEL_URL = "https://modelviewer.dev/shared-assets/models/Astronaut.glb";
 
-const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, shutter = 50, aperture = 50, modelUrl = DEFAULT_MODEL_URL, lights = { frontal: true, fill: false, back: true }, deepBokeh = false }, ref) {
+const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, shutter = 50, aperture = 50, modelUrl = DEFAULT_MODEL_URL, lights = { frontal: true, fill: false, back: true }, deepBokeh = false, shadowsEnabled = false }, ref) {
   const overlayRef = useRef(null);
   const containerRef = useRef(null);
   const videoRef = useRef(null);
@@ -223,6 +223,13 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     if (fillLight) fillLight.visible = lights.fill;
     if (rimLight) rimLight.visible = lights.back;
   }, [lights.frontal, lights.fill, lights.back]);
+
+  // ---- Toggle shadow visibility (enabled from "Puntos de Luz Clave" onward) ----
+  useEffect(() => {
+    const { ground, keyLight } = threeRef.current;
+    if (ground) ground.visible = shadowsEnabled;
+    if (keyLight) keyLight.castShadow = shadowsEnabled;
+  }, [shadowsEnabled]);
 
   // Expose capture() so the shutter button can grab a composite of the
   // camera feed + 3D render, with the current ISO/aperture filters baked in.

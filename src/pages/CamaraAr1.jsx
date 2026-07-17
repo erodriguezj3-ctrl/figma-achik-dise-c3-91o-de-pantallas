@@ -8,6 +8,7 @@ export default function CamaraAr1() {
   const location = useLocation();
   const modelUrl = location.state?.modelUrl;
   const topic = location.state?.topic;
+  const shadowsEnabled = ["luces", "larga_exposicion", "nocturna", "alta_velocidad"].includes(topic);
   const [gridActive, setGridActive] = useState(true);
   const [iso, setIso] = useState(0);
   const [shutter, setShutter] = useState(50);
@@ -80,6 +81,7 @@ export default function CamaraAr1() {
             aperture={aperture}
             modelUrl={modelUrl}
             deepBokeh={topic === "bokeh"}
+            shadowsEnabled={shadowsEnabled}
           />
 
           {/* Active Area Border */}
