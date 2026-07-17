@@ -6,25 +6,37 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 // Default GLB model — overridden by the modelUrl prop when a model is selected.
 const DEFAULT_MODEL_URL = "https://modelviewer.dev/shared-assets/models/Astronaut.glb";
 
-const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, shutter = 50, aperture = 50, modelUrl = DEFAULT_MODEL_URL, lights = { frontal: true, fill: false, back: true }, deepBokeh = false, shadowsEnabled = false }, ref) {
+const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, shutter = 50, aperture = 50, modelUrl = DEFAULT_MODEL_URL, lights = { frontal: true, fill: false, back: true }, deepBokeh = false, shadowsEnabled = false, topic = "" }, ref) {
   const overlayRef = useRef(null);
   const containerRef = useRef(null);
   const videoRef = useRef(null);
   const threeRef = useRef({});
   const streamRef = useRef(null);
   const hitSourceRef = useRef(null);
+  const freezeRef = useRef(false);
   const [error, setError] = useState(null);
 
   // ISO → digital gain (higher ISO = brighter): 0.8x → 1.8x
   const isoGain = 0.8 + (iso / 100) * 1.0;
-  // Shutter → exposure time (slower shutter = more light, brighter): 0.5x → 1.5x
-  const shutterExposure = 0.5 + (shutter / 100) * 1.0;
+  // Shutter → exposure time (slower shutter = more light, brighter).
+  // Fast shutter (1/2000) darkens the scene considerably; slow shutter (2") overexposes.
+  const shutterExposure = 0.35 + (shutter / 100) * 1.85;
   // Combined brightness from ISO gain × shutter exposure
   const brightness = isoGain * shutterExposure;
   // Aperture → background blur (lower f-stop = shallower depth of field).
   // deepBokeh mode intensifies the blur for the Bokeh lesson flow.
   const blur = (1 - aperture / 100) * (deepBokeh ? 24 : 10);
   const overlayFilter = `brightness(${brightness.toFixed(2)})`;
+
+  // Motion blur / freeze logic for "Fotografía Avanzada":
+  // - Larga Exposición + slow shutter (1/8, 2") → motion blur trail on the moving model.
+  // - Alta Velocidad + fast shutter (1/2000, 1/500) → freeze the model instantly (no blur).
+  const isLongExposure = topic === "larga_exposicion";
+  const isHighSpeed = topic === "alta_velocidad";
+  const slowShutter = shutter >= 62;   // 1/8 or 2"
+  const fastShutter = shutter <= 37;   // 1/2000 or 1/500
+  const freezeModel = isHighSpeed && fastShutter;
+  const motionBlurPx = isLongExposure && slowShutter ? ((shutter - 60) / 40) * 8 : 0;
 
   // ---- Three.js scene setup (runs once) ----
   useEffect(() => {
@@ -123,7 +135,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
 
     // Render loop (works for both regular and WebXR)
     renderer.setAnimationLoop((time, frame) => {
-      modelGroup.rotation.y += 0.004;
+      if (!freezeRef.current) modelGroup.rotation.y += 0.004;
       if (controls.enabled) controls.update();
 
       // Sync the shadow ground plane to the model's position/scale (AR-aware)
@@ -231,6 +243,11 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     if (keyLight) keyLight.castShadow = shadowsEnabled;
   }, [shadowsEnabled]);
 
+  // Keep the freeze flag in a ref so the render loop reads the latest value
+  useEffect(() => {
+    freezeRef.current = freezeModel;
+  }, [freezeModel]);
+
   // Expose capture() so the shutter button can grab a composite of the
   // camera feed + 3D render, with the current ISO/aperture filters baked in.
   useImperativeHandle(ref, () => ({
@@ -250,7 +267,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       // Background: live camera feed (blurred by aperture) or the scene color
       if (arActive && video && video.videoWidth > 0) {
         ctx.save();
-        ctx.filter = `blur(${blur.toFixed(1)}px) brightness(${brightness.toFixed(2)})`;
+        ctx.filter = `blur(${(blur + motionBlurPx).toFixed(1)}px) brightness(${brightness.toFixed(2)})`;
         const scale = Math.max(w / video.videoWidth, h / video.videoHeight);
         const vw = video.videoWidth * scale;
         const vh = video.videoHeight * scale;
@@ -261,15 +278,15 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
         ctx.fillRect(0, 0, w, h);
       }
 
-      // Foreground: the 3D render (brightness from ISO), composited on top
+      // Foreground: the 3D render (brightness from ISO + motion blur if active)
       ctx.save();
-      ctx.filter = `brightness(${brightness.toFixed(2)})`;
+      ctx.filter = `brightness(${brightness.toFixed(2)})${motionBlurPx > 0 ? ` blur(${motionBlurPx.toFixed(1)}px)` : ""}`;
       ctx.drawImage(renderer.domElement, 0, 0, w, h);
       ctx.restore();
 
       return out.toDataURL("image/png");
     },
-  }), [brightness, blur, arActive]);
+  }), [brightness, blur, arActive, motionBlurPx]);
 
   const startAR = async () => {
     const { renderer, modelGroup, controls, scene } = threeRef.current;
@@ -407,10 +424,17 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
           arActive ? "opacity-100" : "opacity-0"
         }`}
-        style={{ filter: `blur(${blur.toFixed(1)}px)`, transition: "filter 0.2s ease-out" }}
+        style={{ filter: `blur(${(blur + motionBlurPx).toFixed(1)}px)`, transition: "filter 0.2s ease-out" }}
       />
       {/* Three.js canvas */}
-      <div ref={containerRef} className="absolute inset-0" />
+      <div
+        ref={containerRef}
+        className="absolute inset-0"
+        style={{
+          filter: motionBlurPx > 0 ? `blur(${motionBlurPx.toFixed(1)}px)` : "none",
+          transition: "filter 0.2s ease-out",
+        }}
+      />
       {/* Exit AR button (stays visible inside the WebXR dom-overlay) */}
       {arActive && (
         <button

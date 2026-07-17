@@ -92,6 +92,7 @@ export default function CamaraAr4() {
           shutter={shutter}
           aperture={aperture}
           shadowsEnabled={shadowsEnabled}
+          topic={topic}
         />
 
         {/* Inner Cyan Border */}
