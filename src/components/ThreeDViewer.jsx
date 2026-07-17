@@ -54,7 +54,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     // Lighting — frontal (key), fill (lateral), and back (rim/contraluz)
     scene.add(new THREE.AmbientLight(0xffffff, 0.7));
     const keyLight = new THREE.DirectionalLight(0xffffff, 1.3);
-    keyLight.position.set(5, 8, 6);
+    keyLight.position.set(5, 6, 5);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.width = 1024;
     keyLight.shadow.mapSize.height = 1024;
@@ -66,10 +66,10 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     keyLight.shadow.camera.bottom = -5;
     scene.add(keyLight);
     const fillLight = new THREE.DirectionalLight(0xddeeff, 0.5);
-    fillLight.position.set(-6, 3, 4);
+    fillLight.position.set(-5, 4, 5);
     scene.add(fillLight);
     const rimLight = new THREE.DirectionalLight(0x00d3f3, 0.6);
-    rimLight.position.set(-4, 2, -5);
+    rimLight.position.set(0, 6, -6);
     scene.add(rimLight);
 
     // Default model (used until / unless the GLB loads)
