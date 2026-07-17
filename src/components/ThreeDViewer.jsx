@@ -28,15 +28,11 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
   const blur = (1 - aperture / 100) * (deepBokeh ? 24 : 10);
   const overlayFilter = `brightness(${brightness.toFixed(2)})`;
 
-  // Motion blur / freeze logic for "Fotografía Avanzada":
-  // - Larga Exposición + slow shutter (1/8, 2") → motion blur trail on the moving model.
-  // - Alta Velocidad + fast shutter (1/2000, 1/500) → freeze the model instantly (no blur).
-  const isLongExposure = topic === "larga_exposicion";
+  // Alta Velocidad + fast shutter → freeze the model in the live preview.
+  // (Motion streaks for long exposures are produced at capture time, not in the live view.)
   const isHighSpeed = topic === "alta_velocidad";
-  const slowShutter = shutter >= 62;   // 1/8 or 2"
   const fastShutter = shutter <= 37;   // 1/2000 or 1/500
   const freezeModel = isHighSpeed && fastShutter;
-  const motionBlurPx = isLongExposure && slowShutter ? ((shutter - 60) / 40) * 8 : 0;
 
   // ---- Three.js scene setup (runs once) ----
   useEffect(() => {
@@ -251,8 +247,8 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
   // Expose capture() so the shutter button can grab a composite of the
   // camera feed + 3D render, with the current ISO/aperture filters baked in.
   useImperativeHandle(ref, () => ({
-    capture: () => {
-      const { renderer } = threeRef.current;
+    capture: async () => {
+      const { renderer, scene } = threeRef.current;
       const video = videoRef.current;
       const container = containerRef.current;
       if (!renderer || !container) return null;
@@ -264,29 +260,58 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       out.height = h;
       const ctx = out.getContext("2d");
 
-      // Background: live camera feed (blurred by aperture) or the scene color
-      if (arActive && video && video.videoWidth > 0) {
-        ctx.save();
-        ctx.filter = `blur(${(blur + motionBlurPx).toFixed(1)}px) brightness(${brightness.toFixed(2)})`;
-        const scale = Math.max(w / video.videoWidth, h / video.videoHeight);
-        const vw = video.videoWidth * scale;
-        const vh = video.videoHeight * scale;
-        ctx.drawImage(video, (w - vw) / 2, (h - vh) / 2, vw, vh);
-        ctx.restore();
-      } else {
-        ctx.fillStyle = "#e5e7eb";
-        ctx.fillRect(0, 0, w, h);
-      }
+      // Exposure time from the shutter speed (slow shutter → long exposure)
+      const shutterIdx = Math.round((shutter / 100) * 4);
+      const exposureTimes = [0, 0, 0, 125, 2000]; // 1/2000, 1/500, 1/100, 1/8, 2"
+      const exposureMs = exposureTimes[shutterIdx] || 0;
 
-      // Foreground: the 3D render (brightness from ISO + motion blur if active)
-      ctx.save();
-      ctx.filter = `brightness(${brightness.toFixed(2)})${motionBlurPx > 0 ? ` blur(${motionBlurPx.toFixed(1)}px)` : ""}`;
-      ctx.drawImage(renderer.domElement, 0, 0, w, h);
-      ctx.restore();
+      const drawBackground = () => {
+        if (arActive && video && video.videoWidth > 0) {
+          ctx.save();
+          ctx.filter = `blur(${blur.toFixed(1)}px) brightness(${brightness.toFixed(2)})`;
+          const scale = Math.max(w / video.videoWidth, h / video.videoHeight);
+          const vw = video.videoWidth * scale;
+          const vh = video.videoHeight * scale;
+          ctx.drawImage(video, (w - vw) / 2, (h - vh) / 2, vw, vh);
+          ctx.restore();
+        } else {
+          ctx.fillStyle = "#e5e7eb";
+          ctx.fillRect(0, 0, w, h);
+        }
+      };
+
+      const drawModel = (alpha) => {
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.filter = `brightness(${brightness.toFixed(2)})`;
+        ctx.drawImage(renderer.domElement, 0, 0, w, h);
+        ctx.restore();
+      };
+
+      if (exposureMs <= 0) {
+        // Instant capture: single frame
+        drawBackground();
+        drawModel(1);
+      } else {
+        // Long exposure: render the model on a transparent background and
+        // accumulate frames over the exposure time → motion streak/trail.
+        const prevBg = scene.background;
+        scene.background = null;
+        await new Promise((r) => requestAnimationFrame(r));
+        drawBackground();
+        drawModel(1);
+        const frames = Math.max(2, Math.round(exposureMs / 60));
+        const stepMs = exposureMs / frames;
+        for (let i = 1; i < frames; i++) {
+          await new Promise((r) => setTimeout(r, stepMs));
+          drawModel(0.5);
+        }
+        scene.background = prevBg;
+      }
 
       return out.toDataURL("image/png");
     },
-  }), [brightness, blur, arActive, motionBlurPx]);
+  }), [brightness, blur, arActive, shutter]);
 
   const startAR = async () => {
     const { renderer, modelGroup, controls, scene } = threeRef.current;
@@ -424,17 +449,10 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
           arActive ? "opacity-100" : "opacity-0"
         }`}
-        style={{ filter: `blur(${(blur + motionBlurPx).toFixed(1)}px)`, transition: "filter 0.2s ease-out" }}
+        style={{ filter: `blur(${blur.toFixed(1)}px)`, transition: "filter 0.2s ease-out" }}
       />
       {/* Three.js canvas */}
-      <div
-        ref={containerRef}
-        className="absolute inset-0"
-        style={{
-          filter: motionBlurPx > 0 ? `blur(${motionBlurPx.toFixed(1)}px)` : "none",
-          transition: "filter 0.2s ease-out",
-        }}
-      />
+      <div ref={containerRef} className="absolute inset-0" />
       {/* Exit AR button (stays visible inside the WebXR dom-overlay) */}
       {arActive && (
         <button

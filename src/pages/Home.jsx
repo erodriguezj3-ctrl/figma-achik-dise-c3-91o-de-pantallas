@@ -23,8 +23,8 @@ export default function Home() {
     setFlash(true);
     // Allow one frame to render before grabbing the buffer
     await new Promise((r) => setTimeout(r, 120));
-    const image = viewerRef.current?.capture();
     setFlash(false);
+    const image = await viewerRef.current?.capture();
     setCapturing(false);
     navigate("/Captura2", {
       state: {

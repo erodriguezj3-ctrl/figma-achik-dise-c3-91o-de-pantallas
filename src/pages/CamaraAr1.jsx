@@ -45,8 +45,8 @@ export default function CamaraAr1() {
     setCapturing(true);
     setFlash(true);
     await new Promise((r) => setTimeout(r, 120));
-    const image = viewerRef.current?.capture();
     setFlash(false);
+    const image = await viewerRef.current?.capture();
     setCapturing(false);
     navigate("/Captura2", {
       state: {

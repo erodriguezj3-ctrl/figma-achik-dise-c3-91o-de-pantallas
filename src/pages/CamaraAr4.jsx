@@ -56,8 +56,8 @@ export default function CamaraAr4() {
     setCapturing(true);
     setFlash(true);
     await new Promise((r) => setTimeout(r, 120));
-    const image = viewerRef.current?.capture();
     setFlash(false);
+    const image = await viewerRef.current?.capture();
     setCapturing(false);
     navigate("/Captura2", {
       state: {
@@ -111,6 +111,13 @@ export default function CamaraAr4() {
         {/* Capture flash */}
         {flash && (
           <div className="absolute inset-0 bg-white pointer-events-none z-40" />
+        )}
+
+        {/* Capturing indicator (long exposure wait) */}
+        {capturing && !flash && (
+          <div className="absolute inset-0 bg-black/50 flex items-center justify-center pointer-events-none z-40">
+            <p className="text-white text-sm font-bold animate-pulse">Capturando…</p>
+          </div>
         )}
 
         {/* Top Controls - Volver */}
