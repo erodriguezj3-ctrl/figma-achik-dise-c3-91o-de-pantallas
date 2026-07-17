@@ -47,12 +47,23 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     renderer.setSize(w, h);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.xr.enabled = true;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     container.appendChild(renderer.domElement);
 
     // Lighting — frontal (key), fill (lateral), and back (rim/contraluz)
     scene.add(new THREE.AmbientLight(0xffffff, 0.7));
     const keyLight = new THREE.DirectionalLight(0xffffff, 1.3);
     keyLight.position.set(5, 8, 6);
+    keyLight.castShadow = true;
+    keyLight.shadow.mapSize.width = 1024;
+    keyLight.shadow.mapSize.height = 1024;
+    keyLight.shadow.camera.near = 0.5;
+    keyLight.shadow.camera.far = 30;
+    keyLight.shadow.camera.left = -5;
+    keyLight.shadow.camera.right = 5;
+    keyLight.shadow.camera.top = 5;
+    keyLight.shadow.camera.bottom = -5;
     scene.add(keyLight);
     const fillLight = new THREE.DirectionalLight(0xddeeff, 0.5);
     fillLight.position.set(-6, 3, 4);
@@ -70,7 +81,9 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       roughness: 0.25,
       flatShading: true,
     });
-    modelGroup.add(new THREE.Mesh(geo, mat));
+    const defaultMesh = new THREE.Mesh(geo, mat);
+    defaultMesh.castShadow = true;
+    modelGroup.add(defaultMesh);
     const wireGeo = new THREE.IcosahedronGeometry(1.03, 1);
     const wireMat = new THREE.MeshBasicMaterial({
       color: 0x00d3f3,
@@ -90,6 +103,15 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     reticle.visible = false;
     scene.add(reticle);
 
+    // Ground plane that receives the model's shadow (synced to model position/scale each frame)
+    const groundGeo = new THREE.PlaneGeometry(6, 6);
+    const groundMat = new THREE.ShadowMaterial({ opacity: 0.4 });
+    const ground = new THREE.Mesh(groundGeo, groundMat);
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = -1;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
     // Orbit controls for the non-AR view
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
@@ -97,12 +119,17 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     controls.minDistance = 2;
     controls.maxDistance = 8;
 
-    threeRef.current = { scene, camera, renderer, modelGroup, controls, reticle, keyLight, fillLight, rimLight };
+    threeRef.current = { scene, camera, renderer, modelGroup, controls, reticle, ground, keyLight, fillLight, rimLight };
 
     // Render loop (works for both regular and WebXR)
     renderer.setAnimationLoop((time, frame) => {
       modelGroup.rotation.y += 0.004;
       if (controls.enabled) controls.update();
+
+      // Sync the shadow ground plane to the model's position/scale (AR-aware)
+      const ms = modelGroup.scale.x;
+      ground.position.set(modelGroup.position.x, modelGroup.position.y - ms, modelGroup.position.z);
+      ground.scale.setScalar(ms);
 
       // WebXR hit-testing: position the model on detected surfaces
       if (frame && hitSourceRef.current) {
@@ -138,7 +165,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       window.removeEventListener("resize", handleResize);
       renderer.setAnimationLoop(null);
       controls.dispose();
-      [geo, mat, wireGeo, wireMat].forEach((d) => d.dispose());
+      [geo, mat, wireGeo, wireMat, groundGeo, groundMat].forEach((d) => d.dispose());
       renderer.dispose();
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
@@ -157,6 +184,12 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       (gltf) => {
         modelGroup.clear();
         const obj = gltf.scene;
+        obj.traverse((node) => {
+          if (node.isMesh) {
+            node.castShadow = true;
+            node.receiveShadow = true;
+          }
+        });
         modelGroup.add(obj);
         obj.updateMatrixWorld(true);
         const box = new THREE.Box3().setFromObject(obj);
