@@ -14,13 +14,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
   const streamRef = useRef(null);
   const hitSourceRef = useRef(null);
   const freezeRef = useRef(false);
-  const arActiveRef = useRef(false);
-  const placedRef = useRef(false);
-  const reticleVisibleRef = useRef(false);
-  const pendingPoseRef = useRef(null);
   const [error, setError] = useState(null);
-  const [placed, setPlaced] = useState(false);
-  const [surfaceDetected, setSurfaceDetected] = useState(false);
 
   // ISO → digital gain (higher ISO = brighter): 0.8x → 1.8x
   const isoGain = 0.8 + (iso / 100) * 1.0;
@@ -108,21 +102,12 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     modelGroup.add(new THREE.Mesh(wireGeo, wireMat));
     scene.add(modelGroup);
 
-    // Placement reticle — visual indicator shown on the detected surface
-    // before the user taps to anchor the model to the floor/table.
-    const reticle = new THREE.Group();
-    const ring = new THREE.Mesh(
-      new THREE.RingGeometry(0.12, 0.15, 48),
-      new THREE.MeshBasicMaterial({ color: 0x00d3f3, transparent: true, opacity: 0.9, side: THREE.DoubleSide })
+    // Reticle for AR hit-testing (shows where the model will be placed)
+    const reticle = new THREE.Mesh(
+      new THREE.RingGeometry(0.08, 0.1, 32),
+      new THREE.MeshBasicMaterial({ color: 0x00d3f3, transparent: true, opacity: 0.8 })
     );
-    ring.rotation.x = -Math.PI / 2;
-    reticle.add(ring);
-    const dot = new THREE.Mesh(
-      new THREE.CircleGeometry(0.04, 32),
-      new THREE.MeshBasicMaterial({ color: 0x00d3f3, transparent: true, opacity: 0.9 })
-    );
-    dot.rotation.x = -Math.PI / 2;
-    reticle.add(dot);
+    reticle.rotation.x = -Math.PI / 2;
     reticle.visible = false;
     scene.add(reticle);
 
@@ -154,8 +139,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       ground.position.set(modelGroup.position.x, modelGroup.position.y - ms, modelGroup.position.z);
       ground.scale.setScalar(ms);
 
-      // Surface tracking (WebXR): move the placement reticle to the detected
-      // surface. The model stays hidden until the user taps "Colocar".
+      // WebXR hit-testing: position the model on detected surfaces
       if (frame && hitSourceRef.current) {
         const refSpace = renderer.xr.getReferenceSpace();
         if (refSpace) {
@@ -163,32 +147,14 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
           if (hits.length > 0) {
             const pose = hits[0].getPose(refSpace);
             if (pose) {
+              reticle.visible = true;
               reticle.position.copy(pose.transform.position);
-              reticle.visible = !placedRef.current;
-              pendingPoseRef.current = new THREE.Vector3().copy(pose.transform.position);
-              if (!reticleVisibleRef.current) {
-                reticleVisibleRef.current = true;
-                setSurfaceDetected(true);
-              }
+              modelGroup.position.copy(pose.transform.position);
+              modelGroup.position.y += 0.5;
             }
-          } else if (reticleVisibleRef.current) {
+          } else {
             reticle.visible = false;
-            reticleVisibleRef.current = false;
-            pendingPoseRef.current = null;
-            setSurfaceDetected(false);
           }
-        }
-      } else if (arActiveRef.current && !placedRef.current && !pendingPoseRef.current) {
-        // Fallback (no WebXR): place a center-screen reticle in front of the camera
-        const dir = new THREE.Vector3();
-        camera.getWorldDirection(dir);
-        reticle.position.copy(camera.position).add(dir.multiplyScalar(2));
-        reticle.position.y = camera.position.y - 0.6;
-        reticle.visible = true;
-        pendingPoseRef.current = reticle.position.clone();
-        if (!reticleVisibleRef.current) {
-          reticleVisibleRef.current = true;
-          setSurfaceDetected(true);
         }
       }
 
@@ -253,7 +219,6 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
 
   // ---- AR mode toggle ----
   useEffect(() => {
-    arActiveRef.current = arActive;
     if (arActive) startAR();
     else stopAR();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -380,7 +345,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
 
         try {
           const session = await navigator.xr.requestSession("immersive-ar", {
-            optionalFeatures: ["local-floor", "dom-overlay", "hit-test", "plane-detection"],
+            optionalFeatures: ["local-floor", "dom-overlay", "hit-test"],
             domOverlay: { root: overlayRef.current },
           });
           session.addEventListener("end", () => {
@@ -400,14 +365,8 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
             }
           }
           modelGroup.scale.set(0.3, 0.3, 0.3);
-          modelGroup.visible = false;
           controls.enabled = false;
-          placedRef.current = false;
-          setPlaced(false);
-          reticleVisibleRef.current = false;
-          pendingPoseRef.current = null;
-          setSurfaceDetected(false);
-          onStatusChange?.("Detectando superficies — apunta al suelo o una mesa");
+          onStatusChange?.("RA WebXR activa — apunta a una superficie");
           return;
         } catch (err) {
           // Re-acquire camera for the overlay fallback
@@ -434,15 +393,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       }
       scene.background = null;
       renderer.setClearColor(0x000000, 0);
-      modelGroup.visible = false;
-      modelGroup.scale.set(0.3, 0.3, 0.3);
-      controls.enabled = false;
-      placedRef.current = false;
-      setPlaced(false);
-      reticleVisibleRef.current = false;
-      pendingPoseRef.current = null;
-      setSurfaceDetected(false);
-      onStatusChange?.("Detectando superficies — apunta al suelo o una mesa");
+      onStatusChange?.("RA activa — mueve para explorar");
     } catch (err) {
       setError("Error al activar la cámara.");
       onStatusChange?.(null);
@@ -477,33 +428,10 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     if (modelGroup) {
       modelGroup.position.set(0, 0, 0);
       modelGroup.scale.set(1, 1, 1);
-      modelGroup.visible = true;
     }
     if (reticle) reticle.visible = false;
     if (controls) controls.enabled = true;
-    placedRef.current = false;
-    setPlaced(false);
-    reticleVisibleRef.current = false;
-    pendingPoseRef.current = null;
-    setSurfaceDetected(false);
     onStatusChange?.(null);
-  };
-
-  // Anchor the model to the detected surface (tap-to-place flow).
-  const handlePlace = () => {
-    const { modelGroup, reticle } = threeRef.current;
-    const pose = pendingPoseRef.current;
-    if (!pose || !modelGroup) {
-      onStatusChange?.("Buscando superficie…");
-      return;
-    }
-    modelGroup.position.copy(pose);
-    modelGroup.position.y += modelGroup.scale.x; // rest on the surface
-    modelGroup.visible = true;
-    placedRef.current = true;
-    setPlaced(true);
-    if (reticle) reticle.visible = false;
-    onStatusChange?.("Modelo fijado a la superficie");
   };
 
   return (
@@ -533,17 +461,6 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
           style={{ zIndex: 30 }}
         >
           ✕ Salir
-        </button>
-      )}
-      {/* Tap-to-place: surface indicator + placement button */}
-      {arActive && !placed && (
-        <button
-          onClick={handlePlace}
-          disabled={!surfaceDetected}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-sm font-bold px-6 py-3 rounded-full shadow-lg active:scale-95 transition-transform disabled:opacity-50"
-          style={{ zIndex: 30, backgroundColor: surfaceDetected ? "#04d9d9" : "#4b5563", color: surfaceDetected ? "#0b132b" : "#9ca3af" }}
-        >
-          {surfaceDetected ? "Colocar modelo" : "Buscando superficie…"}
         </button>
       )}
       {error && (
