@@ -134,7 +134,7 @@ export default function PantallaDeInicio() {
                   Fotografía Intermedia
                 </h3>
                 <p className="mt-2 font-heading text-figma-14 font-medium leading-figma-20 text-figma-text-2-4">
-                  Profundidad de campo y balance de blancos
+                  Profundidad de campo y puntos de luz clave
                 </p>
               </div>
               {/* Premium Badge */}
