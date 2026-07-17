@@ -15,7 +15,6 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
   const hitSourceRef = useRef(null);
   const freezeRef = useRef(false);
   const arActiveRef = useRef(false);
-  const transparentizedElsRef = useRef([]);
   const placedRef = useRef(false);
   const reticleVisibleRef = useRef(false);
   const pendingPoseRef = useRef(null);
@@ -363,31 +362,13 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
 
     if (webxrSupported) {
       try {
-        // Use the page's <main> as the DOM overlay root so the camera
-        // controls (sliders, shutter) stay visible above the AR feed during
-        // the native fullscreen session. Transparentize ancestor backgrounds
-        // so the AR camera feed shows through the viewfinder area.
-        const overlayRoot = overlayRef.current.closest("main") || overlayRef.current;
-        const transparentized = [];
-        let walker = overlayRef.current.parentElement;
-        while (walker && walker !== overlayRoot) {
-          transparentized.push(walker);
-          walker = walker.parentElement;
-        }
-        if (overlayRoot !== overlayRef.current) transparentized.push(overlayRoot);
-        transparentized.forEach((el) => {
-          el.dataset.arPrevBg = el.style.background || "";
-          el.style.background = "transparent";
-        });
-        transparentizedElsRef.current = transparentized;
-
         // Real planar tracking: immersive-ar anchored to the physical floor
         // (local-floor → origin at floor level). The model stays fixed in
         // world coordinates as the user walks or moves the phone.
         const session = await navigator.xr.requestSession("immersive-ar", {
           requiredFeatures: ["local-floor"],
           optionalFeatures: ["dom-overlay", "hit-test", "plane-detection"],
-          domOverlay: { root: overlayRoot },
+          domOverlay: { root: overlayRef.current },
         });
         session.addEventListener("end", () => {
           hitSourceRef.current = null;
@@ -418,12 +399,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
         onStatusChange?.("RA anclada al suelo (WebXR) — apunta a una superficie");
         return;
       } catch (err) {
-        // WebXR session failed — restore backgrounds and fall through.
-        transparentizedElsRef.current.forEach((el) => {
-          el.style.background = el.dataset.arPrevBg || "";
-          delete el.dataset.arPrevBg;
-        });
-        transparentizedElsRef.current = [];
+        // WebXR session failed — fall through to the camera-overlay fallback.
       }
     }
 
@@ -466,14 +442,6 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
 
   const stopAR = async () => {
     const { renderer, modelGroup, controls, scene, reticle } = threeRef.current;
-
-    // Restore the original backgrounds that were transparentized for the
-    // WebXR DOM overlay so the normal page layout looks right again.
-    transparentizedElsRef.current.forEach((el) => {
-      el.style.background = el.dataset.arPrevBg || "";
-      delete el.dataset.arPrevBg;
-    });
-    transparentizedElsRef.current = [];
 
     if (hitSourceRef.current) {
       try {
