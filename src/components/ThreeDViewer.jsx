@@ -284,7 +284,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
   // camera feed + 3D render, with the current ISO/aperture filters baked in.
   useImperativeHandle(ref, () => ({
     capture: async () => {
-      const { renderer, scene, camera } = threeRef.current;
+      const { renderer, scene } = threeRef.current;
       const video = videoRef.current;
       const container = containerRef.current;
       if (!renderer || !container) return null;
@@ -316,46 +316,11 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
         }
       };
 
-      // Render the 3D scene to an offscreen WebGLRenderTarget so the pixels
-      // are always readable — the XR session's canvas drawing buffer cannot
-      // be read via drawImage. preserveDrawingBuffer is set on the renderer;
-      // we temporarily disable XR to force a normal render to the target.
-      const modelCanvas = document.createElement("canvas");
-      modelCanvas.width = w;
-      modelCanvas.height = h;
-      const modelCtx = modelCanvas.getContext("2d");
-
       const drawModel = (alpha) => {
-        const rt = new THREE.WebGLRenderTarget(w, h);
-        const prevBg = scene.background;
-        const prevClearAlpha = renderer.getClearAlpha();
-        scene.background = null; // transparent → composites over the background
-        renderer.setClearAlpha(0);
-        const xrEnabled = renderer.xr.enabled;
-        renderer.xr.enabled = false;
-        renderer.setRenderTarget(rt);
-        renderer.clear();
-        renderer.render(scene, camera);
-        renderer.setRenderTarget(null);
-        renderer.xr.enabled = xrEnabled;
-        scene.background = prevBg;
-        renderer.setClearAlpha(prevClearAlpha);
-
-        const pixels = new Uint8Array(w * h * 4);
-        renderer.readRenderTargetPixels(rt, 0, 0, w, h, pixels);
-        rt.dispose();
-        const imageData = modelCtx.createImageData(w, h);
-        // WebGL is bottom-up; flip vertically when copying.
-        for (let y = 0; y < h; y++) {
-          const src = (h - 1 - y) * w * 4;
-          imageData.data.set(pixels.subarray(src, src + w * 4), y * w * 4);
-        }
-        modelCtx.putImageData(imageData, 0, 0);
-
         ctx.save();
         ctx.globalAlpha = alpha;
         ctx.filter = `brightness(${brightness.toFixed(2)})`;
-        ctx.drawImage(modelCanvas, 0, 0, w, h);
+        ctx.drawImage(renderer.domElement, 0, 0, w, h);
         ctx.restore();
       };
 
@@ -364,8 +329,10 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
         drawBackground();
         drawModel(1);
       } else {
-        // Long exposure: accumulate model frames over the exposure time →
-        // motion streak/trail.
+        // Long exposure: render the model on a transparent background and
+        // accumulate frames over the exposure time → motion streak/trail.
+        const prevBg = scene.background;
+        scene.background = null;
         await new Promise((r) => requestAnimationFrame(r));
         drawBackground();
         drawModel(1);
@@ -375,6 +342,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
           await new Promise((r) => setTimeout(r, stepMs));
           drawModel(0.5);
         }
+        scene.background = prevBg;
       }
 
       return out.toDataURL("image/png");
