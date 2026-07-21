@@ -190,8 +190,13 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     loader.load(
       modelUrl,
       (gltf) => {
-        modelGroup.clear();
         const obj = gltf.scene;
+        if (!obj) return; // keep the default mesh if the GLB has no scene
+        // Confirm the loaded model actually has geometry before dropping the default mesh,
+        // otherwise a broken/empty GLB would leave the scene blank.
+        const box = new THREE.Box3().setFromObject(obj);
+        if (box.isEmpty()) return;
+        modelGroup.clear();
         obj.traverse((node) => {
           if (node.isMesh) {
             node.castShadow = true;
@@ -199,8 +204,6 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
           }
         });
         modelGroup.add(obj);
-        obj.updateMatrixWorld(true);
-        const box = new THREE.Box3().setFromObject(obj);
         const size = box.getSize(new THREE.Vector3());
         const center = box.getCenter(new THREE.Vector3());
         const maxDim = Math.max(size.x, size.y, size.z);
@@ -295,18 +298,22 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       } else {
         // Long exposure: render the model on a transparent background and
         // accumulate frames over the exposure time → motion streak/trail.
-        const prevBg = scene.background;
-        scene.background = null;
-        await new Promise((r) => requestAnimationFrame(r));
-        drawBackground();
-        drawModel(1);
-        const frames = Math.max(2, Math.round(exposureMs / 60));
-        const stepMs = exposureMs / frames;
-        for (let i = 1; i < frames; i++) {
-          await new Promise((r) => setTimeout(r, stepMs));
-          drawModel(0.5);
+        const prevBg = scene?.background ?? null;
+        if (scene) scene.background = null;
+        try {
+          await new Promise((r) => requestAnimationFrame(r));
+          drawBackground();
+          drawModel(1);
+          const frames = Math.max(2, Math.round(exposureMs / 60));
+          const stepMs = exposureMs / frames;
+          for (let i = 1; i < frames; i++) {
+            await new Promise((r) => setTimeout(r, stepMs));
+            drawModel(0.5);
+          }
+        } finally {
+          // Always restore the scene background so the live canvas never stays transparent.
+          if (scene) scene.background = prevBg;
         }
-        scene.background = prevBg;
       }
 
       return out.toDataURL("image/png");
