@@ -108,13 +108,14 @@ export default function CamaraAr1() {
             <div className="absolute inset-0 bg-white pointer-events-none z-40" />
           )}
 
-          {/* Long-exposure capturing overlay over the viewfinder */}
-          {capturing && !flash && exposureMs > 0 && (
-            <div className="absolute inset-0 z-40 bg-black/40 backdrop-blur-[3px] flex flex-col items-center justify-center gap-3">
-              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-red-500 to-orange-500 shadow-[0_0_30px_rgba(239,68,68,0.7)] flex items-center justify-center animate-pulse">
-                <span className="text-white text-[11px] font-bold tracking-wide text-center leading-tight px-2">Capturando…</span>
-              </div>
-              <p className="text-[#00d3f3] text-xs font-medium tracking-wide">Exposición de larga duración</p>
+          {/* Capturing modal (shown during long-exposure wait) */}
+          {capturing && !flash && (
+            <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex flex-col items-center justify-center gap-4">
+              <div className="w-12 h-12 border-4 border-[#04d9d9]/30 border-t-[#04d9d9] rounded-full animate-spin" />
+              <p className="text-white text-base font-bold animate-pulse">Capturando imagen…</p>
+              {exposureMs > 0 && (
+                <p className="text-[#00d3f3] text-xs font-medium tracking-wide">Exposición de larga duración</p>
+              )}
             </div>
           )}
 
