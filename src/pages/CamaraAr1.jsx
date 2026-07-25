@@ -84,6 +84,7 @@ export default function CamaraAr1() {
             onStatusChange={setArStatus}
             onARExit={() => setArActive(false)}
             iso={iso}
+            shutter={shutter}
             aperture={aperture}
             modelUrl={modelUrl}
             deepBokeh={topic === "bokeh"}
