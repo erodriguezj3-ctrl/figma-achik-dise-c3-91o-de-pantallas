@@ -51,13 +51,19 @@ export default function CamaraAr4() {
     return apertureValues[idx];
   };
 
+  const shutterDisplay = getShutterDisplay();
+  const exposureMs = shutterDisplay === '2"' ? 2000 : shutterDisplay === "1/8" ? 125 : 0;
+
   const handleCapture = async () => {
     if (capturing) return;
     setCapturing(true);
     setFlash(true);
     await new Promise((r) => setTimeout(r, 120));
     setFlash(false);
-    const image = await viewerRef.current?.capture();
+    const [image] = await Promise.all([
+      viewerRef.current?.capture(),
+      new Promise((r) => setTimeout(r, exposureMs)),
+    ]);
     setCapturing(false);
     navigate("/Captura2", {
       state: {
@@ -113,10 +119,14 @@ export default function CamaraAr4() {
           <div className="absolute inset-0 bg-white pointer-events-none z-40" />
         )}
 
-        {/* Capturing indicator (long exposure wait) */}
+        {/* Capturing modal (shown during long-exposure wait) */}
         {capturing && !flash && (
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center pointer-events-none z-40">
-            <p className="text-white text-sm font-bold animate-pulse">Capturando…</p>
+          <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex flex-col items-center justify-center gap-4">
+            <div className="w-12 h-12 border-4 border-[#04d9d9]/30 border-t-[#04d9d9] rounded-full animate-spin" />
+            <p className="text-white text-base font-bold animate-pulse">Capturando imagen…</p>
+            {exposureMs > 0 && (
+              <p className="text-[#00d3f3] text-xs font-medium tracking-wide">Exposición de larga duración</p>
+            )}
           </div>
         )}
 
