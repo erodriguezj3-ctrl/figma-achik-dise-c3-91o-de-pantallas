@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
 import { useBasicProgress } from "@/hooks/useProgress";
@@ -8,6 +8,14 @@ import { useNavigate } from "react-router-dom";
 export default function Perfil() {
   const navigate = useNavigate();
   const { completedCount, totalCount, percentage, cursosCompletados, photoCount } = useBasicProgress();
+  const [userName, setUserName] = useState("Usuario ACHIK");
+
+  useEffect(() => {
+    base44.auth.me().then((user) => {
+      if (user?.full_name) setUserName(user.full_name);
+      else if (user?.email) setUserName(user.email.split("@")[0]);
+    }).catch(() => {});
+  }, []);
   return (
     <div className="flex flex-col h-[100dvh] bg-figma-secondary w-full max-w-[392px] mx-auto relative font-heading">
       {/* Header */}
@@ -38,7 +46,7 @@ export default function Perfil() {
 
               {/* Name */}
               <h2 className="text-[clamp(14px,6.12vw,24px)] font-bold leading-[1.3333] text-center text-figma-accent mb-2">
-                Usuario ACHIK
+                {userName}
               </h2>
 
               {/* Badge */}
