@@ -47,13 +47,6 @@ export default function PantallaDeInicio() {
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-48">
-            <DropdownMenuItem onClick={() => navigate("/Perfil")}>
-              Editar Perfil
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => navigate("/Perfil")}>
-              Configuración
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => base44.auth.logout()} className="text-red-400">
               Cerrar Sesión
             </DropdownMenuItem>
