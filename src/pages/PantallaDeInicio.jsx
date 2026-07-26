@@ -3,6 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import BottomNav from "@/components/BottomNav";
 import { useBasicProgress } from "@/hooks/useProgress";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 
 export default function PantallaDeInicio() {
   const navigate = useNavigate();
@@ -22,20 +29,36 @@ export default function PantallaDeInicio() {
         <p className="font-heading text-[clamp(16px,7.65vw,30px)] font-bold leading-[1.2] text-figma-accent">
           ACHIK
         </p>
-        <button className="flex items-center justify-center rounded-[39311300px] p-2 hover:bg-black/5 transition-colors">
-          <div className="relative h-6 w-6 shrink-0 overflow-clip">
-            <img
-              className="absolute left-2 top-[3px] z-[2] h-2.5 w-2.5"
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/ed4c96a0c_a66a090da_1_292.svg"
-              alt="User Head"
-            />
-            <img
-              className="absolute left-[5px] top-[15px] z-[1] h-2 w-4"
-              src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/2eaaff4e5_934dc2cbe_1_291.svg"
-              alt="User Body"
-            />
-          </div>
-        </button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="flex items-center justify-center rounded-[39311300px] p-2 hover:bg-black/5 transition-colors">
+              <div className="relative h-6 w-6 shrink-0 overflow-clip">
+                <img
+                  className="absolute left-2 top-[3px] z-[2] h-2.5 w-2.5"
+                  src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/ed4c96a0c_a66a090da_1_292.svg"
+                  alt="User Head"
+                />
+                <img
+                  className="absolute left-[5px] top-[15px] z-[1] h-2 w-4"
+                  src="https://media.base44.com/images/public/6a4f1af577955f105897f7c2/2eaaff4e5_934dc2cbe_1_291.svg"
+                  alt="User Body"
+                />
+              </div>
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-48">
+            <DropdownMenuItem onClick={() => navigate("/Perfil")}>
+              Editar Perfil
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate("/Perfil")}>
+              Configuración
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => base44.auth.logout()} className="text-red-400">
+              Cerrar Sesión
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </header>
 
       {/* Main Content */}
