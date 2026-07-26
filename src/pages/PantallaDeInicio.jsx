@@ -46,8 +46,8 @@ export default function PantallaDeInicio() {
               </div>
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-48">
-            <DropdownMenuItem onClick={() => base44.auth.logout()} className="text-[#00d3f3]">
+          <DropdownMenuContent align="end" className="w-48 bg-[#00d3f3] border-[#00d3f3]">
+            <DropdownMenuItem onClick={() => base44.auth.logout()} className="text-black focus:bg-[#00b8d4]">
               Cerrar Sesión
             </DropdownMenuItem>
           </DropdownMenuContent>
