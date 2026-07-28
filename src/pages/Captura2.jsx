@@ -25,6 +25,41 @@ export default function Captura2() {
     }
   }, [image]);
 
+  const handleSave = async () => {
+    if (!photoSrc) return;
+    try {
+      const res = await fetch(photoSrc);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `achik-${Date.now()}.png`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      window.open(photoSrc, "_blank");
+    }
+  };
+
+  const handleShare = async () => {
+    if (!photoSrc) return;
+    try {
+      const blob = await fetch(photoSrc).then((r) => r.blob());
+      const file = new File([blob], "achik.png", { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: "ACHIK · RA",
+          text: "Foto capturada con ACHIK",
+        });
+        return;
+      }
+    } catch {}
+    window.open(photoSrc, "_blank");
+  };
+
   return (
     <main className="w-full max-w-[392px] mx-auto h-screen bg-figma-accent flex flex-col relative overflow-hidden font-heading">
       {/* Top Navigation */}
@@ -129,7 +164,7 @@ export default function Captura2() {
                 Guardar
               </span>
             </button>
-            <button className="flex-1 flex justify-center items-center gap-2 py-3 bg-figma-primary rounded-[16px] transition-transform active:scale-95">
+            <button onClick={handleShare} className="flex-1 flex justify-center items-center gap-2 py-3 bg-figma-primary rounded-[16px] transition-transform active:scale-95">
               <div className="shrink-0 w-5 h-5 relative overflow-clip">
                 <img
                   className="absolute top-0.5 left-3 w-[7px] h-[7px]"
