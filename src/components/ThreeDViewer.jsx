@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from "react";
-import { RotateCw, Pause } from "lucide-react";
+import { RotateCw, Pause, Wind } from "lucide-react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -17,6 +17,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
   const freezeRef = useRef(false);
   const rotateRef = useRef(true);
   const [rotationOn, setRotationOn] = useState(true);
+  const [panningOn, setPanningOn] = useState(false);
   const [error, setError] = useState(null);
 
   // ISO → digital gain (higher ISO = brighter): 0.8x → 1.8x
@@ -276,7 +277,9 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       const drawBackground = () => {
         if (arActive && video && video.videoWidth > 0) {
           ctx.save();
-          ctx.filter = `blur(${blur.toFixed(1)}px) brightness(${brightness.toFixed(2)})`;
+          ctx.filter = panningOn
+            ? `url(#achik-pan-blur) brightness(${brightness.toFixed(2)})`
+            : `blur(${blur.toFixed(1)}px) brightness(${brightness.toFixed(2)})`;
           const scale = Math.max(w / video.videoWidth, h / video.videoHeight);
           const vw = video.videoWidth * scale;
           const vh = video.videoHeight * scale;
@@ -319,7 +322,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
 
       return out.toDataURL("image/png");
     },
-  }), [brightness, blur, arActive, shutter]);
+  }), [brightness, blur, arActive, shutter, panningOn]);
 
   const startAR = async () => {
     const { renderer, modelGroup, controls, scene } = threeRef.current;
@@ -457,7 +460,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
           arActive ? "opacity-100" : "opacity-0"
         }`}
-        style={{ filter: `blur(${blur.toFixed(1)}px)`, transition: "filter 0.2s ease-out" }}
+        style={{ filter: panningOn ? `url(#achik-pan-blur)` : `blur(${blur.toFixed(1)}px)`, transition: "filter 0.2s ease-out" }}
       />
       {/* Three.js canvas */}
       <div ref={containerRef} className="absolute inset-0" />
@@ -469,6 +472,22 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
         className="absolute bottom-4 left-3 z-20 flex items-center justify-center w-9 h-9 rounded-[14px] bg-black/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)] active:scale-95 transition-transform"
       >
         {rotationOn ? <RotateCw className="w-4 h-4 text-white" /> : <Pause className="w-4 h-4 text-white" />}
+      </button>
+
+      {/* Panning (barrido) toggle — horizontal motion blur on background only */}
+      <svg className="absolute w-0 h-0" aria-hidden="true">
+        <filter id="achik-pan-blur" x="-50%" y="-10%" width="200%" height="120%">
+          <feGaussianBlur stdDeviation="20 0" />
+        </filter>
+      </svg>
+      <button
+        onClick={() => setPanningOn((v) => !v)}
+        title={panningOn ? "Desactivar barrido" : "Activar barrido"}
+        className={`absolute bottom-4 left-[60px] z-20 flex items-center justify-center w-9 h-9 rounded-[14px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)] active:scale-95 transition-transform ${
+          panningOn ? "bg-[#04d9d9]" : "bg-black/40"
+        }`}
+      >
+        <Wind className={`w-4 h-4 ${panningOn ? "text-black" : "text-white"}`} />
       </button>
       {/* Exit AR button (stays visible inside the WebXR dom-overlay) */}
       {arActive && (
