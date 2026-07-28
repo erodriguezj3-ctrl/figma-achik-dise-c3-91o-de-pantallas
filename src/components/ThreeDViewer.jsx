@@ -301,19 +301,26 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
         drawBackground();
         drawModel(1);
       } else {
-        // Long exposure: render the model on a transparent background and
-        // accumulate frames over the exposure time → motion streak/trail.
+        // Long exposure (e.g. 2"): strongly motion-blurred background (drag),
+        // with the 3D model kept perfectly sharp in the foreground.
         const prevBg = scene.background;
         scene.background = null;
         await new Promise((r) => requestAnimationFrame(r));
-        drawBackground();
-        drawModel(1);
-        const frames = Math.max(2, Math.round(exposureMs / 60));
-        const stepMs = exposureMs / frames;
-        for (let i = 1; i < frames; i++) {
-          await new Promise((r) => setTimeout(r, stepMs));
-          drawModel(0.5);
+        ctx.save();
+        if (arActive && video && video.videoWidth > 0) {
+          ctx.filter = `url(#achik-motion-blur) blur(${blur.toFixed(1)}px) brightness(${brightness.toFixed(2)})`;
+          const scale = Math.max(w / video.videoWidth, h / video.videoHeight);
+          const vw = video.videoWidth * scale;
+          const vh = video.videoHeight * scale;
+          ctx.drawImage(video, (w - vw) / 2, (h - vh) / 2, vw, vh);
+        } else {
+          ctx.filter = `url(#achik-motion-blur) brightness(${brightness.toFixed(2)})`;
+          ctx.fillStyle = "#e5e7eb";
+          ctx.fillRect(0, 0, w, h);
         }
+        ctx.restore();
+        // Sharp model on top — drawn once, no accumulation
+        drawModel(1);
         scene.background = prevBg;
       }
 
@@ -448,6 +455,12 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       className="absolute inset-0"
       style={{ filter: overlayFilter, transition: "filter 0.2s ease-out" }}
     >
+      {/* Horizontal motion-blur filter for long-exposure backgrounds */}
+      <svg className="absolute w-0 h-0" aria-hidden="true">
+        <filter id="achik-motion-blur" x="-20%" y="-10%" width="140%" height="120%">
+          <feGaussianBlur stdDeviation="14 0" />
+        </filter>
+      </svg>
       {/* Camera feed background (visible in AR overlay mode) — blurred by aperture */}
       <video
         ref={videoRef}
