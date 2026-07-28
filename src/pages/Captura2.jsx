@@ -15,9 +15,7 @@ export default function Captura2() {
     ? `ISO ${iso} · ${shutter} · ${aperture}`
     : "ISO 100 · 1/100 · f/5.6";
   const photoSrc = image || PLACEHOLDER;
-  const slowShutterValues = ["1/8", '2"'];
-  const isSlowShutter = slowShutterValues.includes(shutter);
-  const motionBlurStd = shutter === '2"' ? 16 : shutter === "1/8" ? 7 : 0;
+  // Slow-shutter motion blur is now applied selectively in the 3D renderer.
 
   useEffect(() => {
     if (image) {
@@ -107,18 +105,10 @@ export default function Captura2() {
         <div className="px-4 h-[300px] shrink-0">
           <div className="relative h-full rounded-[16px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)] overflow-clip w-full bg-figma-surface">
             {/* Captured photo */}
-            {isSlowShutter && (
-              <svg className="absolute w-0 h-0" aria-hidden="true">
-                <filter id="motion-blur-h" x="-10%" y="-10%" width="120%" height="120%">
-                  <feGaussianBlur stdDeviation={`${motionBlurStd} 0`} />
-                </filter>
-              </svg>
-            )}
             <img
               className="absolute inset-0 w-full h-full object-cover object-center z-0"
               src={photoSrc}
               alt="Captured 3D Render"
-              style={isSlowShutter ? { filter: "url(#motion-blur-h)" } : undefined}
             />
 
             {/* Gradient Overlay for Text Legibility */}
