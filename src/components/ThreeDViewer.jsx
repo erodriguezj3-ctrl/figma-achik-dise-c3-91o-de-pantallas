@@ -273,20 +273,19 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       const exposureTimes = [0, 0, 0, 125, 2000]; // 1/2000, 1/500, 1/100, 1/8, 2"
       const exposureMs = exposureTimes[shutterIdx] || 0;
 
-      const drawBackground = (alpha = 1) => {
-        ctx.save();
-        ctx.globalAlpha = alpha;
+      const drawBackground = () => {
         if (arActive && video && video.videoWidth > 0) {
+          ctx.save();
           ctx.filter = `blur(${blur.toFixed(1)}px) brightness(${brightness.toFixed(2)})`;
           const scale = Math.max(w / video.videoWidth, h / video.videoHeight);
           const vw = video.videoWidth * scale;
           const vh = video.videoHeight * scale;
           ctx.drawImage(video, (w - vw) / 2, (h - vh) / 2, vw, vh);
+          ctx.restore();
         } else {
           ctx.fillStyle = "#e5e7eb";
           ctx.fillRect(0, 0, w, h);
         }
-        ctx.restore();
       };
 
       const drawModel = (alpha) => {
@@ -307,32 +306,20 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
         const prevBg = scene.background;
         scene.background = null;
         await new Promise((r) => requestAnimationFrame(r));
+        drawBackground();
+        drawModel(1);
         const frames = Math.max(2, Math.round(exposureMs / 60));
         const stepMs = exposureMs / frames;
-
-        if (rotationOn) {
-          // Model rotating → accumulate model frames for motion streaks/trails
-          drawBackground();
-          drawModel(1);
-          for (let i = 1; i < frames; i++) {
-            await new Promise((r) => setTimeout(r, stepMs));
-            drawModel(0.5);
-          }
-        } else {
-          // Model static → keep model sharp, sweep/motion-blur the background
-          drawBackground(1);
-          for (let i = 1; i < frames; i++) {
-            await new Promise((r) => setTimeout(r, stepMs));
-            drawBackground(0.5);
-          }
-          drawModel(1);
+        for (let i = 1; i < frames; i++) {
+          await new Promise((r) => setTimeout(r, stepMs));
+          drawModel(0.5);
         }
         scene.background = prevBg;
       }
 
       return out.toDataURL("image/png");
     },
-  }), [brightness, blur, arActive, shutter, rotationOn]);
+  }), [brightness, blur, arActive, shutter]);
 
   const startAR = async () => {
     const { renderer, modelGroup, controls, scene } = threeRef.current;
