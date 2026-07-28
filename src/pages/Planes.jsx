@@ -62,7 +62,7 @@ export default function Planes() {
               <h3 className="text-[20px] font-bold text-[#111827]">Mensual</h3>
               <p className="text-[13px] text-[#6b7280] mt-0.5">Perfecto para empezar</p>
               <div className="mt-3 flex items-baseline gap-1.5">
-                <span className="text-[36px] font-extrabold tracking-tight text-[#111827]">$4.99</span>
+                <span className="text-[36px] font-extrabold tracking-tight text-[#111827]">$3.99</span>
                 <span className="text-[14px] text-[#6b7280] font-medium">/ mes</span>
               </div>
               <button onClick={() => navigate("/Pago1")} className="mt-5 w-full bg-[#04d9d9] text-white text-[14px] font-bold py-4 rounded-[39311300px] hover:bg-[#03c0c0] transition-colors active:scale-[0.98]">
@@ -85,7 +85,7 @@ export default function Planes() {
               <h3 className="text-[20px] font-bold text-[#111827] mt-1">Anual</h3>
               <p className="text-[13px] text-[#6b7280] mt-0.5">Ahorra 33%</p>
               <div className="mt-3 flex items-baseline gap-1.5">
-                <span className="text-[36px] font-extrabold tracking-tight text-[#111827]">$39.99</span>
+                <span className="text-[36px] font-extrabold tracking-tight text-[#111827]">$29.99</span>
                 <span className="text-[14px] text-[#6b7280] font-medium">/ año</span>
               </div>
               <button onClick={() => navigate("/Pago2")} className="mt-5 w-full bg-[#04d9d9] text-white text-[14px] font-bold py-4 rounded-[39311300px] hover:bg-[#03c0c0] transition-colors active:scale-[0.98]">
