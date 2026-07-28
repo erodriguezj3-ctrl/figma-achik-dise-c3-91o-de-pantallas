@@ -26,11 +26,6 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
   const shutterExposure = 0.35 + (shutter / 100) * 1.85;
   // Combined brightness from ISO gain × shutter exposure
   const brightness = isoGain * shutterExposure;
-
-  // Selective motion blur: applied to the environment only on slow shutter.
-  // The 3D model always renders sharp — no motion blur on its geometry.
-  const shutterIdx = Math.round((shutter / 100) * 4);
-  const motionBlur = shutterIdx >= 4 ? 16 : shutterIdx === 3 ? 7 : 0;
   // Aperture → background blur (lower f-stop = shallower depth of field).
   // deepBokeh mode intensifies the blur for the Bokeh lesson flow.
   const blur = (1 - aperture / 100) * (deepBokeh ? 24 : 10);
@@ -281,7 +276,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       const drawBackground = () => {
         if (arActive && video && video.videoWidth > 0) {
           ctx.save();
-          ctx.filter = `blur(${blur.toFixed(1)}px) url(#achik-motion-blur) brightness(${brightness.toFixed(2)})`;
+          ctx.filter = `blur(${blur.toFixed(1)}px) brightness(${brightness.toFixed(2)})`;
           const scale = Math.max(w / video.videoWidth, h / video.videoHeight);
           const vw = video.videoWidth * scale;
           const vh = video.videoHeight * scale;
@@ -306,13 +301,19 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
         drawBackground();
         drawModel(1);
       } else {
-        // Selective motion blur: blur the environment only; the model
-        // renders sharp (single frame, no geometry accumulation).
+        // Long exposure: render the model on a transparent background and
+        // accumulate frames over the exposure time → motion streak/trail.
         const prevBg = scene.background;
         scene.background = null;
         await new Promise((r) => requestAnimationFrame(r));
         drawBackground();
         drawModel(1);
+        const frames = Math.max(2, Math.round(exposureMs / 60));
+        const stepMs = exposureMs / frames;
+        for (let i = 1; i < frames; i++) {
+          await new Promise((r) => setTimeout(r, stepMs));
+          drawModel(0.5);
+        }
         scene.background = prevBg;
       }
 
@@ -447,12 +448,6 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       className="absolute inset-0"
       style={{ filter: overlayFilter, transition: "filter 0.2s ease-out" }}
     >
-      {/* SVG filter for directional motion blur on the environment (slow shutter) */}
-      <svg className="absolute w-0 h-0" aria-hidden="true">
-        <filter id="achik-motion-blur" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation={`${motionBlur} 0`} />
-        </filter>
-      </svg>
       {/* Camera feed background (visible in AR overlay mode) — blurred by aperture */}
       <video
         ref={videoRef}
@@ -462,7 +457,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
           arActive ? "opacity-100" : "opacity-0"
         }`}
-        style={{ filter: `blur(${blur.toFixed(1)}px) url(#achik-motion-blur)`, transition: "filter 0.2s ease-out" }}
+        style={{ filter: `blur(${blur.toFixed(1)}px)`, transition: "filter 0.2s ease-out" }}
       />
       {/* Three.js canvas */}
       <div ref={containerRef} className="absolute inset-0" />
