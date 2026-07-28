@@ -301,56 +301,25 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
         drawBackground();
         drawModel(1);
       } else {
-        // Long exposure.
+        // Long exposure: render the model on a transparent background and
+        // accumulate frames over the exposure time → motion streak/trail.
         const prevBg = scene.background;
         scene.background = null;
         await new Promise((r) => requestAnimationFrame(r));
-        if (rotationOn) {
-          // Model rotating: accumulate model frames → motion streaks on the model.
-          drawBackground();
-          drawModel(1);
-          const frames = Math.max(2, Math.round(exposureMs / 60));
-          const stepMs = exposureMs / frames;
-          for (let i = 1; i < frames; i++) {
-            await new Promise((r) => setTimeout(r, stepMs));
-            drawModel(0.5);
-          }
-        } else {
-          // Model static: panning sweep (barrido) on the background only,
-          // the 3D model stays sharp and visible on top.
-          const frames = 12;
-          const maxOffset = Math.min(w * 0.2, 64);
-          ctx.save();
-          ctx.filter = `blur(${blur.toFixed(1)}px) brightness(${brightness.toFixed(2)})`;
-          if (arActive && video && video.videoWidth > 0) {
-            const scale = Math.max(w / video.videoWidth, h / video.videoHeight);
-            const vw = video.videoWidth * scale;
-            const vh = video.videoHeight * scale;
-            const baseX = (w - vw) / 2;
-            const baseY = (h - vh) / 2;
-            // Offset ghost copies create the horizontal sweep on the background
-            for (let i = 1; i < frames; i++) {
-              const t = i / (frames - 1);
-              const offsetX = (t - 0.5) * maxOffset;
-              ctx.globalAlpha = 0.3;
-              ctx.drawImage(video, baseX + offsetX, baseY, vw, vh);
-            }
-            ctx.globalAlpha = 1;
-            ctx.drawImage(video, baseX, baseY, vw, vh);
-          } else {
-            ctx.fillStyle = "#e5e7eb";
-            ctx.fillRect(0, 0, w, h);
-          }
-          ctx.restore();
-          // Model drawn sharp on top of the swept background
-          drawModel(1);
+        drawBackground();
+        drawModel(1);
+        const frames = Math.max(2, Math.round(exposureMs / 60));
+        const stepMs = exposureMs / frames;
+        for (let i = 1; i < frames; i++) {
+          await new Promise((r) => setTimeout(r, stepMs));
+          drawModel(0.5);
         }
         scene.background = prevBg;
       }
 
       return out.toDataURL("image/png");
     },
-  }), [brightness, blur, arActive, shutter, rotationOn]);
+  }), [brightness, blur, arActive, shutter]);
 
   const startAR = async () => {
     const { renderer, modelGroup, controls, scene } = threeRef.current;
