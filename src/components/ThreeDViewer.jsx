@@ -7,7 +7,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 // Default GLB model — overridden by the modelUrl prop when a model is selected.
 const DEFAULT_MODEL_URL = "https://modelviewer.dev/shared-assets/models/Astronaut.glb";
 
-const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, shutter = 50, aperture = 50, modelUrl = DEFAULT_MODEL_URL, lights = { frontal: true, fill: false, back: true }, deepBokeh = false, shadowsEnabled = false, topic = "" }, ref) {
+const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange, onARExit, iso = 0, shutter = 50, aperture = 50, modelUrl = DEFAULT_MODEL_URL, lights = { frontal: 100, fill: 0, back: 100 }, deepBokeh = false, shadowsEnabled = false, topic = "" }, ref) {
   const overlayRef = useRef(null);
   const containerRef = useRef(null);
   const videoRef = useRef(null);
@@ -227,12 +227,18 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arActive]);
 
-  // ---- Toggle studio lights (frontal / fill / back) ----
+  // ---- Studio light intensity (frontal / fill / back) ----
   useEffect(() => {
     const { keyLight, fillLight, rimLight } = threeRef.current;
-    if (keyLight) keyLight.visible = lights.frontal;
-    if (fillLight) fillLight.visible = lights.fill;
-    if (rimLight) rimLight.visible = lights.back;
+    const apply = (light, val, base) => {
+      if (!light) return;
+      const v = Number(val) || 0;
+      light.intensity = base * (v / 100);
+      light.visible = v > 0;
+    };
+    apply(keyLight, lights.frontal, 1.3);
+    apply(fillLight, lights.fill, 0.5);
+    apply(rimLight, lights.back, 0.6);
   }, [lights.frontal, lights.fill, lights.back]);
 
   // ---- Toggle shadow visibility (enabled from "Puntos de Luz Clave" onward) ----

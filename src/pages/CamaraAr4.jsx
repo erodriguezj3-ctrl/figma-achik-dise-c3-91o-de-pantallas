@@ -27,16 +27,14 @@ export default function CamaraAr4() {
   const viewerRef = useRef(null);
   const [arActive, setArActive] = useState(true);
   const [arStatus, setArStatus] = useState(null);
-  const [lights, setLights] = useState({ frontal: true, fill: true, back: true });
+  const [lights, setLights] = useState({ frontal: 100, fill: 50, back: 100 });
+  const [selectedLight, setSelectedLight] = useState(null);
   const [iso, setIso] = useState(0);
   const [shutter, setShutter] = useState(50);
   const [aperture, setAperture] = useState(50);
   const [capturing, setCapturing] = useState(false);
   const [flash, setFlash] = useState(false);
   const [showGrid, setShowGrid] = useState(false);
-
-  const toggleLight = (key) =>
-    setLights((prev) => ({ ...prev, [key]: !prev[key] }));
 
   const getIsoDisplay = () => {
     const idx = Math.round((iso / 100) * (isoValues.length - 1));
@@ -167,25 +165,50 @@ export default function CamaraAr4() {
         {/* Lighting Modes (Left) */}
         <div className="absolute top-[57%] left-3 z-20 flex flex-col justify-start items-start gap-2 w-[128px]">
           {lightModes.map((mode, i) => {
-            const isOn = lights[mode.key];
+            const intensity = lights[mode.key];
+            const isSelected = selectedLight === mode.key;
             return (
-              <motion.button
-                key={i}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => toggleLight(mode.key)}
-                className={`flex flex-row justify-start items-center gap-1.5 pt-[8px] pr-[12px] pb-[4px] pl-[12px] w-full rounded-[14px] h-[30px] overflow-clip transition-colors ${
-                  isOn
-                    ? "bg-[#04d9d9]/20 shadow-[inset_0_0_0_1px_#04d9d9]"
-                    : "bg-figma-accent-5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)]"
-                }`}
-              >
-                <p className={`text-figma-12 font-medium font-heading leading-figma-16 ${isOn ? "text-[#00d3f3]" : "text-figma-secondary"}`}>
-                  {mode.icon}
-                </p>
-                <p className={`text-figma-12 font-medium font-heading leading-figma-16 ${isOn ? "text-[#00d3f3]" : "text-figma-secondary"}`}>
-                  {mode.label}
-                </p>
-              </motion.button>
+              <React.Fragment key={i}>
+                <motion.button
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => setSelectedLight(isSelected ? null : mode.key)}
+                  className={`flex flex-row justify-start items-center gap-1.5 pt-[8px] pr-[12px] pb-[4px] pl-[12px] w-full rounded-[14px] h-[30px] overflow-clip transition-colors ${
+                    intensity > 0
+                      ? "bg-[#04d9d9]/20 shadow-[inset_0_0_0_1px_#04d9d9]"
+                      : "bg-figma-accent-5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)]"
+                  }`}
+                >
+                  <p className={`text-figma-12 font-medium font-heading leading-figma-16 ${intensity > 0 ? "text-[#00d3f3]" : "text-figma-secondary"}`}>
+                    {mode.icon}
+                  </p>
+                  <p className={`text-figma-12 font-medium font-heading leading-figma-16 ${intensity > 0 ? "text-[#00d3f3]" : "text-figma-secondary"}`}>
+                    {mode.label}
+                  </p>
+                </motion.button>
+                {isSelected && (
+                  <div className="w-full bg-[#111827]/90 rounded-[14px] p-2 shadow-[inset_0_0_0_1px_rgba(0,211,243,0.40)]">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-figma-10 text-figma-secondary/70">Poca luz</span>
+                      <span className="text-figma-10 text-[#00d3f3] font-bold">{intensity}%</span>
+                    </div>
+                    <div className="w-full min-h-[20px] relative cursor-pointer">
+                      <div className="absolute inset-x-0 top-[7px] h-1.5 rounded-full overflow-clip bg-[#4b5563]">
+                        <div className="h-full bg-[#04d9d9] rounded-full" style={{ width: `${intensity}%` }} />
+                      </div>
+                      <input
+                        type="range"
+                        min={0}
+                        max={100}
+                        value={intensity}
+                        onChange={(e) => setLights((prev) => ({ ...prev, [mode.key]: Number(e.target.value) }))}
+                        className="absolute inset-x-0 w-full opacity-0 cursor-pointer h-6"
+                        style={{ zIndex: 10 }}
+                      />
+                    </div>
+                    <span className="text-figma-10 text-figma-secondary/70 block text-right mt-1">Mucha luz</span>
+                  </div>
+                )}
+              </React.Fragment>
             );
           })}
         </div>
