@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from "react";
+import { RotateCw, Pause } from "lucide-react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -14,6 +15,8 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
   const streamRef = useRef(null);
   const hitSourceRef = useRef(null);
   const freezeRef = useRef(false);
+  const rotateRef = useRef(true);
+  const [rotationOn, setRotationOn] = useState(true);
   const [error, setError] = useState(null);
 
   // ISO → digital gain (higher ISO = brighter): 0.8x → 1.8x
@@ -131,7 +134,7 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
 
     // Render loop (works for both regular and WebXR)
     renderer.setAnimationLoop((time, frame) => {
-      if (!freezeRef.current) modelGroup.rotation.y += 0.004;
+      if (!freezeRef.current && rotateRef.current) modelGroup.rotation.y += 0.004;
       if (controls.enabled) controls.update();
 
       // Sync the shadow ground plane to the model's position/scale (AR-aware)
@@ -243,6 +246,11 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
   useEffect(() => {
     freezeRef.current = freezeModel;
   }, [freezeModel]);
+
+  // Manual rotation toggle (button on the viewfinder)
+  useEffect(() => {
+    rotateRef.current = rotationOn;
+  }, [rotationOn]);
 
   // Expose capture() so the shutter button can grab a composite of the
   // camera feed + 3D render, with the current ISO/aperture filters baked in.
@@ -453,6 +461,15 @@ const ThreeDViewer = forwardRef(function ThreeDViewer({ arActive, onStatusChange
       />
       {/* Three.js canvas */}
       <div ref={containerRef} className="absolute inset-0" />
+
+      {/* Rotation toggle */}
+      <button
+        onClick={() => setRotationOn((v) => !v)}
+        title={rotationOn ? "Pausar giro" : "Activar giro"}
+        className="absolute bottom-4 left-3 z-20 flex items-center justify-center w-9 h-9 rounded-[14px] bg-black/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.20)] active:scale-95 transition-transform"
+      >
+        {rotationOn ? <RotateCw className="w-4 h-4 text-white" /> : <Pause className="w-4 h-4 text-white" />}
+      </button>
       {/* Exit AR button (stays visible inside the WebXR dom-overlay) */}
       {arActive && (
         <button
